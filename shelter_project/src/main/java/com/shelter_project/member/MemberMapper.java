@@ -10,5 +10,7 @@ public interface MemberMapper {
 
 	int registPro(MemberDTO member);
 
+	int updatePro(MemberDTO member);
+
 
 }

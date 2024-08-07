@@ -72,8 +72,13 @@ public class MemberService {
 			session.setAttribute("pw", userInfo.getPw());
 			session.setAttribute("name", userInfo.getName());
 			session.setAttribute("email", userInfo.getEmail());
-			session.setAttribute("address", userInfo.getAddress());
+			session.setAttribute("fulladdress", userInfo.getAddress());
 			session.setAttribute("tel", userInfo.getTel());
+			
+			String[] addressParts = userInfo.getAddress().split(",",3);
+			session.setAttribute("postcode", addressParts[0]);
+			session.setAttribute("address", addressParts[1]);
+			session.setAttribute("detailAddress", addressParts[2]);
 			
 			return "로그인 성공";
 		}
@@ -122,6 +127,18 @@ public class MemberService {
 			 return "인증 성공";
 		 }
 		return "인증 실패";
+	}
+
+	public String updateProc(MemberDTO member) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //DB에 데이터 저장하기 전에 암호화 진행.
+		String encodePw = encoder.encode(member.getPw());
+		member.setPw(encodePw);
+		
+		int result = MemberMapper.updatePro(member);
+		if(result == 1) {
+			return "수정완료";	
+		}
+		return "수정실패";
 	}
 
 }

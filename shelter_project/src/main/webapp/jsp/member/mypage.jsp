@@ -8,17 +8,12 @@
 </style>
 
 <div class="banner">
-	<div class="breadcrumb">홈 > 마이 쇼핑</div>
 	<div>
 		<h1>MY Page</h1>
 		<p>마이페이지</p>
 	</div>
 </div>
-<!-- 
-<div class="mypage-header">
-	<h2>마이페이지</h2>
-</div>
- -->
+
 <div class="mypage-container">
 	<div class="mypage-content">
 		<div class="section" onclick="location.href='profileManage'">

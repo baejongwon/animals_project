@@ -13,4 +13,7 @@
 		insert into member values(member_seq.nextval, #{name}, #{id}, #{pw}, #{email}, #{tel}, #{address})
 	</insert>
 
+	<update id="updatePro">
+		update member set pw=#{pw}, name=#{name}, email=#{email}, tel=#{tel}, address=#{address} where id=#{id}
+	</update>
 </mapper>

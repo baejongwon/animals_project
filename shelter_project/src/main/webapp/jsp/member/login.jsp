@@ -25,6 +25,13 @@
 
 				<button type="submit" class="login-button">로그인</button>
 			</form>
+
+			<!-- kakao button -->
+			<div class="text-center">
+			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${kakaoApiKey}&redirect_uri=${redirectUri}">
+				<img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" />
+			</a>
+			</div>
 		</div>
 	</div>
 </div>

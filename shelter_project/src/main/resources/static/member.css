@@ -10,7 +10,7 @@
     margin: 0;
 }
 
-.register_bar {
+.register_bar, .profile_bar {
 	font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@
     margin: 0;
 }
 
-.login-container, .register-container {
+.login-container, .register-container, .profile-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -28,15 +28,19 @@
 	padding: 20px;
 }
 
-.login-box, .register-box {
+.login-box, .register-box{
 	background-color: white;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	padding: 30px;
 	width: 100%;
 }
+.profile-box{
+	padding: 30px;
+	width: 100%;
+}
 
-.login-box h2, .register-box h2 {
+.login-box h2, .register-box h2, .profile-box h2 {
 	color: #7bc043;
 	margin-bottom: 20px;
 	text-align: left;
@@ -75,7 +79,7 @@
 	text-decoration: underline;
 }
 
-.login-button, .register-button, .cancel-button {
+.login-button, .register-button, .cancel-button, .update-button {
 	background-color: #7bc043;
 	color: white;
 	border: none;
@@ -85,7 +89,7 @@
 	width: 100%;
 }
 
-.login-button:hover, .register-button:hover {
+.login-button:hover, .register-button:hover, .update-button:hover {
 	background-color: #69a82a;
 }
 
