@@ -2,7 +2,7 @@
 /* CSS Document */
 
 .login_bar {
-	font-family: Arial, sans-serif;
+	font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
 }
 
 .register_bar, .profile_bar {
-	font-family: Arial, sans-serif;
+	font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -31,8 +31,10 @@
             </div>
         </div>
         <!-- Arrow Navigator -->
+        <!-- 
         <span data-u="arrowleft" class="jssora22l" style="top:0px;left:8px;width:40px;height:58px;" data-autocenter="2"></span>
         <span data-u="arrowright" class="jssora22r" style="top:0px;right:8px;width:40px;height:58px;" data-autocenter="2"></span>
+         -->
     </div>
 	
 	<!--컨텐츠 내용1 -->
@@ -80,151 +82,7 @@
 		<a href="animal_find"><div class="more">더 보기 + </div></a>
             
 	
-	
-	<!-- 컨텐츠 내용 2 -->
-	
-		<div>
-		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
-		<span style="font-size: 29px;">유기동물 보호중입니다 위치</span></h4>
-	</div>
-		
-		<div  class="content_box_1" style="width: 1200px; margin: 0 auto; margin-top: 35px;">
-			
-		<table cellspacing="0" cellpadding="0" border="0" width="100%">
-			<tbody><tr><td valign="top" align="center"><table valign="top" cellspacing="0" style="width:250px;">
-			<tbody><tr>
-				<td style="width:250px;" valign="top">
-					<table cellspacing="0">
-			<tbody><tr>
-				<td style="padding:3px; border:1px solid #efefef;" bgcolor="#FFFFFF"><a href="#"><img src="img/img4.jpg" align="absmiddle" border="0" width="250" height="200" style="border-radius: 10px 10px;"></a></td>
-			</tr></tbody></table></td></tr>
-				
-				<tr>
-				<td align="left" valign="top" class="font_st_05" style="padding-left:3px;">
-		<table cellspacing="0">
-			<tbody><tr>
-			<td style="padding-top:5px; width:250px; line-height:18px;" align="left">
-				<span style="color:#f39a68; font:11px '돋움';">동물 분류</span>
-				<a href="bbs_detail.php?bbs_num=132&amp;id=&amp;tb=board_bestseller"> </a><a href="#">컨텐츠 내용 불러올 위치</a> 
-			</td>
-			</tr>
-			<tr>
-			<td style="padding-top:3px; width:250px;" align="left">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="font:11px '돋움'; color:#999999; letter-spacing:-1px;">작성자</td>
-					<td style="font:11px '돋움'; color:#d3d3d3; padding:0 5px;">|</td>
-					<td style="font:11px '돋움'; color:#999999;">게시글 작성</td>
-			</tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td>
-				
-				<td valign="top" align="center"><table valign="top" cellspacing="0" style="width:154px;">
-		<tbody><tr>
-			<td style="width:250px;" valign="top">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="padding:3px; border:1px solid #efefef;" bgcolor="#FFFFFF"><a href="#"><img src="img/img3.jpeg" align="absmiddle" border="0" width="250" height="200" style="border-radius: 10px 10px;"></a></td>
-				</tr>
-				</tbody></table>
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top" class="font_st_05" style="padding-left:3px;">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="padding-top:5px; width:250px; line-height:18px;" align="left">
-						<span style="color:#f39a68; font:11px '돋움';">동물분류</span>
-						<a href="bbs_detail.php?bbs_num=127&amp;id=&amp;tb=board_bestseller"> </a><a href="#">컨텐츠 내용 불러올 위치</a> 
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-top:3px; width:250px;" align="left">
-						<table cellspacing="0">
-						<tbody><tr>
-							<td style="font:11px '돋움'; color:#999999; letter-spacing:-1px;">작성자</td>
-							<td style="font:11px '돋움'; color:#d3d3d3; padding:0 5px;">|</td>
-							<td style="font:11px '돋움'; color:#999999;">게시글 작성일</td>
-						</tr>
-						</tbody></table>
-					</td>
-				</tr>
-				</tbody></table>
-			</td>
-		</tr>
-		</tbody></table>
-		</td><td valign="top" align="center"><table valign="top" cellspacing="0" style="width:250px;">
-		<tbody><tr>
-			<td style="width:154px;" valign="top">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="padding:3px; border:1px solid #efefef;" bgcolor="#FFFFFF"><a href="#"><img src="img/img2.jpeg" align="absmiddle" border="0" width="250" height="200" style="border-radius: 10px 10px;"></a></td>
-				</tr>
-				</tbody></table>
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top" class="font_st_05" style="padding-left:3px;">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="padding-top:5px; width:150px; line-height:18px;" align="left">
-						<span style="color:#f39a68; font:11px '돋움';">동물 분야</span>
-						<a href="bbs_detail.php?bbs_num=131&amp;id=&amp;tb=board_bestseller"> </a><a href="#">컨텐츠 내용 불러올 위치</a> 
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-top:3px; width:250px;" align="left">
-						<table cellspacing="0">
-						<tbody><tr>
-							<td style="font:11px '돋움'; color:#999999; letter-spacing:-1px;">작성자</td>
-							<td style="font:11px '돋움'; color:#d3d3d3; padding:0 5px;">|</td>
-							<td style="font:11px '돋움'; color:#999999;">게시글 작성일</td>
-						</tr>
-						</tbody></table>
-					</td>
-				</tr>
-				</tbody></table>
-			</td>
-		</tr>
-		</tbody></table>
-		</td><td valign="top" align="center"><table valign="top" cellspacing="0" style="width:250px;">
-		<tbody><tr>
-			<td style="width:250px;" valign="top">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="padding:3px; border:1px solid #efefef;" bgcolor="#FFFFFF" ><a href="#"><img src="img/img1.jpg" align="absmiddle" border="0" width="250" height="200" style="border-radius: 10px 10px;"></a></td>
-				</tr>
-				</tbody></table>
-			</td>
-		</tr>
-		<tr>
-			<td align="left" valign="top" class="font_st_05" style="padding-left:3px;">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="padding-top:5px; width:250px; line-height:18px;" align="left">
-						<span style="color:#f39a68; font:11px '돋움';">동물 분류</span>
-						<a href="bbs_detail.php?bbs_num=130&amp;id=&amp;tb=board_bestseller"> </a><a href="#">컨텐츠 내용 불러올 위치</a> 
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-top:3px; width:250px;" align="left">
-						<table cellspacing="0">
-						<tbody><tr>
-							<td style="font:11px '돋움'; color:#999999; letter-spacing:-1px;">작성자</td>
-							<td style="font:11px '돋움'; color:#d3d3d3; padding:0 5px;">|</td>
-							<td style="font:11px '돋움'; color:#999999;">작성일</td>
-						</tr>
-						</tbody></table>
-					</td>
-				</tr>
-				</tbody></table>
-			</td>
-		</tr>
-		</tbody></table>
-		</td></tr></tbody></table>
-			
-		  </div>
-	<a href="#"><div class="more">더 보기 + </div></a>
-	
-	<!-- 컨텐츠 내용 3 -->
+	<!-- 컨텐츠 내용 -->
 	
 		<div>
 		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
@@ -367,7 +225,7 @@
 		  </div>
 	<a href="#"><div class="more">더 보기 + </div></a>
 	
-	<div class="banner" style="width: 1200px; margin: 0 auto; margin-top: 60px; ">
+	<div class="bottomBanner" style="width: 1200px; margin: 0 auto; margin-top: 60px; ">
 		<a href="#"><img src="../img/banner1.jpg" alt="banner_1"></a>
 	</div>
 	
