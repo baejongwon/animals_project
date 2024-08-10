@@ -1,0 +1,138 @@
+@charset "utf-8";
+/* CSS Document */
+
+.login_bar {
+	font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    margin: 0;
+}
+
+.register_bar, .profile_bar {
+	font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container, .register-container, .profile-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 400px;
+	padding: 20px;
+}
+
+.login-box, .register-box{
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 30px;
+	width: 100%;
+}
+.profile-box{
+	padding: 30px;
+	width: 100%;
+}
+
+.login-box h2, .register-box h2, .profile-box h2 {
+	color: #7bc043;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.input-group {
+	margin-bottom: 20px;
+}
+
+.input-group label {
+	display: block;
+	margin-bottom: 5px;
+	color: #333;
+}
+
+.input-group input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+.forgot-password, .login-link {
+	text-align: left;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.forgot-password a, .login-link a {
+	color: #7bc043;
+	text-decoration: none;
+}
+
+.forgot-password a:hover, .login-link a:hover {
+	text-decoration: underline;
+}
+
+.login-button, .register-button, .cancel-button, .update-button {
+	background-color: #7bc043;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 20px;
+	cursor: pointer;
+	width: 100%;
+}
+
+.login-button:hover, .register-button:hover, .update-button:hover {
+	background-color: #69a82a;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    width: 48%;
+}
+
+.cancel-button:hover {
+    background-color: #999;
+}
+
+.signup-link {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #7bc043;
+}
+
+.zipcode-container,.tel-container {
+    display: flex;
+}
+
+.zipcode-container input {
+    flex: 1;
+}
+
+.zipcode-button,.tel-button {
+    background-color: #7bc043;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.zipcode-button:hover {
+    background-color: #69a82a;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+

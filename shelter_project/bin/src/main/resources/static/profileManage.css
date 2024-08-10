@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.profileManage {
+	width: 960px;
+	margin: 100px auto;
+}
+
+.profile_table .box1 {
+	width: 150px;
+	padding: 15px;
+	text-align: center;
+	background: #f9f9f9;
+}
+
+.profile_table .box2 {
+	width: 450px;
+	padding: 10px;
+}
+
+.profile_table .box2 input {
+	padding: 5px;
+	color: #dedede
+}
