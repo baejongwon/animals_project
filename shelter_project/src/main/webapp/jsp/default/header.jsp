@@ -108,7 +108,7 @@
 						<li><a href="#">기타</a></li>
 					</ul></li>
 				<li><a href="home2">보호중</a></li>
-				<li><a href="#">보호센터</a></li>
+				<li><a href="adoption">보호센터</a></li>
 				<li><a href="#">자원봉사</a></li>
 				<li><a href="#">커뮤니티</a>
 					<ul class="sub">

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shelter_project.center.CenterMapper">
+
+	<insert id="insertData"
+		parameterType="com.shelter_project.center.CenterDTO">
+		insert into center
+		values(#{animal_no},#{nm},#{entrnc_date},#{spcs},#{breeds},#{sexdstn},#{age},#{bdwgh},#{adp_sttus},#{tmpr_prtc_sttus},#{intrcn_mvp_url},#{intrcn_cn},#{tmpr_prtc_cn})
+	</insert>
+
+	<insert id="insertImgData"
+		parameterType="com.shelter_project.center.CenterImgDTO">
+		insert into center_img
+		values(#{animal_no},#{photoKnd},#{photoNo},#{photoUrl})
+	</insert>
+
+	<select id="checkData">
+		select * from center where animal_no = #{animal_no}
+	</select>
+
+	<select id="checkImgData">
+		select * from center_img where animal_no = #{animal_no} and PHOTO_NO = #{photoNo}
+	</select>
+
+	<update id="updateData">
+		update center
+		set
+		nm = #{nm},
+		entrnc_date = #{entrnc_date},
+		spcs = #{spcs},
+		breeds = #{breeds},
+		sexdstn = #{sexdstn},
+		age = #{age},
+		bdwgh = #{bdwgh},
+		adp_sttus = #{adp_sttus},
+		tmpr_prtc_sttus = #{tmpr_prtc_sttus},
+		intrcn_mvp_url = #{intrcn_mvp_url},
+		intrcn_cn = #{intrcn_cn},
+		tmpr_prtc_cn = #{tmpr_prtc_cn}
+		WHERE animal_no = #{animal_no}
+	</update>
+
+	<update id="updateImgData">
+		update center_img
+		set
+		PHOTO_KND =#{photoKnd},
+		PHOTO_NO = #{photoNo},
+		PHOTO_URL = #{photoUrl}
+		WHERE animal_no = #{animal_no} and PHOTO_NO = #{photoNo}
+	</update>
+
+	<select id="getImg" resultType="String">
+		select PHOTO_URL from CENTER_IMG where ANIMAL_NO = #{animal_no}
+	</select>
+	
+	<select id="pagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
+		SELECT * FROM (
+        SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
+        FROM center c
+   	 	)
+   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
+	</select>
+	
+	<select id="boardCount">
+		select count(animal_no) from center
+	</select>
+</mapper>

@@ -7,19 +7,22 @@ import org.springframework.stereotype.Service;
 /*
  create table center(
  animal_no number not null,
- nm varchar2(20),
+ nm varchar2(100),
  entrnc_date varchar2(20),
- spcs varchar2(20),
- breeds varchar2(20),
+ spcs varchar2(100),
+ breeds varchar2(100),
  sexdstn varchar2(20),
  age varchar2(20),
  bdwgh varchar2(20),
  adp_sttus varchar2(20),
  tmpr_prtc_sttus varchar2(20),
  intrcn_mvp_url varchar2(200),
- intrcn_cn varchar2(500),
- tmpr_prtc_cn varchar2(1000)
+ intrcn_cn varchar2(4000),
+ tmpr_prtc_cn varchar2(4000)
  );
+ 
+ ALTER TABLE center
+ ADD CONSTRAINT pk_center_animal_no PRIMARY KEY (animal_no);
  */
 public class CenterDTO {
 	private int animal_no; // 동물번호
