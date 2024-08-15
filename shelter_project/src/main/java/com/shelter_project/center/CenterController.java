@@ -31,11 +31,29 @@ public class CenterController {
 	
 	@GetMapping("/adoption")
 	public String adoption(Model model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws Exception {
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "type", required = false, defaultValue = "all") String type) throws Exception {
 		
-		List<CenterDTO> boards = centerService.getAdoptionData(page);
-		centerService.getAdoptionImgData();
+		List<CenterDTO> boards;
+		PageDTO pageDTO;
+//		centerService.getAdoptionData(page);
+//		centerService.getAdoptionImgData();
 		Map<Integer, String> firstImagesMap = new HashMap<>();
+		
+		if(type == null || type.equals("all")) {
+			 boards = centerService.getAllBoards(page);
+			 pageDTO = centerService.pagingParam(type,page);
+		} else if(type.equals("DOG")){
+			boards = centerService.getDogBoards(page);
+			pageDTO = centerService.pagingParam(type,page);
+		} else if( type.equals("CAT")){
+			boards = centerService.getCatBoards(page);
+			pageDTO = centerService.pagingParam(type,page);
+		} else {
+			boards = centerService.getAllBoards(page);
+			pageDTO = centerService.pagingParam(type,page);
+		}
+		
 		
 		for(CenterDTO board : boards) {
 			List<String> images = centerService.animalImg(board.getAnimal_no());
@@ -46,27 +64,14 @@ public class CenterController {
 			}
 			
 		}
-
-		PageDTO pageDTO = centerService.pagingParam(page);
-		
+	
+		model.addAttribute("type",type);
 		model.addAttribute("paging",pageDTO);
 		model.addAttribute("firstImagesMap",firstImagesMap);
 		model.addAttribute("boards",boards);
 		
 		return "center/adoption";
 	}
-	
-//	@GetMapping("/paging")
-//	public String paging(Model model,
-//						@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-//		//페이지에서 보여줄 글 목록
-//		List<CenterDTO> pagingList = centerService.pagingList(page);
-//		PageDTO pageDTO = centerService.pagingParam(page);
-//		model.addAttribute("boardList",pagingList);
-//		model.addAttribute("paging",pageDTO);
-//		
-//		return "center/adoption";
-//	}
 	
 	@GetMapping("/adoptionDetail")
 	public String adoptionDetail(Model model,int no) {
@@ -93,6 +98,7 @@ public class CenterController {
 		
 		return "center/adoptionDetail";
 	}
+	
 	
 }
 

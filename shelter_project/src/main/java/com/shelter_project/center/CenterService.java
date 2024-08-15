@@ -18,6 +18,7 @@ import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,14 @@ public class CenterService {
 	int pageLimit = 12; // 한 페이지당 보여줄 글 갯수
 	int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
 	
+	 // 1시간마다 실행되는 스케줄링 메서드
+    @Scheduled(fixedRate = 600000) // 10분 설정
+    public void updateAdoptionData() throws Exception {
+        int initialPage = 1;  // 필요에 따라 초기 페이지를 설정
+        getAdoptionData(initialPage);
+        getAdoptionImgData();
+    }
+    
 	public List<CenterDTO> getAdoptionData(int page) throws IOException {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /*URL*/
 		urlBuilder.append("/" +  URLEncoder.encode(dataApiKey,"UTF-8") ); /*인증키 (sample사용시에는 호출시 제한됩니다.)*/
@@ -41,22 +50,22 @@ public class CenterService {
 		urlBuilder.append("/" + URLEncoder.encode("TbAdpWaitAnimalView","UTF-8")); /*서비스명 (대소문자 구분 필수입니다.)*/
 		urlBuilder.append("/" + URLEncoder.encode("1","UTF-8")); /*요청시작위치 (sample인증키 사용시 5이내 숫자)*/
 		urlBuilder.append("/" + URLEncoder.encode("1000","UTF-8")); /*요청종료위치(sample인증키 사용시 5이상 숫자 선택 안 됨)*/
-		// 상위 5개는 필수적으로 순서바꾸지 않고 호출해야 합니다.
+		// 상위 5개는 필수적으로 순서바꾸지 않고 호출
 		
 		URL url = new URL(urlBuilder.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode()); /* 연결 자체에 대한 확인이 필요하므로 추가합니다.*/
+		System.out.println("Response code: " + conn.getResponseCode()); /* 연결 자체에 대한 확인이 필요하므로 추가*/
 		BufferedReader rd;
 
-		// 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+		// 서비스코드가 정상이면 200~300사이의 숫자
 		if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 				rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		} else {
 				rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		}
-		StringBuilder sb = new StringBuilder(); //응답데이터를 하나의 문자열로 결합하기위해 선언
+		StringBuilder sb = new StringBuilder(); //응답데이터를 하나의 문자열로 결합
 		String line;
 		while ((line = rd.readLine()) != null) {
 				sb.append(line);
@@ -65,7 +74,6 @@ public class CenterService {
 		conn.disconnect();
 				
 		String jsonResponse = sb.toString();
-		
 		
 		/*
 //		 * 1페이지 
@@ -79,7 +87,7 @@ public class CenterService {
 		Map<String, Integer> pagingParams = new HashMap<>();
 		pagingParams.put("start", pagingStart);
 		pagingParams.put("limit", pageLimit);
-		ArrayList<CenterDTO> boards = mapper.pagingList(pagingParams);
+		ArrayList<CenterDTO> boards = mapper.allPagingList(pagingParams);
 		
 		
 		// JSON 파싱
@@ -197,10 +205,53 @@ public class CenterService {
 		return mapper.getImg(animal_no);
 	}
 
+	public List<CenterDTO> getAllBoards(int page) {
+		
+		/*
+//		 * 1페이지 
+//		 * 1 => 1~12
+//		 * 2 => 13~24
+//		 * 3 => 25~36
+//		 * 4 => 37~48
+//		 * */
 
-	public PageDTO pagingParam(int page) {
+		int pagingStart = (page-1) * pageLimit;
+		Map<String, Integer> pagingParams = new HashMap<>();
+		pagingParams.put("start", pagingStart);
+		pagingParams.put("limit", pageLimit);
+		ArrayList<CenterDTO> boards = mapper.allPagingList(pagingParams);
+		
+		return boards;
+	}
+
+
+	public List<CenterDTO> getDogBoards(int page) {
+
+		int pagingStart = (page-1) * pageLimit;
+		Map<String, Integer> pagingParams = new HashMap<>();
+		pagingParams.put("start", pagingStart);
+		pagingParams.put("limit", pageLimit);
+		ArrayList<CenterDTO> boards = mapper.dogPagingList(pagingParams);
+		
+		return boards;
+	}
+
+
+	public List<CenterDTO> getCatBoards(int page) {
+
+		int pagingStart = (page-1) * pageLimit;
+		Map<String, Integer> pagingParams = new HashMap<>();
+		pagingParams.put("start", pagingStart);
+		pagingParams.put("limit", pageLimit);
+		ArrayList<CenterDTO> boards = mapper.catPagingList(pagingParams);
+		
+		return boards;
+	}
+
+
+	public PageDTO pagingParam(String type, int page) {
 		 // 전체 글 갯수 조회
-        int boardCount = mapper.boardCount();
+        int boardCount = mapper.boardCount(type);
         // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
         int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
         // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
@@ -216,6 +267,9 @@ public class CenterService {
         pageDTO.setStartPage(startPage);
         pageDTO.setEndPage(endPage);
         return pageDTO;
-	}
+	} 
+
+
+
 
 }

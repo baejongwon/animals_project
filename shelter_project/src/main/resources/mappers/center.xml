@@ -56,15 +56,41 @@
 		select PHOTO_URL from CENTER_IMG where ANIMAL_NO = #{animal_no}
 	</select>
 	
-	<select id="pagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
+	<select id="allPagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
 		SELECT * FROM (
         SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
         FROM center c
    	 	)
    		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
 	</select>
+	<select id="dogPagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
+		SELECT * FROM (
+        SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
+        FROM center c
+        Where c.spcs = 'DOG'
+   	 	)
+   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
+	</select>
+	<select id="catPagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
+		SELECT * FROM (
+        SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
+        FROM center c
+         Where c.spcs = 'CAT'
+   	 	)
+   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
+	</select>
 	
 	<select id="boardCount">
 		select count(animal_no) from center
+		<where>
+        <if test="type != null and type != 'all'">
+            spcs = #{type}
+        </if>
+       </where>
+		
+	</select>
+	
+	<select id="allBoards">
+		
 	</select>
 </mapper>

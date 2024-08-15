@@ -101,26 +101,17 @@
 	<div class="header_menu">
 		<nav class="nav">
 			<ul class="gnb">
-				<li><a href="#">분양받기</a>
+				<li><a href="#">개인분양</a>
 					<ul class="sub">
-						<li><a href="come2">강아지</a></li>
-						<li><a href="come">고양이</a></li>
-						<li><a href="#">기타</a></li>
+						<li><a href="#">강아지</a></li>
+						<li><a href="#">고양이</a></li>
 					</ul></li>
-				<li><a href="home2">보호중</a></li>
 				<li><a href="adoption">보호센터</a></li>
-				<li><a href="#">자원봉사</a></li>
-				<li><a href="#">커뮤니티</a>
-					<ul class="sub">
-						<li><a href="come2">유기동물 분양받기</a></li>
-						<li><a href="come">유기동물 분양하기</a></li>
-						<li><a href="#">반려동물지식</a></li>
-					</ul></li>
+				<li><a href="#">기부하기</a></li>
+				<li><a href="#">반려동물지식</a>
 				<li><a href="notice">고객센터</a>
 					<ul class="sub">
-						<li><a href="notice">공지사항</a></li>
 						<li><a href="#">1:1문의</a></li>
-						<li><a href="#">자주묻는질문</a></li>
 					</ul></li>
 			</ul>
 		</nav>

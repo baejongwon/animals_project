@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +27,15 @@ public interface CenterMapper {
 
 	void updateImgData(CenterImgDTO centerImgDTO);
 
-	ArrayList<CenterDTO> pagingList(Map<String, Integer> pagingParams);
+	ArrayList<CenterDTO> allPagingList(Map<String, Integer> pagingParams);
+	ArrayList<CenterDTO> catPagingList(Map<String, Integer> pagingParams);
+	ArrayList<CenterDTO> dogPagingList(Map<String, Integer> pagingParams);
+	
+	int boardCount(@Param("type") String type);
 
-	int boardCount();
+	CenterDTO allBoards();
+
+	
 
 	
 
