@@ -26,7 +26,7 @@
             <div class="board-item">
                 <div class="board-image">
                     <a href="adoptionDetail?no=${board.animal_no}">
-                        <img src="https://${firstImagesMap[board.animal_no] }" alt="Animal Image">
+                        <img src="https://${firstImagesMap[board.animal_no] }" alt="Animal Image" loading="lazy">
                     </a>
                 </div>
                 <div class="board-info">

@@ -4,8 +4,11 @@
 body,ul,li,ol,p,h1,h2,h3,h4,h5,h6 {
 	margin: 0;
 	padding: 0;
+	
 }
-
+caption, legend { width: 0px;height: 0px;overflow: hidden; }
+fieldset { border: none; }
+.blind { width: 1px; height: 1px; margin: 0 !important; padding: 0 !important; line-height: 1px; text-indent: -9999em; overflow: hidden; position: absolute; top: -9999em; left: -9999em; }
 body {
 	font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
 }
@@ -324,4 +327,45 @@ a {
 	left: 20px;
 	color: white;
 	font-size: 14px;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.pagination .current {
+    font-weight: bold;
+    background-color: #000;
+    color: white;
+}
+
+.pagination .prev, .pagination .next {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.pagination .prev.disabled, .pagination .next.disabled {
+    color: #ccc;
+    pointer-events: none;
 }

@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 
 /*
 CREATE TABLE center_img (
-    animal_no NUMBER NOT NULL,          -- 동물번호
-    photo_knd VARCHAR2(50) NOT NULL,    -- 사진종류
-    photo_no NUMBER NOT NULL,           -- 사진번호
-    photo_url VARCHAR2(500),            -- 사진URL
-    CONSTRAINT pk_center_img PRIMARY KEY (animal_no, photo_no),  -- 복합 기본 키 설정
-    CONSTRAINT fk_center_animal_no FOREIGN KEY (animal_no) REFERENCES center(animal_no)  -- 외래 키 설정
+    animal_no NUMBER NOT NULL,          
+    photo_knd VARCHAR2(50) NOT NULL,    
+    photo_no NUMBER NOT NULL,           
+    photo_url VARCHAR2(500),            
+    CONSTRAINT pk_center_img PRIMARY KEY (animal_no, photo_no), 
+    CONSTRAINT fk_center_animal_no FOREIGN KEY (animal_no) REFERENCES center(animal_no)
 );
  */
 public class CenterImgDTO {
