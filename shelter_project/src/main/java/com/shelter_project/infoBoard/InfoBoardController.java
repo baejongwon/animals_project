@@ -1,13 +1,19 @@
 package com.shelter_project.infoBoard;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,8 +27,12 @@ public class InfoBoardController {
 	private String infoBoard(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws Exception {
 		
-		List<InfoBoardDTO> boards = infoBoardService.getInfoBoard(page);
+		ArrayList<InfoBoardDTO> boards = infoBoardService.getInfoBoard(page);
 		int boardCount = infoBoardService.getBoardCount();
+	
+		for (InfoBoardDTO board : boards) {
+		    System.out.println(board.getPostNo());
+		}
 		
 		model.addAttribute("boardCount",boardCount);
 		model.addAttribute("boards",boards);
@@ -33,16 +43,31 @@ public class InfoBoardController {
 	@GetMapping("infoBoardWrite")
 	private String infoBoard(){
 		//아이디 인증
-//		String sessionID=(String)session.getAttribute("id");
-//		if(sessionID==null) {
-//			return "redirect:login";
-//		}
+		String sessionID=(String)session.getAttribute("id");
+		if(sessionID==null) {
+			return "redirect:login";
+		}
+		
+		
 		return "InfoBoard/infoBoardWrite";
 	}
 	
 	@PostMapping("infoBoardWriteProc")
-	private String infoBoardWriteProc() {
-		return null;
+	private String infoBoardWriteProc(MultipartHttpServletRequest multi) {
+		infoBoardService.infoBoardWrite(multi);
+		return "redirect:infoBoard";
 	}
+	@PostMapping("addImageBlobHook")
+	public ResponseEntity<Map<String, String>> addImageBlobHook(@RequestParam("image") MultipartFile image) {
+        String imageUrl = infoBoardService.saveImage(image);
+
+        if (imageUrl != null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("imageUrl", imageUrl);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(500).build();
+        }
+    }
 	
 }

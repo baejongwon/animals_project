@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shelter_project.infoBoard.InfoBoardMapper">
+		
+	<select id="getInfoBoard" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
+		SELECT * FROM (
+        SELECT c.*, ROW_NUMBER() OVER (ORDER BY postNo DESC) AS rnum
+        FROM infoBoard c
+   	 	)
+   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
+	</select>	
+	
+	<insert id="insertBoard">
+    insert into infoBoard
+    values (postNo_seq.nextval, #{title}, #{content}, #{author}, #{category}, #{createdDate}, #{updatedDate}, 0, 0, 0, 0, 0)
+	</insert>
+	
+</mapper>

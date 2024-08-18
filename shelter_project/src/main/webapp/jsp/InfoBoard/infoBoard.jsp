@@ -72,14 +72,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="board" items="boards">
+				<c:forEach var="board" items="${boards}">
 					<tr>
-						<td scope="col" class="num first">${board.postNo }</td>
+						<td scope="col" class="num first">${board.postNo}</td>
 						<td scope="col" class="subject"><a href="#">
-								${board.title } </a></td>
-						<td scope="col">${board.author }</td>
-						<td scope="col">${board.createdDate }</td>
-						<td scope="col" class="last">${board.viewCount }</td>
+								${board.title} </a></td>
+						<td scope="col">${board.author}</td>
+						<td scope="col">${board.createdDate}</td>
+						<td scope="col" class="last">${board.viewCount}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

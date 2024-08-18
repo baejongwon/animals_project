@@ -3,6 +3,20 @@ package com.shelter_project.infoBoard;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+/*
+  CREATE TABLE comments (
+    commentNo NUMBER PRIMARY KEY, 
+    postNo NUMBER NOT NULL, 
+    content CLOB NOT NULL,
+    author VARCHAR2(100) NOT NULL, 
+    createdDate TIMESTAMP NOT NULL,
+    updatedDate TIMESTAMP, 
+    parentNo NUMBER, 
+    CONSTRAINT fk_post FOREIGN KEY (postNo) REFERENCES infoBoard(postNo)
+);
+
+ */
 public class CommentDTO {
 
 	private int commentNo; // 댓글 ID

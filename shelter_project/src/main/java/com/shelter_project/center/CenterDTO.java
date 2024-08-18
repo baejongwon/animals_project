@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  adp_sttus varchar2(20),
  tmpr_prtc_sttus varchar2(20),
  intrcn_mvp_url varchar2(200),
- intrcn_cn varchar2(4000),
- tmpr_prtc_cn varchar2(4000)
+ intrcn_cn clob,
+ tmpr_prtc_cn clob
  );
  
  ALTER TABLE center
