@@ -5,7 +5,7 @@
 
 <mapper namespace="com.shelter_project.infoBoard.InfoBoardMapper">
 		
-	<select id="getInfoBoard" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
+	<select id="getInfoBoards" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
 		SELECT * FROM (
         SELECT c.*, ROW_NUMBER() OVER (ORDER BY postNo DESC) AS rnum
         FROM infoBoard c
@@ -18,4 +18,7 @@
     values (postNo_seq.nextval, #{title}, #{content}, #{author}, #{category}, #{createdDate}, #{updatedDate}, 0, 0, 0, 0, 0)
 	</insert>
 	
+	<select id="getContent">
+		select * from infoBoard where postNo = #{postNo}
+	</select>
 </mapper>

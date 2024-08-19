@@ -3,8 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:import url="/header" />
 <link rel="stylesheet" href="infoBoard.css">
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+
 
 <style>
 .category {
@@ -13,8 +12,6 @@
 	box-sizing: border-box;
 	border-radius: 10px;
 	padding: 9px 13px;
-	font-family: 'Roboto';
-	font-style: normal;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 16px;
@@ -60,15 +57,14 @@
 		<div class="action-btn-group" style="margin-top: 20px;">
 			<div class="center">
 				<button type="button" class="btn btn-light btn-lg w-sm"
-					onclick="location.href=''">목록</button>
+					onclick="location.href='infoBoard'">목록</button>
 				<button type="submit" class="btn btn-light btn-lg w-sm">작성</button>
 				<button type="button" class="btn btn-light btn-lg w-sm"
-					onclick="location.href=''">취소</button>
+					onclick="location.href='infoBoard'">취소</button>
 			</div>
 		</div>
 	</form>
 </div>
-
 <!-- TOAST UI Editor Script -->
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>

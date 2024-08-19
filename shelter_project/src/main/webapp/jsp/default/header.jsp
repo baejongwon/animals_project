@@ -2,12 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 <link href="main.css" rel="stylesheet">
 <link href="common.css" rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css">
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+
 <script src="dbQuiz.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="jssor.slider-22.1.8.mini.js" type="text/javascript"></script>
@@ -85,7 +92,7 @@
 					<li><a href="mypage">마이페이지</a></li>
 				</c:otherwise>
 			</c:choose>
-			
+
 			<c:if test="${sessionScope.id eq 'admin'}">
 				<li><a href="#">|</a></li>
 				<li><a href="login">관리자페이지</a></li>

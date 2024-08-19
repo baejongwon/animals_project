@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -13,7 +14,10 @@ public interface InfoBoardMapper {
 
 	void insertBoard(InfoBoardDTO board);
 
-	ArrayList<InfoBoardDTO> getInfoBoard(Map<String, Integer> pagingParams);
+	ArrayList<InfoBoardDTO> getInfoBoards(Map<String, Integer> pagingParams);
+
+	InfoBoardDTO getContent(@Param("postNo") int postNo);
+
 
 
 }

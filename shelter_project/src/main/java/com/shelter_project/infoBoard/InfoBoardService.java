@@ -28,13 +28,13 @@ public class InfoBoardService {
 	int pageLimit = 12; // 한 페이지당 보여줄 글 갯수
 	int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
 	
-	public ArrayList<InfoBoardDTO> getInfoBoard(int page) {
+	public ArrayList<InfoBoardDTO> getInfoBoards(int page) {
 		
 		int pagingStart = (page-1) * pageLimit;
 		Map<String, Integer> pagingParams = new HashMap<>();
 		pagingParams.put("start", pagingStart);
 		pagingParams.put("limit", pageLimit);
-		return mapper.getInfoBoard(pagingParams);
+		return mapper.getInfoBoards(pagingParams);
 		
 	}
 
@@ -77,7 +77,7 @@ public class InfoBoardService {
 	        }
 		 	
 	        String fileName = image.getOriginalFilename();
-	        String fileUrl = "C:\\Users\\hyo\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\" + fileName;
+	        String fileUrl = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\" + fileName;
 
 	        try {
 	            File dest = new File(fileUrl);
@@ -92,6 +92,10 @@ public class InfoBoardService {
 	            e.printStackTrace();
 	            return null;
 	        }
+	}
+
+	public InfoBoardDTO getContent(int postNo) {
+		return mapper.getContent(postNo);
 	}
 
 }

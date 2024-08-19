@@ -75,7 +75,7 @@
 				<c:forEach var="board" items="${boards}">
 					<tr>
 						<td scope="col" class="num first">${board.postNo}</td>
-						<td scope="col" class="subject"><a href="#">
+						<td scope="col" class="subject"><a href="infoBoardContent?postNo=${board.postNo}">
 								${board.title} </a></td>
 						<td scope="col">${board.author}</td>
 						<td scope="col">${board.createdDate}</td>

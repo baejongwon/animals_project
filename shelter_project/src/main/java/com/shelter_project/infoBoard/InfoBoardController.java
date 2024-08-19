@@ -12,8 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,12 +31,8 @@ public class InfoBoardController {
 	private String infoBoard(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws Exception {
 		
-		ArrayList<InfoBoardDTO> boards = infoBoardService.getInfoBoard(page);
+		ArrayList<InfoBoardDTO> boards = infoBoardService.getInfoBoards(page);
 		int boardCount = infoBoardService.getBoardCount();
-	
-		for (InfoBoardDTO board : boards) {
-		    System.out.println(board.getPostNo());
-		}
 		
 		model.addAttribute("boardCount",boardCount);
 		model.addAttribute("boards",boards);
@@ -41,13 +41,12 @@ public class InfoBoardController {
 	}
 	
 	@GetMapping("infoBoardWrite")
-	private String infoBoard(){
+	private String infoBoard(Model model){
 		//아이디 인증
 		String sessionID=(String)session.getAttribute("id");
 		if(sessionID==null) {
 			return "redirect:login";
 		}
-		
 		
 		return "InfoBoard/infoBoardWrite";
 	}
@@ -70,4 +69,19 @@ public class InfoBoardController {
         }
     }
 	
+	@GetMapping("infoBoardContent")
+	public String infoBoardContent(Model model,int postNo) {
+		InfoBoardDTO board = infoBoardService.getContent(postNo);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String contentJson  = mapper.writeValueAsString(board.getContent());
+			model.addAttribute("contentJson", contentJson);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("board", board);
+		return "InfoBoard/infoBoardContent";
+	}
+
 }
