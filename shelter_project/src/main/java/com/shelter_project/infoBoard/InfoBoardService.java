@@ -39,8 +39,8 @@ public class InfoBoardService {
 	}
 
 	public int getBoardCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = mapper.boardCount();
+		return count;
 	}
 
 	public void infoBoardWrite(MultipartHttpServletRequest multi) {
@@ -51,9 +51,7 @@ public class InfoBoardService {
 		String category= multi.getParameter("category");
 		
 		MultipartFile file = multi.getFile("image");
-		
-		
-		
+
 		String fileName = null;
 		String fileUrl = null;
 		
@@ -65,19 +63,41 @@ public class InfoBoardService {
 		board.setAuthor(sessionID);
 		board.setCategory(category);
 		board.setCreatedDate(createdDate);
-		board.setUpdatedDate(createdDate);
 		
 		mapper.insertBoard(board);
 		
 	}
 
+//	public String saveImage(MultipartFile image) {
+//		 if (image.isEmpty()) {
+//	            return null;
+//	        }
+//		 	String sessionID = (String)session.getAttribute("id");
+//	        String fileName = image.getOriginalFilename();
+//	        String fileUrl = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\" + sessionID + "\\" + fileName;
+//
+//	        try {
+//	            File dest = new File(fileUrl);
+//	            if (!dest.getParentFile().exists()) {
+//	                dest.getParentFile().mkdirs(); // 폴더가 없을 경우 생성
+//	            }
+//	            image.transferTo(dest);
+//	            
+//	            System.out.println(fileUrl);
+//	            return "/img/ITS/"+ sessionID + "/" + fileName;
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	            return null;
+//	        }
+//	}
+
 	public String saveImage(MultipartFile image) {
 		 if (image.isEmpty()) {
 	            return null;
 	        }
-		 	
+		 	String sessionID = (String)session.getAttribute("id");
 	        String fileName = image.getOriginalFilename();
-	        String fileUrl = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\" + fileName;
+	        String fileUrl = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\" + sessionID + "\\" + fileName;
 
 	        try {
 	            File dest = new File(fileUrl);
@@ -87,7 +107,7 @@ public class InfoBoardService {
 	            image.transferTo(dest);
 	            
 	            System.out.println(fileUrl);
-	            return "/img/" + fileName;
+	            return sessionID + "/" + fileName;
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	            return null;
@@ -95,7 +115,43 @@ public class InfoBoardService {
 	}
 
 	public InfoBoardDTO getContent(int postNo) {
-		return mapper.getContent(postNo);
+		InfoBoardDTO board = mapper.getContent(postNo);
+		
+		 mapper.ViewCount(postNo);
+		
+		return board;
+	}
+
+	public void infoBoardModifyProc(MultipartHttpServletRequest multi, int postNo) {
+		System.out.println("수정 서비스 호출");
+		
+		String sessionID = (String)session.getAttribute("id");
+		String title = multi.getParameter("title");
+		String content = multi.getParameter("content");
+		String category= multi.getParameter("category");
+		
+		System.out.println(sessionID);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(category);
+		
+		MultipartFile file = multi.getFile("image");
+		
+		InfoBoardDTO board = mapper.getContent(postNo);
+		LocalDate updatedDate = LocalDate.now();
+		
+		board.setTitle(title);
+		board.setContent(content);
+		board.setAuthor(sessionID);
+		board.setCategory(category);
+		board.setUpdatedDate(updatedDate);
+		
+		mapper.updateBoard(board);
+		
+	}
+
+	public void deleteBoard(int postNo) {
+		mapper.deleteBoard(postNo);
 	}
 
 }

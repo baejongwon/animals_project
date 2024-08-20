@@ -76,6 +76,9 @@
 					<tr>
 						<td scope="col" class="num first">${board.postNo}</td>
 						<td scope="col" class="subject"><a href="infoBoardContent?postNo=${board.postNo}">
+								<c:if test="${board.category eq 'ALL' }"><span style="color:#7bc043; margin-right:10px;">[공통]</span></c:if>
+								<c:if test="${board.category eq 'DOG' }"><span style="color:#7bc043; margin-right:10px;">[강아지]</span></c:if>
+								<c:if test="${board.category eq 'CAT' }"><span style="color:#7bc043; margin-right:10px;">[고양이]</span></c:if>
 								${board.title} </a></td>
 						<td scope="col">${board.author}</td>
 						<td scope="col">${board.createdDate}</td>

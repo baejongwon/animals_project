@@ -5,7 +5,25 @@
 
 <c:import url="/header" />
 <link rel="stylesheet" href="infoBoard.css">
+<script>
+	function deleteCheck() {
+		var result = confirm('진짜로 삭제하겠습니까?');
+		if (result == true) {
+			var postNo = document.getElementById("postNo").value;
+			location.href = 'deleteBoard?postNo=' + postNo;
+		}
+	}
+	
+	function showReplyForm(commentNo) {
+	    var form = document.getElementById("replyForm-" + commentNo);
+	    if (form.style.display === "none") {
+	        form.style.display = "block";
+	    } else {
+	        form.style.display = "none";
+	    }
+	}
 
+</script>
 
 <div class="banner">
 	<div>
@@ -25,37 +43,97 @@
 				</ul>
 			</div>
 			<div class="content" id="viewer">
-				<p>
-					<br>
-				</p>
+				<c:out value="${board.content}" escapeXml="false" />
 			</div>
-			
+
 		</div>
+
+
+		<div class="comment-section">
+			<h4>댓글</h4>
+
+			<!-- 기존 댓글 목록 -->
+			<div class="comments-list">
+				<c:forEach var="comment" items="${comments}">
+					<c:if test="${comment.parentNo == 0}">
+						<!-- 부모 댓글 -->
+						<div class="comment-item">
+							<p>
+								<strong>${comment.author}</strong> <small>${comment.createdDate}</small>
+								<button type="button" class="btn btn-sm btn-light"
+									onclick="showReplyForm(${comment.commentNo})">답글</button>
+								<c:if test="${sessionScope.id eq comment.author }">
+									<button type="button" class="btn btn-sm btn-light"
+										onclick="editComment(${comment.commentNo})">수정</button>
+									<button type="button" class="btn btn-sm btn-light"
+										onclick="deleteComment(${comment.commentNo})">삭제</button>
+								</c:if>
+							</p>
+							<p>${comment.content}</p>
+						</div>
+						<!-- 대댓글 목록 -->
+						<c:forEach var="reply" items="${comments}">
+							<c:if test="${reply.parentNo == comment.commentNo}">
+								<div class="comment-item reply-item" style="margin-left: 20px;">
+									<p>
+										<strong>${reply.author}</strong> <small>${reply.createdDate}</small>
+										<c:if test="${sessionScope.id eq reply.author }">
+											<button type="button" class="btn btn-sm btn-light"
+												onclick="editComment(${reply.commentNo})">수정</button>
+											<button type="button" class="btn btn-sm btn-light"
+												onclick="deleteComment(${reply.commentNo})">삭제</button>
+										</c:if>
+									</p>
+									<p>${reply.content}</p>
+								</div>
+							</c:if>
+						</c:forEach>
+						<!-- 대댓글 작성 폼 -->
+						<div id="replyForm-${comment.commentNo}" class="reply-form"
+							style="display: none; margin-left: 20px;">
+							<form action="addComment" method="POST">
+								<input type="hidden" name="postNo" value="${comment.postNo}" />
+								<input type="hidden" name="parentNo"
+									value="${comment.commentNo}" />
+								<div class="form-group">
+									<textarea name="content" class="form-control"
+										placeholder="답글을 입력하세요" required></textarea>
+								</div>
+								<button type="submit" class="btn btn-sm btn-primary">답글
+									작성</button>
+							</form>
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+
+			<!-- 댓글 작성 폼 -->
+			<form action="addComment" method="POST">
+				<input type="hidden" name="postNo" value="${board.postNo}" /> <input
+					type="hidden" name="parentNo" value="0" />
+				<div class="form-group">
+					<textarea name="content" class="form-control"
+						placeholder="댓글을 입력하세요" required></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">댓글 작성</button>
+			</form>
+		</div>
+		<!-- 댓글 작성 끝 -->
 		<div class="action-btn-group">
+			<input type="hidden" id="postNo" value="${board.postNo}" />
 			<div class="center">
 				<button type="button" class="btn btn-light btn-lg w-sm"
 					onclick="location.href='infoBoard'">목록</button>
-				<button type="button" class="btn btn-light btn-lg w-sm"
-					onclick="location.href=''">수정</button>
 				<c:if test="${sessionScope.id eq board.author }">
-				<button type="button" class="btn btn-light btn-lg w-sm"
-					onclick="location.href=''">삭제</button>
+					<button type="button" class="btn btn-light btn-lg w-sm"
+						onclick="location.href='infoBoardModify?postNo=${board.postNo}'">수정</button>
+					<button type="button" class="btn btn-light btn-lg w-sm"
+						onclick="deleteCheck()">삭제</button>
 				</c:if>
 			</div>
 		</div>
 
 	</div>
 </div>
-    
-<script>
-    // 서버에서 JSP로 전달된 마크다운 콘텐츠
-    const content = ${contentJson};
 
-    // Toast UI Editor Viewer 초기화
-     const viewer = new toastui.Editor.factory({
-        el: document.querySelector('#viewer'),  // Viewer가 렌더링될 요소
-        viewer: true,  // Viewer 모드로 설정
-        initialValue: content  // 초기값으로 서버에서 전달된 콘텐츠 설정
-    });
-</script>
 <c:import url="/footer" />

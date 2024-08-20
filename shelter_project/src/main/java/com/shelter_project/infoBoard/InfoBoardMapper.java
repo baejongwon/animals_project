@@ -18,6 +18,12 @@ public interface InfoBoardMapper {
 
 	InfoBoardDTO getContent(@Param("postNo") int postNo);
 
+	int ViewCount(@Param("postNo") int postNo);
 
+	void deleteBoard(@Param("postNo") int postNo);
+
+	void updateBoard(InfoBoardDTO board);
+
+	int boardCount();
 
 }

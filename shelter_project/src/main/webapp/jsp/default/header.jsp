@@ -4,20 +4,24 @@
 
 <link href="main.css" rel="stylesheet">
 <link href="common.css" rel="stylesheet">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css">
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
-
 <script src="dbQuiz.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="jssor.slider-22.1.8.mini.js" type="text/javascript"></script>
+<!-- Summernote CSS/JS -->
+<link href="summernote/summernote-lite.css" rel="stylesheet">
+<script src="summernote/summernote-lite.js"></script>
+<script src="summernote/summernote-ko-KR.js"></script>
+
 <script>
 	jQuery(document).ready(function() {
 		//메뉴 부분

@@ -3,33 +3,6 @@
 <c:import url="/header" />
 <link rel="stylesheet" href="infoBoard.css">
 	
-<style>
-.category {
-    width: 100px;
-    border: 1px solid #ebedf2;
-    box-sizing: border-box;
-    border-radius: 10px;
-    padding: 9px 13px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-    margin-right: 10px;
-}
-
-.box {
-    display: flex;
-    align-items: center;
-}
-
-.box input {
-    width: 100%;
-    padding: 8px;
-    padding: 12px;
-    border: none;
-    border-bottom: 2px solid  #ebedf2;
-}
-</style>
-
 <div class="banner">
     <div>
         <p>반려동물 지식 나눔</p>
@@ -37,15 +10,15 @@
 </div>
 
 <div class="container" style="margin-top: 75px;">
-    <form action="infoBoardWriteProc" method="POST" enctype="multipart/form-data" onsubmit="submitContent()">
-
+    <form action="infoBoardModifyProc" method="POST" enctype="multipart/form-data" onsubmit="submitContent()">
+	 <input type="hidden" name="postNo" value="${board.postNo}" />
         <div class="box">
             <select class="category" id="category" name="category">
-                <option value="ALL" selected="selected">공통</option>
-                <option value="DOG">강아지</option>
-                <option value="CAT">고양이</option>
+                <option value="ALL" ${board.category eq 'ALL' ? 'selected="selected"' : ''}>공통</option>
+                <option value="DOG" ${board.category eq 'DOG' ? 'selected="selected"' : ''}>강아지</option>
+                <option value="CAT" ${board.category eq 'CAT' ? 'selected="selected"' : ''}>고양이</option>
             </select> 
-            <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
+            <input type="text" id="title" name="title" value="${board.title }" required>
         </div>
 
         <div style="margin-top: 20px;">
@@ -55,7 +28,7 @@
         <div class="action-btn-group" style="margin-top: 20px;">
             <div class="center">
                 <button type="button" class="btn btn-light btn-lg w-sm" onclick="location.href='infoBoard'">목록</button>
-                <button type="submit" class="btn btn-light btn-lg w-sm">작성</button>
+                <button type="submit" class="btn btn-light btn-lg w-sm">수정</button>
                 <button type="button" class="btn btn-light btn-lg w-sm" onclick="location.href='infoBoard'">취소</button>
             </div>
         </div>
@@ -64,6 +37,8 @@
 
 <script>
 $(document).ready(function() {
+	
+	var content = `<c:out value="${board.content}" escapeXml="false" />`;
     // Summernote 초기화
     $('#summernote').summernote({
         height: 500,                 // 에디터 높이 설정
@@ -99,7 +74,9 @@ $(document).ready(function() {
             }
         }
     });
-
+    //기존 컨텐츠 로드
+    $('#summernote').summernote('code', content);
+    
         // 이미지 업로드 처리
         function uploadImage(file) {
             var data = new FormData();
