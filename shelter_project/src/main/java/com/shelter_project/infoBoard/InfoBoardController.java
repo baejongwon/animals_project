@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shelter_project.PageDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -41,9 +42,11 @@ public class InfoBoardController {
 
 		ArrayList<InfoBoardDTO> boards = infoBoardService.getInfoBoards(page);
 		int boardCount = infoBoardService.getBoardCount();
-
+		PageDTO pageDTO = infoBoardService.pagingParam(page);
+		
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("boards", boards);
+		model.addAttribute("paging",pageDTO);
 
 		return "InfoBoard/infoBoard";
 	}
@@ -96,10 +99,10 @@ public class InfoBoardController {
 
 	// 게시글 컨텐츠
 	@GetMapping("infoBoardContent")
-	public String infoBoardContent(Model model, int postNo) {
+	public String infoBoardContent(Model model, int postNo,@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		InfoBoardDTO board = infoBoardService.getContent(postNo);
 		List<CommentDTO> comments = commentService.getComments(postNo); 
-		
+		int commentCount = commentService.getCount(postNo);
 //		ObjectMapper mapper = new ObjectMapper();
 //		try {
 //			String contentJson  = mapper.writeValueAsString(board.getContent());
@@ -109,6 +112,8 @@ public class InfoBoardController {
 //		}
 		model.addAttribute("board", board);
 		model.addAttribute("comments",comments);
+		model.addAttribute("paging",page);
+		model.addAttribute("commentCount",commentCount);
 		return "InfoBoard/infoBoardContent";
 	}
 
@@ -146,14 +151,14 @@ public class InfoBoardController {
 	// 댓글 작성
 	@PostMapping("addComment")
 	public String addComment(@RequestParam("postNo") int postNo, @RequestParam("content") String content,
-			HttpSession session) {
+			HttpSession session, @RequestParam("parentNo") int parentNo) {
 		String sessionID = (String) session.getAttribute("id");
 		if(sessionID == null) {
 			return "redirect:login";
 		}
-		commentService.addComment(postNo,content,sessionID);
+		commentService.addComment(postNo,content,sessionID,parentNo);
 		
 		return "redirect:/infoBoardContent?postNo=" + postNo;
 	}
-
+	
 }

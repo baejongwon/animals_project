@@ -28,6 +28,8 @@ public class CommentDTO {
 	private LocalDate createdDate; // 작성일자
 	private LocalDate updatedDate; // 수정일자
 	private int parentNo; // 부모 댓글 ID (대댓글 기능을 위한 필드, optional)
+	private int orderNumber; //댓글 순서
+	
 	public int getCommentNo() {
 		return commentNo;
 	}
@@ -71,5 +73,12 @@ public class CommentDTO {
 	public void setParentNo(int parentNo) {
 		this.parentNo = parentNo;
 	}
+	public int getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
 	
 }

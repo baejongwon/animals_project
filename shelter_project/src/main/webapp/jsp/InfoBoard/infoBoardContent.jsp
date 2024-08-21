@@ -50,22 +50,22 @@
 
 
 		<div class="comment-section">
-			<h4>댓글</h4>
+			<h4>댓글 ${commentCount } 개</h4>
 
 			<!-- 기존 댓글 목록 -->
 			<div class="comments-list">
 				<c:forEach var="comment" items="${comments}">
 					<c:if test="${comment.parentNo == 0}">
 						<!-- 부모 댓글 -->
-						<div class="comment-item">
+						<div class="comment-item" style="margin-top:12px;">
 							<p>
 								<strong>${comment.author}</strong> <small>${comment.createdDate}</small>
-								<button type="button" class="btn btn-sm btn-light"
+								<button type="button" class="btn-s"
 									onclick="showReplyForm(${comment.commentNo})">답글</button>
 								<c:if test="${sessionScope.id eq comment.author }">
-									<button type="button" class="btn btn-sm btn-light"
+									<button type="button" class="btn-s "
 										onclick="editComment(${comment.commentNo})">수정</button>
-									<button type="button" class="btn btn-sm btn-light"
+									<button type="button" class="btn-s "
 										onclick="deleteComment(${comment.commentNo})">삭제</button>
 								</c:if>
 							</p>
@@ -74,13 +74,13 @@
 						<!-- 대댓글 목록 -->
 						<c:forEach var="reply" items="${comments}">
 							<c:if test="${reply.parentNo == comment.commentNo}">
-								<div class="comment-item reply-item" style="margin-left: 20px;">
+								<div class="comment-item reply-item" style="margin-left: 20px; margin-top:10px;">
 									<p>
 										<strong>${reply.author}</strong> <small>${reply.createdDate}</small>
 										<c:if test="${sessionScope.id eq reply.author }">
-											<button type="button" class="btn btn-sm btn-light"
+											<button type="button" class="btn-s"
 												onclick="editComment(${reply.commentNo})">수정</button>
-											<button type="button" class="btn btn-sm btn-light"
+											<button type="button" class="btn-s"
 												onclick="deleteComment(${reply.commentNo})">삭제</button>
 										</c:if>
 									</p>
@@ -90,11 +90,10 @@
 						</c:forEach>
 						<!-- 대댓글 작성 폼 -->
 						<div id="replyForm-${comment.commentNo}" class="reply-form"
-							style="display: none; margin-left: 20px;">
+							style="display: none; margin-left: 20px; margin-top: 20px;">
 							<form action="addComment" method="POST">
 								<input type="hidden" name="postNo" value="${comment.postNo}" />
-								<input type="hidden" name="parentNo"
-									value="${comment.commentNo}" />
+								<input type="hidden" name="parentNo" value="${comment.commentNo}" />
 								<div class="form-group">
 									<textarea name="content" class="form-control"
 										placeholder="답글을 입력하세요" required></textarea>
@@ -111,7 +110,7 @@
 			<form action="addComment" method="POST">
 				<input type="hidden" name="postNo" value="${board.postNo}" /> <input
 					type="hidden" name="parentNo" value="0" />
-				<div class="form-group">
+				<div class="form-group" style="margin-top: 20px;">
 					<textarea name="content" class="form-control"
 						placeholder="댓글을 입력하세요" required></textarea>
 				</div>
@@ -119,11 +118,12 @@
 			</form>
 		</div>
 		<!-- 댓글 작성 끝 -->
+		
 		<div class="action-btn-group">
 			<input type="hidden" id="postNo" value="${board.postNo}" />
 			<div class="center">
 				<button type="button" class="btn btn-light btn-lg w-sm"
-					onclick="location.href='infoBoard'">목록</button>
+					onclick="location.href='infoBoard?page=${paging}'">목록</button>
 				<c:if test="${sessionScope.id eq board.author }">
 					<button type="button" class="btn btn-light btn-lg w-sm"
 						onclick="location.href='infoBoardModify?postNo=${board.postNo}'">수정</button>

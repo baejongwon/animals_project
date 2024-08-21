@@ -17,4 +17,8 @@ public interface CommentMapper {
 
 	List<CommentDTO> getComments(int postNo);
 
+	int getCount(int postNo);
+
+	int getMaxOrderNumber(int postNo);
+
 }

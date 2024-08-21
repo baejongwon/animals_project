@@ -75,7 +75,7 @@
 				<c:forEach var="board" items="${boards}">
 					<tr>
 						<td scope="col" class="num first">${board.postNo}</td>
-						<td scope="col" class="subject"><a href="infoBoardContent?postNo=${board.postNo}">
+						<td scope="col" class="subject"><a href="infoBoardContent?postNo=${board.postNo}&page=${paging.page}">
 								<c:if test="${board.category eq 'ALL' }"><span style="color:#7bc043; margin-right:10px;">[공통]</span></c:if>
 								<c:if test="${board.category eq 'DOG' }"><span style="color:#7bc043; margin-right:10px;">[강아지]</span></c:if>
 								<c:if test="${board.category eq 'CAT' }"><span style="color:#7bc043; margin-right:10px;">[고양이]</span></c:if>
@@ -102,7 +102,7 @@
 			<span class="prev disabled">&lt;</span>
 		</c:when>
 		<c:otherwise>
-			<a href="infoBoard?page=${paging.page-1}&type=${param.type}"
+			<a href="infoBoard?page=${paging.page-1}"
 				class="prev">&lt;</a>
 		</c:otherwise>
 	</c:choose>
@@ -114,7 +114,7 @@
 				<span class="current">${i}</span>
 			</c:when>
 			<c:otherwise>
-				<a href="infoBoard?page=${i}&type=${param.type}">${i}</a>
+				<a href="infoBoard?page=${i}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -124,7 +124,7 @@
 			<span class="next disabled">&gt;</span>
 		</c:when>
 		<c:otherwise>
-			<a href="infoBoard?page=${paging.page+1}&type=${param.type}"
+			<a href="infoBoard?page=${paging.page+1}"
 				class="next">&gt;</a>
 		</c:otherwise>
 	</c:choose>

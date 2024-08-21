@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.shelter_project.PageDTO;
 import com.shelter_project.center.CenterDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,8 +26,28 @@ public class InfoBoardService {
 	@Autowired InfoBoardMapper mapper;
 	@Autowired HttpSession session; 
 	
-	int pageLimit = 12; // 한 페이지당 보여줄 글 갯수
+	int pageLimit = 10; // 한 페이지당 보여줄 글 갯수
 	int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
+	
+	public PageDTO pagingParam(int page) {
+		 // 전체 글 갯수 조회
+      int boardCount = mapper.boardCount();
+      // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
+      int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+      // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
+      int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+      // 끝 페이지 값 계산(3, 6, 9, 12, ~~~~)
+      int endPage = startPage + blockLimit - 1;
+      if (endPage > maxPage) {
+          endPage = maxPage;
+      }
+      PageDTO pageDTO = new PageDTO();
+      pageDTO.setPage(page);
+      pageDTO.setMaxPage(maxPage);
+      pageDTO.setStartPage(startPage);
+      pageDTO.setEndPage(endPage);
+      return pageDTO;
+	} 
 	
 	public ArrayList<InfoBoardDTO> getInfoBoards(int page) {
 		

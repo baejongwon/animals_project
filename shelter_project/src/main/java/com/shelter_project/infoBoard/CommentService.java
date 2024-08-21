@@ -24,12 +24,11 @@ public class CommentService {
 	@Autowired CommentMapper mapper;
 	@Autowired HttpSession session; 
 
-	public void addComment(int postNo, String content, String sessionID) {
+	public void addComment(int postNo, String content, String sessionID, int parentNo) {
 		CommentDTO comment = new CommentDTO();
-
+		int MaxOrderNumber = mapper.getMaxOrderNumber(postNo);
 		LocalDate createdDate = LocalDate.now();
 		LocalDate updatedDate = null;
-		int parentNo = 0;
 		
 		comment.setPostNo(postNo);
 		comment.setContent(content);
@@ -37,13 +36,7 @@ public class CommentService {
 		comment.setCreatedDate(createdDate);
 		comment.setUpdatedDate(updatedDate);
 		comment.setParentNo(parentNo);
-		
-		System.out.println("postNo:"+postNo);
-		System.out.println("content:"+ content);
-		System.out.println("sessionID:" + sessionID);
-		System.out.println("createdDate:"+createdDate);
-		System.out.println("updatedDate:"+updatedDate);
-		System.out.println("parentNo:"+parentNo);
+		comment.setOrderNumber(MaxOrderNumber+1);
 		
 		mapper.addComment(comment);
 	}
@@ -51,6 +44,10 @@ public class CommentService {
 	public List<CommentDTO> getComments(int postNo) {
 		
 		return mapper.getComments(postNo);
+	}
+
+	public int getCount(int postNo) {
+		return mapper.getCount(postNo);
 	}
 
 }
