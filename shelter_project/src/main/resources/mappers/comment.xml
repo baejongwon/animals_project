@@ -11,7 +11,7 @@
 	</insert>
 	
 	<select id="getComments">
-		select * from comments where postNo = #{postNo} ORDER BY orderNumber ASC
+		select * from comments where postNo = #{postNo} ORDER BY orderNumber ASC, commentNo ASC
 	</select>
 	<select id="getCount">
 		select count(*) from comments where postNo = #{postNo}
@@ -20,5 +20,10 @@
 		select NVL(MAX(orderNumber),0)
 		from comments
 		where postNo = #{postNo}
+	</select>
+	<select id="getOrderNumber">
+		select orderNumber
+		from comments
+		where commentNo = #{commentNo}
 	</select>
 </mapper>

@@ -21,4 +21,6 @@ public interface CommentMapper {
 
 	int getMaxOrderNumber(int postNo);
 
+	int getOrderNumber(int parentNo);
+
 }

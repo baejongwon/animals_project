@@ -26,9 +26,16 @@ public class CommentService {
 
 	public void addComment(int postNo, String content, String sessionID, int parentNo) {
 		CommentDTO comment = new CommentDTO();
-		int MaxOrderNumber = mapper.getMaxOrderNumber(postNo);
+		int orderNumber;
+		
 		LocalDate createdDate = LocalDate.now();
 		LocalDate updatedDate = null;
+		
+		if(parentNo != 0) {
+			orderNumber = mapper.getOrderNumber(parentNo);
+		}else {
+			orderNumber = mapper.getMaxOrderNumber(postNo) + 1;
+		}
 		
 		comment.setPostNo(postNo);
 		comment.setContent(content);
@@ -36,8 +43,9 @@ public class CommentService {
 		comment.setCreatedDate(createdDate);
 		comment.setUpdatedDate(updatedDate);
 		comment.setParentNo(parentNo);
-		comment.setOrderNumber(MaxOrderNumber+1);
+		comment.setOrderNumber(orderNumber);
 		
+		System.out.println(parentNo);
 		mapper.addComment(comment);
 	}
 
