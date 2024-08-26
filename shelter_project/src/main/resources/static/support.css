@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+.sub-contents {
+	padding: 60px 0;
+}
+
+#contents {
+	position: relative;
+}
+
+.donation-container {
+	padding: 20px;
+	width: 800px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.donation-info h2 {
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 18px;
+	color: #333;
+}
+
+.donation-period, .donation-amount {
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+}
+
+.donation-period span, .donation-amount span {
+	display: inline-block;
+	font-size: 14px;
+	color: #666;
+	margin-right: 10px;
+	white-space: nowrap;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.period-option, .amount-option {
+	padding: 10px 20px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 5px;
+	color: #333;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	flex: 1;
+}
+
+.period-option.active, .amount-option.active {
+	background-color: #f37421;
+	color: #ffffff;
+	border: none;
+}
+
+.radio-button {
+	display: none;
+}
+
+.radio-button:checked+label {
+	background-color: #49b848;
+	color: #ffffff;
+	border: none;
+}
+
+.supportBox {
+	margin-top: 50px;
+	text-align: center;
+}
+
+#supportBtn {
+	background-color: #49b848;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 1em;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}

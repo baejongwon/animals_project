@@ -118,8 +118,8 @@
 						<li><a href="#">고양이</a></li>
 					</ul></li>
 				<li><a href="adoption">보호센터</a></li>
-				<li><a href="#">기부하기</a></li>
-				<li><a href="infoBoard">반려동물지식</a>
+				<li><a href="support">기부하기</a></li>
+				<li><a href="infoBoard">지식공유</a>
 				<li><a href="notice">고객센터</a>
 					<ul class="sub">
 						<li><a href="#">1:1문의</a></li>

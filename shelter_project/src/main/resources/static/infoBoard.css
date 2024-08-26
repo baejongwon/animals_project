@@ -180,6 +180,7 @@
 
 .board-list .subject a {
 	display: flex;
+	color: #000;
 }
 
 .board-list .subject a strong {
