@@ -1,4 +1,4 @@
-package com.shelter_project.CustomerService;
+package com.shelter_project.customerService;
 
 import java.util.HashMap;
 import java.util.Random;

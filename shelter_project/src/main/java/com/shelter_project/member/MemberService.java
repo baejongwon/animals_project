@@ -141,4 +141,8 @@ public class MemberService {
 		return "수정실패";
 	}
 
+	public MemberDTO profileManage(String sessionID) {
+		return MemberMapper.checkId(sessionID);
+	}
+
 }

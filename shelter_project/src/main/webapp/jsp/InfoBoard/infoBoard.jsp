@@ -9,6 +9,7 @@
 
 <div class="banner">
 	<div>
+		<h1>Information</h1>
 		<p>반려동물 지식 나눔</p>
 	</div>
 </div>

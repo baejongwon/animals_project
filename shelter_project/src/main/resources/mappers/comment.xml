@@ -26,4 +26,12 @@
 		from comments
 		where commentNo = #{commentNo}
 	</select>
+	<delete id="deleteComment">
+		delete from comments where commentNo=#{commentNo} or parentNo = #{commentNo}
+	</delete>
+	<update id="updateComment">
+		update comments set 
+		content = #{content}
+		where commentNo = #{commentNo}
+	</update>
 </mapper>

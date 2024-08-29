@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .sub-contents {
-	padding: 60px 0;
+	width: 100%;
 }
 
 #contents {
@@ -9,10 +9,15 @@
 }
 
 .donation-container {
-	padding: 20px;
-	width: 800px;
+	padding: 100px;
 	max-width: 100%;
 	margin: 0 auto;
+	display: flex;
+}
+
+.donation-info {
+	width: 480px;
+	padding: 35px;
 }
 
 .donation-info h2 {
@@ -22,43 +27,55 @@
 	color: #333;
 }
 
-.donation-period, .donation-amount {
-	margin-bottom: 30px;
+.donation-amount {
+	margin-top: 25px;
+	margin-bottom: 10px;
 	display: flex;
 	align-items: center;
+	text-align: center;
+	justify-content: center;
 }
 
-.donation-period span, .donation-amount span {
+.donation-period span,
+.donation-amount span {
 	display: inline-block;
 	font-size: 14px;
 	color: #666;
 	margin-right: 10px;
 	white-space: nowrap;
 }
-
-ul {
+.donation-amount ul {
 	list-style-type: none;
+	width: 400px;
 	padding: 0;
 	margin: 0;
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.period-option, .amount-option {
-	padding: 10px 20px;
+.donation-amount ul li {
+	height: 50px;
+	padding: 5px;
+	margin: 0 auto;
+}
+
+.amount-option {
+	width: 110px; 
+	height: 50px; 
+	display: flex;
+	align-items: center; 
+	justify-content: center; 
 	font-size: 14px;
 	border: 1px solid #ccc;
 	background-color: #f9f9f9;
 	cursor: pointer;
-	text-align: center;
 	border-radius: 5px;
 	color: #333;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	flex: 1;
+	text-align: center;
 }
 
-.period-option.active, .amount-option.active {
+.period-option.active,
+.amount-option.active {
 	background-color: #f37421;
 	color: #ffffff;
 	border: none;
@@ -67,15 +84,18 @@ ul {
 .radio-button {
 	display: none;
 }
-
+.radio-button+label {
+	margin: 0 auto;
+}
 .radio-button:checked+label {
 	background-color: #49b848;
 	color: #ffffff;
 	border: none;
+	transform: scale(104%,104%);
 }
 
 .supportBox {
-	margin-top: 50px;
+	margin-top: 20px;
 	text-align: center;
 }
 
@@ -88,4 +108,23 @@ ul {
 	font-size: 1em;
 	cursor: pointer;
 	transition: background-color 0.3s;
+}
+
+.left_box,
+.right_box {
+	width: 548px;
+	height: 512px;
+}
+
+.donation-text {
+	margin-top: 60px;
+	margin-bottom: 50px;
+	text-align: center;
+	font-size: 20px;
+	line-height: 45px;
+}
+
+.donation-text span {
+	font-size: 40px;
+	line-height: 60px;
 }

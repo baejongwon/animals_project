@@ -41,7 +41,7 @@ public class MemberController {
 	private String redirectUri;
 
 	// 로그인
-	@GetMapping("login")
+	@GetMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("kakaoApiKey", kakaoAPI);
 		model.addAttribute("redirectUri", redirectUri);
@@ -56,7 +56,7 @@ public class MemberController {
 		return "redirect:/index";
 	}
 
-	@GetMapping("logout")
+	@GetMapping("/logout")
 	public String logout() {
 		String accessToken = (String) session.getAttribute("accessToken");
 		if (accessToken != null) {
@@ -72,7 +72,7 @@ public class MemberController {
 	}
 
 	// 로그인 검증
-	@PostMapping("loginProc")
+	@PostMapping("/loginProc")
 	public String loginProc(@RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
 
 		String msg = MemberService.loginProc(id, pw);
@@ -85,12 +85,12 @@ public class MemberController {
 	}
 
 	// 회원가입
-	@GetMapping("regist")
+	@GetMapping("/regist")
 	public String regist() {
 		return "member/regist";
 	}
 
-	@PostMapping("registerProc")
+	@PostMapping("/registerProc")
 	public String registProc(MemberDTO member, @RequestParam("sample6_postcode") String postcode,
 			@RequestParam("sample6_address") String address,
 			@RequestParam("sample6_detailAddress") String detailAddress,
@@ -115,7 +115,7 @@ public class MemberController {
 	}
 
 	// 전화번호 인증
-	@PostMapping("sendSms")
+	@PostMapping("/sendSms")
 	@ResponseBody
 	public String sendSms(@RequestParam("tel") String tel) {
 		String msg = "";
@@ -127,40 +127,45 @@ public class MemberController {
 		return msg;
 	}
 
-	@PostMapping("smsCheck")
+	@PostMapping("/smsCheck")
 	@ResponseBody
 	public String smsCheck(@RequestParam("tel") String tel, @RequestParam("confirmNum") String confirmNum) {
 		String msg = MemberService.smsCheck(tel, confirmNum);
 		return msg;
 	}
 
-	@GetMapping("mypage")
+	@GetMapping("/mypage")
 	public String mypage() {
 		return "member/mypage";
 	}
-
-	@GetMapping("profileManage")
-	public String profileManage() {
-		if (session.getAttribute("id") == null) {
+	//프로필 관리
+	@GetMapping("/profileManage")
+	public String profileManage(Model model) {
+		
+		String sessionID = (String) session.getAttribute("id");
+		if (sessionID == null) {
 			return "redirect:/login";
 		}
+		MemberDTO member = MemberService.profileManage(sessionID);
+		
+		String[] addressParts = member.getAddress().split(",",3);
+		String postcode = addressParts[0];
+		String address = addressParts[1];
+		String detailAddress = addressParts[2];
+		
+		model.addAttribute("member",member);
+		model.addAttribute("postcode",postcode);
+		model.addAttribute("address",address);
+		model.addAttribute("detailAddress",detailAddress);
+		
 		return "member/profileManage";
 	}
-
-	@PostMapping("updateProc")
+	//정보 업데이트
+	@PostMapping("/updateProc")
 	public String updateProc(MemberDTO member, @RequestParam("sample6_postcode") String postcode,
 			@RequestParam("sample6_address") String address,
 			@RequestParam("sample6_detailAddress") String detailAddress) {
 
-		if (postcode == null || postcode.isEmpty()) {
-			postcode = (String) session.getAttribute("postcode");
-		}
-		if (address == null || address.isEmpty()) {
-			postcode = (String) session.getAttribute("address");
-		}
-		if (detailAddress == null || detailAddress.isEmpty()) {
-			postcode = (String) session.getAttribute("detailAddress");
-		}
 		String msg = "";
 
 		member.setAddress(postcode + "," + address + "," + detailAddress);

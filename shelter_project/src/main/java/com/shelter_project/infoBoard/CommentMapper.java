@@ -23,4 +23,8 @@ public interface CommentMapper {
 
 	int getOrderNumber(int parentNo);
 
+	void deleteComment(int commentNo);
+
+	void updateComment(int commentNo, String content);
+
 }

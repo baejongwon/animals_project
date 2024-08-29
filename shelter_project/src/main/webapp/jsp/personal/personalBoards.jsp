@@ -9,8 +9,8 @@
 
 <div class="banner">
 	<div>
-		<h1>Adoptable Animals</h1>
-		<p>입양대기동물 현황</p>
+		<h1>Personal Adoption</h1>
+		<p>개인 분양 게시판</p>
 	</div>
 </div>
 

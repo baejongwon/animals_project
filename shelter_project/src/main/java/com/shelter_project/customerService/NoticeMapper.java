@@ -1,4 +1,4 @@
-package com.shelter_project.CustomerService;
+package com.shelter_project.customerService;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

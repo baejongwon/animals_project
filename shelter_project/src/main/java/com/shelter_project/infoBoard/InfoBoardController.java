@@ -36,7 +36,7 @@ public class InfoBoardController {
 	private HttpSession session;
 
 	// 게시글 목록
-	@GetMapping("infoBoard")
+	@GetMapping("/infoBoard")
 	private String infoBoard(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page)
 			throws Exception {
 
@@ -52,7 +52,7 @@ public class InfoBoardController {
 	}
 
 	// 게시글 쓰기
-	@GetMapping("infoBoardWrite")
+	@GetMapping("/infoBoardWrite")
 	private String infoBoard(Model model) {
 		// 아이디 인증
 		String sessionID = (String) session.getAttribute("id");
@@ -63,7 +63,7 @@ public class InfoBoardController {
 		return "InfoBoard/infoBoardWrite";
 	}
 
-	@PostMapping("infoBoardWriteProc")
+	@PostMapping("/infoBoardWriteProc")
 	private String infoBoardWriteProc(MultipartHttpServletRequest multi) {
 		infoBoardService.infoBoardWrite(multi);
 		return "redirect:infoBoard";
@@ -81,7 +81,7 @@ public class InfoBoardController {
 //        }
 //    }
 
-	@PostMapping("addImageBlobHook")
+	@PostMapping("/addImageBlobHook")
 	public ResponseEntity<Map<String, String>> addImageBlobHook(@RequestParam("image") MultipartFile image) {
 		String imagePath = infoBoardService.saveImage(image);
 
@@ -98,18 +98,18 @@ public class InfoBoardController {
 	}
 
 	// 게시글 컨텐츠
-	@GetMapping("infoBoardContent")
+	@GetMapping("/infoBoardContent")
 	public String infoBoardContent(Model model, int postNo,@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		InfoBoardDTO board = infoBoardService.getContent(postNo);
 		List<CommentDTO> comments = commentService.getComments(postNo); 
+		for(CommentDTO comment : comments) {
+			String originalContent = comment.getContent();
+			String replaceContent = originalContent.replace("\r\n","<br>");
+			comment.setContent(replaceContent);
+		}
+		
 		int commentCount = commentService.getCount(postNo);
-//		ObjectMapper mapper = new ObjectMapper();
-//		try {
-//			String contentJson  = mapper.writeValueAsString(board.getContent());
-//			model.addAttribute("contentJson", contentJson);
-//		} catch (JsonProcessingException e) {
-//			e.printStackTrace();
-//		}
+
 		model.addAttribute("board", board);
 		model.addAttribute("comments",comments);
 		model.addAttribute("paging",page);
@@ -118,14 +118,14 @@ public class InfoBoardController {
 	}
 
 	// 게시글 수정
-	@GetMapping("infoBoardModify")
+	@GetMapping("/infoBoardModify")
 	public String infoBoardModify(Model model, int postNo) {
 		InfoBoardDTO board = infoBoardService.getContent(postNo);
 		model.addAttribute("board", board);
 		return "InfoBoard/infoBoardModify";
 	}
 
-	@PostMapping("infoBoardModifyProc")
+	@PostMapping("/infoBoardModifyProc")
 	private String infoBoardModifyProc(MultipartHttpServletRequest multi, @Param("postNo") int postNo) {
 		System.out.println("수정 컨트롤러 호출");
 		infoBoardService.infoBoardModifyProc(multi, postNo);
@@ -133,7 +133,7 @@ public class InfoBoardController {
 	}
 
 	// 게시글 삭제
-	@GetMapping("deleteBoard")
+	@GetMapping("/deleteBoard")
 	public String deleteBoard(@RequestParam("postNo") int postNo) {
 
 		// 아이디 인증
@@ -149,7 +149,7 @@ public class InfoBoardController {
 	}
 
 	// 댓글 작성
-	@PostMapping("addComment")
+	@PostMapping("/addComment")
 	public String addComment(@RequestParam("postNo") int postNo, @RequestParam("content") String content,
 			HttpSession session, @RequestParam("parentNo") int parentNo) {
 		String sessionID = (String) session.getAttribute("id");

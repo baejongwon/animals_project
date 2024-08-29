@@ -1,4 +1,4 @@
-package com.shelter_project.CustomerService;
+package com.shelter_project.customerService;
 
 import java.time.LocalDateTime;
 

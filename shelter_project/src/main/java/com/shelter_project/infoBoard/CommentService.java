@@ -50,12 +50,20 @@ public class CommentService {
 	}
 
 	public List<CommentDTO> getComments(int postNo) {
-		
 		return mapper.getComments(postNo);
 	}
 
 	public int getCount(int postNo) {
 		return mapper.getCount(postNo);
+	}
+
+	public void deleteComment(int commentNo) {
+		mapper.deleteComment(commentNo);
+		
+	}
+
+	public void updateComment(int commentNo, String content) {
+		mapper.updateComment(commentNo,content);
 	}
 
 }

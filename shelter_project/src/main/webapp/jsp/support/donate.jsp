@@ -12,37 +12,45 @@
 	}
 
 	function KGpay() {
-		const Amount = document
+		$.ajax({
+			type:'GET',
+			url:'/getContributor',
+			success:function(user){
+				const Amount = document
 				.querySelector('input[name="donation-amount"]:checked').value;
-		const merchantUid = generateMerchantUid();
+				const merchantUid = generateMerchantUid();
 
-		IMP.init("imp82268541"); // 아임포트 가맹점 식별코드
-		IMP.request_pay({
-			pg : "kcp",
-			pay_method : "card",
-			merchant_uid : merchantUid,
-			name : "멍냥고홈",
-			amount : parseInt(Amount),
-			buyer_email : "dtktop7@naver.com",
-			buyer_name : "배종원",
-			buyer_tel : "010-5469-9444",
-			buyer_addr : "서울특별시 옥수동 옥수파크힐스",
-			buyer_postcode : "01181"
-		}, function(rsp) { // callback
-			console.log(rsp); // 응답 로그 확인
-			if (rsp.success) {
-				$.ajax({
-					type : 'POST',
-					url : '/verify/' + rsp.imp_uid
-				}).done(function(data) {
-					if (rsp.paid_amount === data.response.amount) {
-						alert("결제 성공");
+				IMP.init("imp82268541"); // 아임포트 가맹점 식별코드
+				IMP.request_pay({
+					pg : "kcp",
+					pay_method : "card",
+					merchant_uid : merchantUid,
+					name : "멍냥고홈",
+					amount : parseInt(Amount),
+					buyer_email : user.email,
+					buyer_name : user.name,
+					buyer_tel : user.tel,
+					buyer_addr : user.Address
+				}, function(rsp) { // callback
+					console.log(rsp); // 응답 로그 확인
+					if (rsp.success) {
+						$.ajax({
+							type : 'POST',
+							url : '/verify/' + rsp.imp_uid
+						}).done(function(data) {
+							if (rsp.paid_amount === data.response.amount) {
+								alert("결제 성공");
+							} else {
+								alert("결제 실패");
+							}
+						});
 					} else {
-						alert("결제 실패");
+						alert("결제 실패: " + rsp.error_msg);
 					}
 				});
-			} else {
-				alert("결제 실패: " + rsp.error_msg);
+			},
+			error: function(error) {
+				alert("구매자 정보를 가져오는 데 실패했습니다.");
 			}
 		});
 	}
@@ -50,6 +58,7 @@
 
 <div class="banner">
 	<div>
+		<h1>Donate</h1>
 		<p>후원 하기</p>
 	</div>
 </div>
@@ -57,20 +66,16 @@
 <div class="sub-contents" id="contents">
 
 	<div class="donation-container">
+
+		<div class="left_box">
+			<img src="/img/dog_donate.png" alt="dog_image">
+		</div>
 		<div class="donation-info">
-			<div class="donation-period">
-				<span>후원주기</span>
-				<ul class="period-options">
-					<li><input type="radio" id="period-one-time"
-						name="donation-period" value="일시" class="radio-button" checked>
-						<label for="period-one-time" class="period-option">일시</label></li>
-					<li><input type="radio" id="period-regular"
-						name="donation-period" value="정기" class="radio-button"> <label
-						for="period-regular" class="period-option">정기</label></li>
-				</ul>
-			</div>
+			<p class="donation-text">
+				사랑이 필요한 아이들에게<br> 따뜻한 보호자가 되어주세요.<br> <span>함께해요,
+					후원으로...</span>
+			</p>
 			<div class="donation-amount">
-				<span>후원금액</span>
 				<ul class="amount-options">
 					<li><input type="radio" id="amount-10000"
 						name="donation-amount" value="1000" class="radio-button" checked>
@@ -92,13 +97,15 @@
 						<label for="amount-100000" class="amount-option">100,000원</label></li>
 				</ul>
 			</div>
+			<div class="supportBox">
+				<button onclick="KGpay()" id="supportBtn">후원하기</button>
+			</div>
 		</div>
-
-		<div class="supportBox">
-			<button onclick="KGpay()" id="supportBtn">후원하기</button>
+		<div class="right_box">
+			<img src="/img/cat_donate.png" alt="dog_image">
 		</div>
 	</div>
+</div>
 
 
-
-	<c:import url="/footer" />
+<c:import url="/footer" />
