@@ -10,7 +10,10 @@ public interface MemberMapper {
 
 	int registPro(MemberDTO member);
 
-	int updatePro(MemberDTO member);
+	int updatePro_local(MemberDTO member);
 
+	void kakaoRegist(MemberDTO member);
+
+	int updatePro_kakao(MemberDTO member);
 
 }

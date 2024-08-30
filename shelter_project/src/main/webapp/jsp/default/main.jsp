@@ -35,58 +35,13 @@
         <span data-u="arrowleft" class="jssora22l" style="top:0px;left:8px;width:40px;height:58px;" data-autocenter="2"></span>
         <span data-u="arrowright" class="jssora22r" style="top:0px;right:8px;width:40px;height:58px;" data-autocenter="2"></span>
          -->
-    </div>
-	
-	<!--컨텐츠 내용1 -->
-	<div>
-		<h4 style="text-align: center; margin-top: 120px;color: #595959;">
-		<span style="font-size: 29px;">실종동물을 찾습니다 위치</span></h4>
-	</div>
-		
-		<div  class="content_box_1" style="width: 1200px; margin: 0 auto; margin-top: 35px;">
-		
-			<table cellspacing="0" cellpadding="0" border="0" width="100%">
-			<tbody><tr>
-			
-			<c:forEach var="board" items="${boards}">
-				<td valign="top" align="center"><table valign="top" cellspacing="0" style="width:250px;">
-			<tbody><tr>
-				<td style="width:250px;" valign="top">
-					<table cellspacing="0">
-			<tbody><tr>
-				<td style="padding:3px; border:1px solid #efefef;" bgcolor="#FFFFFF"><a href="animal_find_Content?no=${board.no }"><img src="../img/${board.image}" align="absmiddle" border="0" width="250" height="200" style="border-radius: 10px 10px;"></a></td>
-			</tr></tbody></table></td></tr>
-				
-				<tr>
-				<td align="left" valign="top" class="font_st_05" style="padding-left:3px;">
-		<table cellspacing="0">
-			<tbody><tr>
-			<td style="padding-top:5px; width:250px; line-height:18px;" align="left">
-				<span style="color:#f39a68; font:11px '돋움';">${board.animal_group }</span>
-				<a href="animal_find_Content?no=${board.no }"> </a><a href="animal_find_Content?no=${board.no }">${board.title }</a> 
-			</td>
-			</tr>
-			<tr>
-			<td style="padding-top:3px; width:250px;" align="left">
-				<table cellspacing="0">
-				<tbody><tr>
-					<td style="font:11px '돋움'; color:#999999; letter-spacing:-1px;">${board.id }</td>
-					<td style="font:11px '돋움'; color:#d3d3d3; padding:0 5px;">|</td>
-					<td style="font:11px '돋움'; color:#999999;">${board.time }</td>
-			</tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td>
-			</c:forEach>
-				
-				</tr></tbody></table>
-		  </div>
-	
-		<a href="animal_find"><div class="more">더 보기 + </div></a>
-            
+    </div>            
 	
 	<!-- 컨텐츠 내용 -->
 	
 		<div>
 		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
-		<span style="font-size: 29px;">무료 분양</span></h4>
+		<span style="font-size: 29px;">주인이 되어주세요..</span></h4>
 		</div>
 		
 		<div  class="content_box_1" style="width: 1200px; margin: 0 auto; margin-top: 35px;">
@@ -234,26 +189,25 @@
 			
 		<div>
 		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
-		<span style="font-size: 29px;">동물 백과 사전</span></h4>
+		<span style="font-size: 29px;">지식 공유 게시판</span></h4>
 		</div>
 			
 		<div class="animal_info">
 		<ul class="">
 			<li>
-				<div class="photo"><a href="#"><img class="img_left" src="../img/팁1.jpg" title=""></a></div>
+				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁1.jpg" title=""></a></div>
 			</li>
 			<li>
-				<div class="photo"><a href="#"><img class="img_left" src="../img/팁2.jpg" title=""></a></div>
+				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁2.jpg" title=""></a></div>
 			</li>
 			<li>
-				<div class="photo"><a href="#"><img class="img_left" src="../img/팁3.jpg" title=""></a></div>
+				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁3.jpg" title=""></a></div>
 			</li>
 			<li>
-				<div class="photo"><a href="#"><img class="img_left" src="../img/팁4.jpg" title=""></a></div>
+				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁4.jpg" title=""></a></div>
 			</li>
 		</ul>
 		</div>
-			<a href="#"><div class="more">더 보기 + </div></a>
 	</div>
 		
 </div>

@@ -11,10 +11,12 @@ import java.time.LocalDateTime;
  no number not null,
  name varchar2(20) not null,
  id varchar2(20) not null primary key,
- pw varchar2(100) not null,
- email varchar2(50) not null,
- tel varchar2(20) not null,
- address varchar2(100) not null);
+ pw varchar2(100),
+ email varchar2(50),
+ tel varchar2(20,
+ address varchar2(100),
+ login_type varchar2(20)
+ );
  
  CREATE SEQUENCE member_seq
 START WITH 1
@@ -34,6 +36,7 @@ public class MemberDTO {
 	private String tel; // 전화번호
 	private String address; // 주소
 	private LocalDateTime regitstDt;// 가입일시
+	private String login_type; //로그인 타입
 	
 	public int getNo() {
 		return no;
@@ -89,6 +92,10 @@ public class MemberDTO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
-	
+	public String getLogin_type() {
+		return login_type;
+	}
+	public void setLogin_type(String login_type) {
+		this.login_type = login_type;
+	}
 }

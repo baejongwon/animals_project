@@ -50,7 +50,6 @@ public class MemberController {
 
 	@GetMapping("/login/kakao")
 	public String kakaoLogin(String code) {
-		System.out.println("code" + code);
 		kakaoService.getAccessToken(code);
 		kakaoService.getUserInfo();
 		return "redirect:/index";
@@ -148,16 +147,20 @@ public class MemberController {
 		}
 		MemberDTO member = MemberService.profileManage(sessionID);
 		
-		String[] addressParts = member.getAddress().split(",",3);
-		String postcode = addressParts[0];
-		String address = addressParts[1];
-		String detailAddress = addressParts[2];
-		
-		model.addAttribute("member",member);
-		model.addAttribute("postcode",postcode);
-		model.addAttribute("address",address);
-		model.addAttribute("detailAddress",detailAddress);
-		
+		if(member != null) {
+			if(member.getAddress() != null) {
+				String[] addressParts = member.getAddress().split(",",3);
+				String postcode = addressParts[0];
+				String address = addressParts[1];
+				String detailAddress = addressParts[2];
+				
+				model.addAttribute("postcode",postcode);
+				model.addAttribute("address",address);
+				model.addAttribute("detailAddress",detailAddress);
+			}
+			model.addAttribute("member",member);
+		}
+
 		return "member/profileManage";
 	}
 	//정보 업데이트

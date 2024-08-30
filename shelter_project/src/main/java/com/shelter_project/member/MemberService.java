@@ -53,6 +53,8 @@ public class MemberService {
 		String encodePw = encoder.encode(member.getPw());
 		member.setPw(encodePw);
 		
+		String login_type = "local";
+		member.setLogin_type(login_type);
 		int result = MemberMapper.registPro(member);
 		if(result == 1) {
 			session.removeAttribute(member.getTel());
@@ -130,11 +132,19 @@ public class MemberService {
 	}
 
 	public String updateProc(MemberDTO member) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //DB에 데이터 저장하기 전에 암호화 진행.
-		String encodePw = encoder.encode(member.getPw());
-		member.setPw(encodePw);
+		if(member.getPw()!=null) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //DB에 데이터 저장하기 전에 암호화 진행.
+			String encodePw = encoder.encode(member.getPw());
+			member.setPw(encodePw);	
+		}
 		
-		int result = MemberMapper.updatePro(member);
+		int result;
+		System.out.println(member.getLogin_type());
+		if(member.getLogin_type().equals("kakao")) {
+			result = MemberMapper.updatePro_kakao(member);
+		}else {
+			result = MemberMapper.updatePro_local(member);
+		}
 		if(result == 1) {
 			return "수정완료";	
 		}

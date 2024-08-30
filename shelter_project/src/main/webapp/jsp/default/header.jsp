@@ -105,7 +105,7 @@
 	</div>
 	<div class="logo">
 		<h1>
-			<a href="index"><img src="img/bemypet-logo.svg" alt="logo"></a>
+			<a href="index"><img src="img/logo.png" alt="logo"></a>
 		</h1>
 	</div>
 

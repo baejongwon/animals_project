@@ -10,10 +10,19 @@
 	</select>
 	
 	<insert id="registPro">
-		insert into member values(member_seq.nextval, #{name}, #{id}, #{pw}, #{email}, #{tel}, #{address})
+		insert into member values(member_seq.nextval, #{name}, #{id}, #{pw}, #{email}, #{tel}, #{address},#{login_type})
 	</insert>
 
-	<update id="updatePro">
+	<update id="updatePro_local">
 		update member set pw=#{pw}, name=#{name}, email=#{email}, tel=#{tel}, address=#{address} where id=#{id}
 	</update>
+	
+	<update id="updatePro_kakao">
+		update member set name=#{name}, email=#{email}, tel=#{tel}, address=#{address} where id=#{id}
+	</update>
+	
+	<insert id="kakaoRegist">
+		INSERT INTO member (no, name, id, email, login_type) VALUES (member_seq.nextval, #{name}, #{id}, #{email}, #{login_type})
+	</insert>
+	
 </mapper>
