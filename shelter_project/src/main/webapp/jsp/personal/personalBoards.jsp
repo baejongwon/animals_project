@@ -15,19 +15,20 @@
 </div>
 
 <div class="content_box_1">
-
+	<!-- 
 	<div class="top_m_wrap">
 			<button class="button button1" onclick="location.href='adoption?type=all'">전체</button>
 			<button class="button button1" onclick="location.href='adoption?type=DOG'">강아지</button>
 			<button class="button button1" onclick="location.href='adoption?type=CAT'">고양이</button>
 	</div>
+	 -->
 
     <div class="board-container">
         <c:forEach var="board" items="${boards}" varStatus="status">
             <div class="board-item">
                 <div class="board-image">
                     <a href="adoptionDetail?no=${board.animal_no}">
-                        <img src="https://${firstImagesMap[board.animal_no] }" alt="Animal Image" loading="lazy">
+                        <img src="#" alt="Animal Image" loading="lazy">
                     </a>
                 </div>
                 <div class="board-info">
@@ -35,12 +36,14 @@
                         <div class="animal-no">${board.animal_no}</div>
                         <a href="adoptionDetail?no=${board.animal_no}" class="nm">${board.nm}</a>
                     </div>
-                    <div class="entrance-date">${board.entrnc_date}</div>
+                    <div class="entrance-date">${board.time}</div>
                 </div>
             </div>
         </c:forEach>
     </div>
 </div>
+
+<button type="button" onclick="location.href='personalWrite'">글 작성</button>
 
 	<div class="pagination">
     <c:choose>
@@ -48,7 +51,7 @@
             <span class="prev disabled">&lt;</span>
         </c:when>
         <c:otherwise>
-            <a href="adoption?page=${paging.page-1}&type=${param.type}" class="prev">&lt;</a>
+            <a href="adoption?page=${paging.page-1}" class="prev">&lt;</a>
         </c:otherwise>
     </c:choose>
 
@@ -58,7 +61,7 @@
                 <span class="current">${i}</span>
             </c:when>
             <c:otherwise>
-                <a href="adoption?page=${i}&type=${param.type}">${i}</a>
+                <a href="adoption?page=${i}">${i}</a>
             </c:otherwise>
         </c:choose>
     </c:forEach>
@@ -68,7 +71,7 @@
             <span class="next disabled">&gt;</span>
         </c:when>
         <c:otherwise>
-            <a href="adoption?page=${paging.page+1}&type=${param.type}" class="next">&gt;</a>
+            <a href="adoption?page=${paging.page+1}" class="next">&gt;</a>
         </c:otherwise>
     </c:choose>
 </div>

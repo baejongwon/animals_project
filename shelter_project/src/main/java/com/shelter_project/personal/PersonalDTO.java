@@ -15,7 +15,8 @@ animal_no number not null,
  bdwgh varchar2(20),
  adp_sttus varchar2(20),
  content clob,
- image varchar2(100)
+ image varchar2(100),
+ time varchar2(20)
 )
  );
  */
@@ -30,6 +31,7 @@ public class PersonalDTO {
 	private String adp_sttus; // 입양상태
 	private String content; // 소개내용
 	private String image; // 이미지
+	private String time; // 등록일
 	
 	public int getAnimal_no() {
 		return animal_no;
@@ -90,6 +92,12 @@ public class PersonalDTO {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }

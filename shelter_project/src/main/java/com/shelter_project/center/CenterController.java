@@ -36,8 +36,7 @@ public class CenterController {
 		
 		List<CenterDTO> boards;
 		PageDTO pageDTO;
-//		centerService.getAdoptionData(page);
-//		centerService.getAdoptionImgData();
+
 		Map<Integer, String> firstImagesMap = new HashMap<>();
 		
 		if(type == null || type.equals("all")) {

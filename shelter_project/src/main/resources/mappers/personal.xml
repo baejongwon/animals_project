@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shelter_project.personal.PersonalMapper">
+	
+	<select id="PagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
+		SELECT * FROM (
+        SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
+        FROM personal c
+   	 	)
+   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit} order by time desc
+	</select>
+	
+	<select id="boardCount">
+		select count(animal_no) from personal
+	</select>
+</mapper>

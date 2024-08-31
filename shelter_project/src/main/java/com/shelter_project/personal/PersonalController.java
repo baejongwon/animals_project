@@ -27,9 +27,27 @@ import java.io.BufferedReader;
 @Controller
 public class PersonalController {
 	
+	@Autowired PersonalService personalService;
+	
 	@GetMapping("/personalBoards")
-	private String personalBoards() {
+	private String personalBoards(Model model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws Exception {
+		
+		List<PersonalDTO> boards;
+		PageDTO pageDTO;
+		
+		boards = personalService.getBoards(page);	
+		pageDTO = personalService.pagingParam(page);
+		
+		model.addAttribute("boards",boards);
+		model.addAttribute("paging",pageDTO);
+		
 		return "personal/personalBoards";
+	}
+	
+	@GetMapping("/personalWrite")
+	private String personalWrite() {
+		return "personal/personalWrite";
 	}
 	
 }
