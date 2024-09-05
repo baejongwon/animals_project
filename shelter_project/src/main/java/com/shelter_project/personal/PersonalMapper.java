@@ -19,4 +19,23 @@ public interface PersonalMapper {
 
 	ArrayList<PersonalDTO> PagingList(Map<String, Integer> pagingParams);
 
+	void personalWriteProc(PersonalDTO personalDTO);
+
+	void insertPersonalImages(PersonalImagesDTO imagesDTO);
+
+	PersonalDTO personalContent(int animal_no);
+
+	List<String> getImg(int no);
+
+	void modifyPersonalImages(PersonalImagesDTO imagesDTO);
+
+	void personalModifyProc(PersonalDTO personalDTO);
+
+	List<Integer> getImageNo(int animal_no);
+
+	void deleteImage(String getImg, int animal_no);
+
+	void personalDelete(int animal_no);
+
+
 }

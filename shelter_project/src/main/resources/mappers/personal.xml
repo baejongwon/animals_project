@@ -16,4 +16,50 @@
 	<select id="boardCount">
 		select count(animal_no) from personal
 	</select>
+	
+	<insert id="personalWriteProc">
+		<selectKey keyProperty="animal_no" resultType="int" order="BEFORE">
+			select animal_no_seq.nextval from dual
+		</selectKey>
+		insert into personal values(#{animal_no},#{nm},#{spcs},#{breeds},#{sexdstn},#{age},#{bdwgh},#{content},#{time},#{author})
+	</insert>
+	
+	<insert id="insertPersonalImages">
+    INSERT INTO personal_images VALUES (image_no_seq.nextval, #{animal_no}, #{image_path})
+	</insert>
+	
+	<select id="personalContent">
+		select * from personal where animal_no =#{animal_no}
+	</select>
+	
+	<select id="getImg" resultType="String">
+		select image_path from personal_images where ANIMAL_NO = #{animal_no}
+	</select>
+	
+	<select id="getImageNo" resultType="java.lang.Integer">
+		select image_no from personal_images where ANIMAL_NO = #{animal_no}
+	</select>
+	
+	<update id="personalModifyProc">
+		update personal set
+		nm = #{nm},
+		spcs = #{spcs},
+		breeds = #{breeds},
+		sexdstn = #{sexdstn},
+		age = #{age},
+		bdwgh = #{bdwgh},
+		content = #{content},
+		time = #{time},
+		author = #{author}
+		where animal_no=#{animal_no} 
+	</update>
+
+	
+	<delete id="deleteImage">
+		delete from personal_images where image_path = #{getImg} and ANIMAL_NO = #{animal_no}
+	</delete>
+	
+	<delete id="personalDelete">
+		delete from personal where animal_no = #{animal_no}
+	</delete>
 </mapper>

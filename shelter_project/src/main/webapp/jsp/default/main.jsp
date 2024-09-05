@@ -41,7 +41,7 @@
 	
 		<div>
 		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
-		<span style="font-size: 29px;">주인이 되어주세요..</span></h4>
+		<span style="font-size: 45px; font-weight: 900">영원한 <span style="color: #F4A460;">가족이</span> 되어주세요</span></h4>
 		</div>
 		
 		<div  class="content_box_1" style="width: 1200px; margin: 0 auto; margin-top: 35px;">
@@ -181,15 +181,15 @@
 	<a href="#"><div class="more">더 보기 + </div></a>
 	
 	<div class="bottomBanner" style="width: 1200px; margin: 0 auto; margin-top: 60px; ">
-		<a href="#"><img src="../img/banner1.jpg" alt="banner_1"></a>
+		<img src="../img/banner1.jpg" alt="banner_1">
 	</div>
 	
 		<!--동물 사전-->
 		<div class="tableArea clearfix">
 			
-		<div>
+		<div style="margin-bottom: 50px;">
 		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
-		<span style="font-size: 29px;">지식 공유 게시판</span></h4>
+		<span style="font-size: 45px; font-weight: 700;">우리집 <span style="color: #F4A460;">반려동물</span> 지식 나눔터</span></h4>
 		</div>
 			
 		<div class="animal_info">

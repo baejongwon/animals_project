@@ -107,7 +107,9 @@
 </div>
 
 <div class="container" style="margin-top: 75px;">
-    <form action="personalWriteProc" method="POST" enctype="multipart/form-data" onsubmit="submitContent()">
+    <form action="personalModifyProc" method="POST" enctype="multipart/form-data" onsubmit="submitContent()">
+    <input type="hidden" name="animal_no" value="${board.animal_no }">
+
         <div class="box" style="flex-wrap: nowrap; margin-top: 20px; justify-content: space-between;">
             
             <div class="thumbnail-box">
@@ -123,34 +125,34 @@
             <div class="info-inputs">
                 <div class="input-group">
                     <label for="petName">이름</label>
-                    <input type="text" id="nm" name="nm" placeholder="반려동물 이름" required>
+                    <input type="text" id="nm" name="nm" placeholder="반려동물 이름" value="${board.nm }">
                 </div>
 				<div class="input-group">
                     <label for="spcs">종</label>
                     <select id="spcs" name="spcs">
-                        <option value="dog">강아지</option>
-                        <option value="cat">고양이</option>
-                        <option value="etc">기타</option>
+                        <option value="dog" ${board.spcs eq 'dog' ? 'selected="selected"' : '' }>강아지</option>
+                        <option value="cat" ${board.spcs eq 'cat' ? 'selected="selected"' : '' }>고양이</option>
+                        <option value="etc" ${board.spcs eq 'etc' ? 'selected="selected"' : '' }>기타</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label for="breed">품종</label>
-                    <input type="text" id="breeds" name="breeds" placeholder="품종 (예: 푸들)" required>
+                    <input type="text" id="breeds" name="breeds" placeholder="품종 (예: 푸들)" value="${board.breeds }">
                 </div>
                 <div class="input-group">
                     <label for="sexdstn">성별</label>
                     <select id="sexdstn" name="sexdstn">
-                        <option value="M">수컷</option>
-                        <option value="W">암컷</option>
+                        <option value="M" ${board.sexdstn eq 'M' ? 'selected="selected"' : '' }>수컷</option>
+                        <option value="W" ${board.sexdstn eq 'W' ? 'selected="selected"' : '' }>암컷</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label for="age">나이</label>
-                    <input type="number" id="age" name="age" placeholder="나이 (예: 3)" required>
+                    <input type="number" id="age" name="age" placeholder="나이 (예: 3)" value="${board.age }">
                 </div>
                 <div class="input-group">
                     <label for="bdwgh">체중</label>
-                    <input type="number" id="bdwgh" name="bdwgh" placeholder="체중 (kg)" required>
+                    <input type="number" id="bdwgh" name="bdwgh" placeholder="체중 (kg)" value="${board.bdwgh }">
                 </div>
             </div>
         </div>
@@ -171,7 +173,8 @@
 
 <script>
 $(document).ready(function() {
-    // Summernote 초기화
+	var content = `<c:out value="${board.content}" escapeXml="false" />`; 
+	// Summernote 초기화
     $('#summernote').summernote({
         height: 500,                 // 에디터 높이 설정
         minHeight: null,             // 최소 높이 설정
@@ -207,6 +210,9 @@ $(document).ready(function() {
         }
     });
 
+    //기존 컨텐츠 로드
+    $('#summernote').summernote('code', content);
+    
         // 이미지 업로드 처리
         function uploadImage(file) {
             var data = new FormData();

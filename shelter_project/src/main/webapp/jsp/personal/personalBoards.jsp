@@ -4,7 +4,7 @@
 <c:import url="/header" />
 <link rel="stylesheet" href="center.css">
 <script>
-
+	
 </script>
 
 <div class="banner">
@@ -23,57 +23,67 @@
 	</div>
 	 -->
 
-    <div class="board-container">
-        <c:forEach var="board" items="${boards}" varStatus="status">
-            <div class="board-item">
-                <div class="board-image">
-                    <a href="adoptionDetail?no=${board.animal_no}">
-                        <img src="#" alt="Animal Image" loading="lazy">
-                    </a>
-                </div>
-                <div class="board-info">
-                    <div class="animal-no-nm">
-                        <div class="animal-no">${board.animal_no}</div>
-                        <a href="adoptionDetail?no=${board.animal_no}" class="nm">${board.nm}</a>
-                    </div>
-                    <div class="entrance-date">${board.time}</div>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
+	<div class="board-container">
+		<c:forEach var="board" items="${boards}" varStatus="status">
+			<div class="board-item">
+				<div class="board-image">
+					<a href="personalContent?no=${board.animal_no}&page=${paging.page}"> <img src="/img/ITS/${imagePathMap[board.animal_no] }"
+						alt="Animal Image" loading="lazy">
+					</a>
+				</div>
+				<div class="board-info">
+					<div class="animal-no-nm">
+						<div class="animal-no">${board.animal_no}</div>
+						<a href="personalContent?no=${board.animal_no}&page=${paging.page}" class="nm">${board.nm}</a>
+					</div>
+					<div class="entrance-date">${board.time}</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+
+	<div class="action-btn-group">
+		<div class="right">
+			<button type="button" class="btn btn-light btn-lg"
+				onclick="location.href='personalWrite'">게시글 작성</button>
+		</div>
+	</div>
+
 </div>
 
-<button type="button" onclick="location.href='personalWrite'">글 작성</button>
 
-	<div class="pagination">
-    <c:choose>
-        <c:when test="${paging.page<=1}">
-            <span class="prev disabled">&lt;</span>
-        </c:when>
-        <c:otherwise>
-            <a href="adoption?page=${paging.page-1}" class="prev">&lt;</a>
-        </c:otherwise>
-    </c:choose>
 
-    <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
-        <c:choose>
-            <c:when test="${i eq paging.page}">
-                <span class="current">${i}</span>
-            </c:when>
-            <c:otherwise>
-                <a href="adoption?page=${i}">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
 
-    <c:choose>
-        <c:when test="${paging.page>=paging.maxPage}">
-            <span class="next disabled">&gt;</span>
-        </c:when>
-        <c:otherwise>
-            <a href="adoption?page=${paging.page+1}" class="next">&gt;</a>
-        </c:otherwise>
-    </c:choose>
+<div class="pagination">
+	<c:choose>
+		<c:when test="${paging.page<=1}">
+			<span class="prev disabled">&lt;</span>
+		</c:when>
+		<c:otherwise>
+			<a href="personalBoards?page=${paging.page-1}" class="prev">&lt;</a>
+		</c:otherwise>
+	</c:choose>
+
+	<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i"
+		step="1">
+		<c:choose>
+			<c:when test="${i eq paging.page}">
+				<span class="current">${i}</span>
+			</c:when>
+			<c:otherwise>
+				<a href="personalBoards?page=${i}">${i}</a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+
+	<c:choose>
+		<c:when test="${paging.page>=paging.maxPage}">
+			<span class="next disabled">&gt;</span>
+		</c:when>
+		<c:otherwise>
+			<a href="personalBoards?page=${paging.page+1}" class="next">&gt;</a>
+		</c:otherwise>
+	</c:choose>
 </div>
 
 

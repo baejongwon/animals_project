@@ -112,10 +112,10 @@ $(document).ready(function() {
                 data: data,
                 type: "POST",
                 success: function(response) {
-                    console.log(response);  // 서버 응답을 콘솔에 출력하여 확인
+                    console.log(response); 
 
-                    // 서버가 JSON 형식으로 응답한다고 가정
                     if (response.imagePath) {
+                    	console.log(response.imagePath);
                         var imageUrl = '${pageContext.request.contextPath}/img/ITS/' + response.imagePath;
                         
                         $('#summernote').summernote('insertImage', imageUrl, function ($image) {

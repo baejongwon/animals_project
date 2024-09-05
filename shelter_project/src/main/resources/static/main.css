@@ -125,10 +125,9 @@ a {
     color: #ffc22f;
 }
 .content {
-	margin: 0 auto;
+	margin: 50px auto;
 	width: 100%;
 	text-align: center;
-	color: #000;
 	clear: left;
 	margin-top: 65px;
 	overflow: hidden;
