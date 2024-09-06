@@ -26,4 +26,10 @@ public interface InfoBoardMapper {
 
 	int boardCount();
 
+	List<InfoBoardDTO> infoSearch(Map<String, Integer> pagingParams, String searchColumn, String keyword);
+
+	List<InfoBoardDTO> infoSearch(Map<String, Object> pagingParams);
+
+	int getSearchCount(String searchColumn, String keyword);
+
 }

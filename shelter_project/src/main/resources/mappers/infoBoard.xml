@@ -15,6 +15,7 @@
 	<select id="boardCount">
 		select count(*) from infoBoard
 	</select>
+	
 	<insert id="insertBoard">
     insert into infoBoard
     values (postNo_seq.nextval, #{title}, #{content}, #{author}, #{category}, #{createdDate}, #{createdDate}, 0, 0, 0, 0, 0)
@@ -35,4 +36,52 @@
 	<delete id="deleteBoard">
 		delete from infoBoard where postNo=#{postNo}
 	</delete>
+	
+	<select id="infoSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
+		SELECT * FROM (
+        SELECT c.*, ROW_NUMBER() OVER (ORDER BY postNo DESC) AS rnum
+        FROM infoBoard c
+        <where>
+        	<if test="searchColumn != null and keyword != null and keyword != ''">
+        		 <choose>
+        		 	<when test="searchColumn == 'title'">
+        		 		 AND c.title LIKE '%' || #{keyword} || '%'
+        		 	</when>
+        		 	
+        		 	 <when test="searchColumn == 'author'">
+                        AND c.author LIKE '%' || #{keyword} || '%'
+                    </when>
+                    
+                     <otherwise>
+                        AND c.content LIKE '%' || #{keyword} || '%'
+                    </otherwise>
+                    
+        		 </choose>
+        	</if>
+        </where> 
+   	 	)
+   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
+	</select>
+	
+	<select id="getSearchCount">
+		select count(*) from infoBoard 
+		<where>
+        	<if test="searchColumn != null and keyword != null and keyword != ''">
+        		 <choose>
+        		 	<when test="searchColumn == 'title'">
+        		 		 AND title LIKE '%' || #{keyword} || '%'
+        		 	</when>
+        		 	
+        		 	 <when test="searchColumn == 'author'">
+                        AND author LIKE '%' || #{keyword} || '%'
+                    </when>
+                    
+                     <otherwise>
+                        AND content LIKE '%' || #{keyword} || '%'
+                    </otherwise>
+                    
+        		 </choose>
+        	</if>
+        </where> 
+	</select>
 </mapper>

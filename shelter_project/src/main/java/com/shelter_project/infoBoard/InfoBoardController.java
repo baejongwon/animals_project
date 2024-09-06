@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shelter_project.PageDTO;
 
 import jakarta.servlet.http.HttpSession;
+import retrofit2.http.POST;
 
 @Controller
 public class InfoBoardController {
@@ -37,12 +38,13 @@ public class InfoBoardController {
 
 	// 게시글 목록
 	@GetMapping("/infoBoard")
-	private String infoBoard(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page)
+	private String infoBoard(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			String searchColumn, String keyword)
 			throws Exception {
 
 		ArrayList<InfoBoardDTO> boards = infoBoardService.getInfoBoards(page);
 		int boardCount = infoBoardService.getBoardCount();
-		PageDTO pageDTO = infoBoardService.pagingParam(page);
+		PageDTO pageDTO = infoBoardService.pagingParam(page,searchColumn,keyword);
 		
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("boards", boards);
@@ -148,6 +150,19 @@ public class InfoBoardController {
 		return "redirect:infoBoard";
 	}
 
-	
+	@PostMapping("infoSearch")
+	public String infoSearch(String searchColumn, String keyword,Model model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		List<InfoBoardDTO> boards = infoBoardService.infoSearch(searchColumn, keyword,page);
+		int SearchCount = infoBoardService.getSearchCount(searchColumn,keyword);
+		
+		PageDTO pageDTO = infoBoardService.pagingParam(page,searchColumn,keyword);
+		
+		model.addAttribute("boards",boards);
+		model.addAttribute("boardCount", SearchCount);
+		model.addAttribute("paging",pageDTO);
+		
+		return "InfoBoard/infoBoard";
+	}
 	
 }

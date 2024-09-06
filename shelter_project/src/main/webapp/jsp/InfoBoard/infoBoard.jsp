@@ -24,28 +24,17 @@
 			</div>
 
 			<div class="right">
-				<form id="searchList" class="post-search" action="searchList"
-					method="post">
-					<input type="hidden" name="csSignature"
-						value="cU1xDNR53ViOBaB3SeBEgA=="> <input type="hidden"
-						name="boardId" value="boardID03"> <input type="hidden"
-						name="pageSize" value="10"> <input type="hidden"
-						name="stsfdg" id="stsfdg"> <input type="hidden"
-						name="column" value=""> <input type="hidden" name="menuNo"
-						value="5000000019">
-
+				<form action="infoSearch" id="searchList" class="post-search" method="post">
 					<fieldset>
 						<legend>게시물검색</legend>
-						<label for="searchColumn" class="blind">검색구분 선택</label> <select
-							class="form-control" id="searchColumn" title="검색구분 선택">
+						<label for="searchColumn" class="blind">검색구분 선택</label> 
+						<select	class="form-control" id="searchColumn"  name="searchColumn" title="검색구분 선택">
 							<option value="title" selected="selected">제목</option>
-							<option value="content">내용</option>
 							<option value="author">작성자</option>
 						</select>
 						<div class="wrap">
-							<label class="blind" for="keyword">검색어 입력</label> <input
-								name="keyword" id="keyword" class="form-control w-lg"
-								maxlength="50" title="검색어 입력" placeholder="검색어를 입력하세요">
+							<label class="blind" for="keyword">검색어 입력</label>
+							<input name="keyword" id="keyword" name="keyword" class="form-control w-lg" maxlength="50" title="검색어 입력" placeholder="검색어를 입력하세요">
 							<button class="btn" id="searchButton">
 								<span id="search_button">검색</span>
 							</button>
