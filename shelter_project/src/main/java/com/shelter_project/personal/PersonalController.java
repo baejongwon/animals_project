@@ -39,12 +39,13 @@ public class PersonalController {
 	
 	@GetMapping("/personalBoards")
 	private String personalBoards(Model model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws Exception {
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "type", required = false, defaultValue = "all") String type) throws Exception {
 		
 		List<PersonalDTO> boards;
 		PageDTO pageDTO;
 		
-		boards = personalService.getBoards(page);
+		boards = personalService.getBoards(page,type);
 		Map<Integer,String> imagePathMap = new HashMap<>();
 		
 		for(PersonalDTO board : boards) {
@@ -57,8 +58,9 @@ public class PersonalController {
 			}
 		}
 		
-		pageDTO = personalService.pagingParam(page);
+		pageDTO = personalService.pagingParam(page,type);
 		
+		model.addAttribute("type",type);
 		model.addAttribute("boards",boards);
 		model.addAttribute("paging",pageDTO);
 		model.addAttribute("imagePathMap",imagePathMap);

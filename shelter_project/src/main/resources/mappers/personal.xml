@@ -9,12 +9,22 @@
 		SELECT * FROM (
         SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
         FROM personal c
+         <where>
+            <if test="type != 'all'">
+                AND c.spcs = #{type}
+            </if>
+        </where>
    	 	)
    		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit} order by time desc
 	</select>
 	
 	<select id="boardCount">
 		select count(animal_no) from personal
+		<where>
+        <if test="type != null and type != 'all'">
+            spcs = #{type}
+        </if>
+       </where>
 	</select>
 	
 	<insert id="personalWriteProc">

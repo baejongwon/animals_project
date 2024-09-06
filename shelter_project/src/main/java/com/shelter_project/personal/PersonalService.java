@@ -41,20 +41,21 @@ public class PersonalService {
 	int pageLimit = 12; // 한 페이지당 보여줄 글 갯수
 	int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
 	String basePath = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\";
-	public List<PersonalDTO> getBoards(int page) {
+	public List<PersonalDTO> getBoards(int page, String type) {
 		int pagingStart = (page-1) * pageLimit;
-		Map<String, Integer> pagingParams = new HashMap<>();
+		Map<String, Object> pagingParams = new HashMap<>();
 		pagingParams.put("start", pagingStart);
 		pagingParams.put("limit", pageLimit);
+		pagingParams.put("type",type);
 		
 		ArrayList<PersonalDTO> boards = mapper.PagingList(pagingParams);
 		
 		return boards;
 	}
 	
-	public PageDTO pagingParam(int page) {
+	public PageDTO pagingParam(int page, String type) {
 		 // 전체 글 갯수 조회
-        int boardCount = mapper.boardCount();
+        int boardCount = mapper.boardCount(type);
         
         // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
         int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));

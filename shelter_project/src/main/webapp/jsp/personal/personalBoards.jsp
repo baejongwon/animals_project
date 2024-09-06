@@ -15,13 +15,14 @@
 </div>
 
 <div class="content_box_1">
-	<!-- 
+
 	<div class="top_m_wrap">
-			<button class="button button1" onclick="location.href='adoption?type=all'">전체</button>
-			<button class="button button1" onclick="location.href='adoption?type=DOG'">강아지</button>
-			<button class="button button1" onclick="location.href='adoption?type=CAT'">고양이</button>
+			<button class="button button1" onclick="location.href='personalBoards?type=all'">전체</button>
+			<button class="button button1" onclick="location.href='personalBoards?type=dog'">강아지</button>
+			<button class="button button1" onclick="location.href='personalBoards?type=cat'">고양이</button>
+			<button class="button button1" onclick="location.href='personalBoards?type=etc'">기타</button>
 	</div>
-	 -->
+
 
 	<div class="board-container">
 		<c:forEach var="board" items="${boards}" varStatus="status">
@@ -60,7 +61,7 @@
 			<span class="prev disabled">&lt;</span>
 		</c:when>
 		<c:otherwise>
-			<a href="personalBoards?page=${paging.page-1}" class="prev">&lt;</a>
+			<a href="personalBoards?page=${paging.page-1}&type=${param.type}" class="prev">&lt;</a>
 		</c:otherwise>
 	</c:choose>
 
@@ -71,7 +72,7 @@
 				<span class="current">${i}</span>
 			</c:when>
 			<c:otherwise>
-				<a href="personalBoards?page=${i}">${i}</a>
+				<a href="personalBoards?page=${i}&type=${param.type}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -81,7 +82,7 @@
 			<span class="next disabled">&gt;</span>
 		</c:when>
 		<c:otherwise>
-			<a href="personalBoards?page=${paging.page+1}" class="next">&gt;</a>
+			<a href="personalBoards?page=${paging.page+1}&type=${param.type}" class="next">&gt;</a>
 		</c:otherwise>
 	</c:choose>
 </div>

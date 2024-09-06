@@ -15,9 +15,9 @@ import com.shelter_project.center.CenterDTO;
 @Mapper
 public interface PersonalMapper {
 
-	int boardCount();
+	int boardCount(String type);
 
-	ArrayList<PersonalDTO> PagingList(Map<String, Integer> pagingParams);
+	ArrayList<PersonalDTO> PagingList(Map<String, Object> pagingParams);
 
 	void personalWriteProc(PersonalDTO personalDTO);
 
