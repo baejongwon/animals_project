@@ -107,9 +107,9 @@ public class InfoBoardController {
 			String replaceContent = originalContent.replace("\r\n","<br>");
 			comment.setContent(replaceContent);
 		}
-		
-		int commentCount = commentService.getCount(postNo);
-
+		String type = "info";
+		int commentCount = commentService.getCount(postNo,type);
+		model.addAttribute("type",type);
 		model.addAttribute("board", board);
 		model.addAttribute("comments",comments);
 		model.addAttribute("paging",page);
@@ -148,17 +148,6 @@ public class InfoBoardController {
 		return "redirect:infoBoard";
 	}
 
-	// 댓글 작성
-	@PostMapping("/addComment")
-	public String addComment(@RequestParam("postNo") int postNo, @RequestParam("content") String content,
-			HttpSession session, @RequestParam("parentNo") int parentNo) {
-		String sessionID = (String) session.getAttribute("id");
-		if(sessionID == null) {
-			return "redirect:login";
-		}
-		commentService.addComment(postNo,content,sessionID,parentNo);
-		
-		return "redirect:/infoBoardContent?postNo=" + postNo;
-	}
+	
 	
 }

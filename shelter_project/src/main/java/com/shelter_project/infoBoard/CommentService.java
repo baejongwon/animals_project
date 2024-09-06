@@ -24,7 +24,7 @@ public class CommentService {
 	@Autowired CommentMapper mapper;
 	@Autowired HttpSession session; 
 
-	public void addComment(int postNo, String content, String sessionID, int parentNo) {
+	public void addComment(int postNo, String content, String sessionID, int parentNo, String type) {
 		CommentDTO comment = new CommentDTO();
 		int orderNumber;
 		
@@ -34,9 +34,8 @@ public class CommentService {
 		if(parentNo != 0) {
 			orderNumber = mapper.getOrderNumber(parentNo);
 		}else {
-			orderNumber = mapper.getMaxOrderNumber(postNo) + 1;
+			orderNumber = mapper.getMaxOrderNumber(postNo,type) + 1;
 		}
-		
 		comment.setPostNo(postNo);
 		comment.setContent(content);
 		comment.setAuthor(sessionID);
@@ -45,7 +44,6 @@ public class CommentService {
 		comment.setParentNo(parentNo);
 		comment.setOrderNumber(orderNumber);
 		
-		System.out.println(parentNo);
 		mapper.addComment(comment);
 	}
 
@@ -53,8 +51,8 @@ public class CommentService {
 		return mapper.getComments(postNo);
 	}
 
-	public int getCount(int postNo) {
-		return mapper.getCount(postNo);
+	public int getCount(int postNo, String type) {
+		return mapper.getCount(postNo,type);
 	}
 
 	public void deleteComment(int commentNo) {
@@ -64,6 +62,34 @@ public class CommentService {
 
 	public void updateComment(int commentNo, String content) {
 		mapper.updateComment(commentNo,content);
+	}
+
+	public void addPerComment(Integer animal_no, String content, String sessionID, int parentNo, String type) {
+		CommentDTO comment = new CommentDTO();
+		int orderNumber;
+		
+		LocalDate createdDate = LocalDate.now();
+		LocalDate updatedDate = null;
+		
+		if(parentNo != 0) {
+			orderNumber = mapper.getOrderNumber(parentNo);
+		}else {
+			orderNumber = mapper.getMaxOrderNumber(animal_no,type) + 1;
+		}
+		comment.setAnimal_no(animal_no);
+		comment.setContent(content);
+		comment.setAuthor(sessionID);
+		comment.setCreatedDate(createdDate);
+		comment.setUpdatedDate(updatedDate);
+		comment.setParentNo(parentNo);
+		comment.setOrderNumber(orderNumber);
+		
+		mapper.addPerComment(comment);
+		
+	}
+
+	public List<CommentDTO> getPerComments(int animal_no) {
+		return mapper.getPerComments(animal_no);
 	}
 
 }

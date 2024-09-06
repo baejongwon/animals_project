@@ -225,4 +225,8 @@ public class PersonalService {
 	public void personalDelete(int animal_no) {
 		mapper.personalDelete(animal_no);
 	}
+
+	public List<PersonalDTO> getMainContent() {
+		return mapper.getMainContent();
+	}
 }

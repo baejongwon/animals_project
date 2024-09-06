@@ -17,14 +17,22 @@ public interface CommentMapper {
 
 	List<CommentDTO> getComments(int postNo);
 
-	int getCount(int postNo);
+	int getCount(int no, String type);
 
-	int getMaxOrderNumber(int postNo);
+	int getMaxOrderNumber(int no, String type);
 
 	int getOrderNumber(int parentNo);
 
 	void deleteComment(int commentNo);
 
 	void updateComment(int commentNo, String content);
+
+	List<CommentDTO> getPerComments(int animal_no);
+
+	void addPerComment(CommentDTO comment);
+
+	int getPerOrderNumber(int parentNo);
+
+	int getPerMaxOrderNumber(Integer animal_no);
 
 }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.shelter_project.PageDTO;
+import com.shelter_project.infoBoard.CommentDTO;
+import com.shelter_project.infoBoard.CommentService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
@@ -33,6 +35,7 @@ public class PersonalController {
 	
 	@Autowired PersonalService personalService;
 	@Autowired HttpSession session;
+	@Autowired CommentService commentService;
 	
 	@GetMapping("/personalBoards")
 	private String personalBoards(Model model,
@@ -84,6 +87,15 @@ public class PersonalController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page){
 		PersonalDTO board = personalService.personalContent(no);
 		
+		List<CommentDTO> comments = commentService.getPerComments(no);
+		for(CommentDTO comment : comments) {
+			String originalContent = comment.getContent();
+			String replaceContent = originalContent.replace("\r\n","<br>");
+			comment.setContent(replaceContent);
+		}
+		String type = "per";
+		int commentCount = commentService.getCount(no,type);
+		
 		Map<Integer,List<String>> ImagesMap = new HashMap<>();
 		
 		List<String> images = personalService.animalImg(no);
@@ -96,9 +108,12 @@ public class PersonalController {
 		
 		ImagesMap.put(board.getAnimal_no(), imageNames);
 		
+		model.addAttribute("type",type);
 		model.addAttribute("board",board);
 		model.addAttribute("paging",page);
 		model.addAttribute("ImagesMap",ImagesMap);
+		model.addAttribute("commentCount",commentCount);
+		model.addAttribute("comments",comments);
 		return "personal/personalContent";
 	}
 	@GetMapping("/personalModify")
@@ -120,6 +135,7 @@ public class PersonalController {
 		personalService.personalDelete(animal_no);
 		return "redirect:/personalBoards";
 	}
+	
 }
 
 	

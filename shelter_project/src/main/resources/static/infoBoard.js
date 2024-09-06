@@ -15,10 +15,14 @@ function deleteCheck() {
 	    }
 	}
 	
-	function deleteComment(commentNo,postNo){
+	function deleteComment(commentNo,no,type){
 		var result = confirm('진짜로 삭제하겠습니까?');
 		if (result == true) {
-			location.href = 'deleteComment?postNo='+ postNo +'&commentNo=' + commentNo;
+			if(type==='info'){
+				location.href = 'deleteComment?no='+ no +'&commentNo=' + commentNo + '&type=' + type;
+			} else if(type==='per'){
+				location.href = 'deleteComment?no='+ no +'&commentNo=' + commentNo + '&type=' + type;
+			}
 		}
 	}
 
@@ -36,7 +40,7 @@ function deleteCheck() {
 	    cancelButton.style.display = 'none';
 	}
 	
-	function modifyComment(commentNo, content) {
+	function modifyComment(commentNo, content, type) {
 	    var commentText = document.getElementById("commentText-" + commentNo);
 	    var modifyButton = document.getElementById("modifyButton-" + commentNo);
 
@@ -60,7 +64,7 @@ function deleteCheck() {
 	    submitButton.className = "btn-n";
 	    submitButton.textContent = "수정";
 	    submitButton.onclick = function() {
-	        updateComment(commentNo, textarea.value);
+	        updateComment(commentNo, textarea.value, type);
 	    };
 	    // 취소 버튼 생성
 	    var cancelButton = document.createElement("button");
@@ -82,9 +86,19 @@ function deleteCheck() {
 	    modifyButton.style.display = "none";
 	}
 
-	function updateComment(commentNo, content) {
-	    var postNo = document.getElementById("postNo").value;
-	    var encodedContent = encodeURIComponent(content); 
+	function updateComment(commentNo, content, type) {
+	      var encodedContent = encodeURIComponent(content); 
+	      var no;
+		    if (type === 'info') {
+		        no = document.getElementById("postNo").value;
+		    } else if (type === 'per') {
+		        no = document.getElementById("animal_no").value;
+		    }
+	 
+		    if (no) {
+		        location.href = 'updateComment?no=' + no + '&commentNo=' + commentNo + '&content=' + encodedContent + '&type='+ type; 
+		    } else {
+		        console.log('에러입니다.');
+		    }
 	    
-	    location.href = 'updateComment?postNo=' + postNo + '&commentNo=' + commentNo + '&Content=' + encodedContent;
 	}

@@ -33,8 +33,9 @@
 
 		<!-- 댓글 작성 폼 -->
 		<form action="addComment" method="POST">
-			<input type="hidden" name="postNo" value="${board.postNo}" /> <input
-				type="hidden" name="parentNo" value="0" />
+			<input type="hidden" name="postNo" value="${board.postNo}" /> 
+			<input type="hidden" name="parentNo" value="0" />
+			<input type="hidden" name="type" value="info" />
 			<div class="form-group" style="margin-top: 20px;">
 				<textarea name="content" class="form-control"
 					placeholder="댓글을 입력하세요" required onclick="showButton()"
@@ -61,9 +62,9 @@
 									onclick="showReplyForm(${comment.commentNo})">답글</button>
 								<c:if test="${sessionScope.id eq comment.author }">
 									<button type="button" class="btn-s " id="modifyButton-${comment.commentNo}"
-										onclick="modifyComment(${comment.commentNo},'${comment.content}')">수정</button>
+										onclick="modifyComment(${comment.commentNo},'${comment.content}','${type}')">수정</button>
 									<button type="button" class="btn-s "
-										onclick="deleteComment(${comment.commentNo},${board.postNo})">삭제</button>
+										onclick="deleteComment(${comment.commentNo},${board.postNo},'${type}')">삭제</button>
 								</c:if>
 							</p>
 							<p id="commentText-${comment.commentNo}" class="light-text">${comment.content}</p>
@@ -77,9 +78,9 @@
 										<strong>${reply.author}</strong> <small>${reply.createdDate}</small>
 										<c:if test="${sessionScope.id eq reply.author }">
 											<button type="button" class="btn-s" id="modifyButton-${reply.commentNo}"
-												onclick="modifyComment(${reply.commentNo},'${reply.content}')">수정</button>
+												onclick="modifyComment(${reply.commentNo},'${reply.content}','${type}')">수정</button>
 											<button type="button" class="btn-s"
-												onclick="deleteComment(${reply.commentNo},${board.postNo})">삭제</button>
+												onclick="deleteComment(${reply.commentNo},${board.postNo},'${type}')">삭제</button>
 										</c:if>
 									</p>
 									<p id="commentText-${reply.commentNo}" class="light-text">${reply.content}</p>
@@ -91,8 +92,8 @@
 							style="display: none; margin-left: 20px; margin-top: 20px;">
 							<form action="addComment" method="POST">
 								<input type="hidden" name="postNo" value="${comment.postNo}" />
-								<input type="hidden" name="parentNo"
-									value="${comment.commentNo}" />
+								<input type="hidden" name="parentNo" value="${comment.commentNo}" />
+								<input type="hidden" name="type" value="info" />
 								<div class="form-group">
 									<textarea name="content" class="form-control"
 										placeholder="답글을 입력하세요" required></textarea>

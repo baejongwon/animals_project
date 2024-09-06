@@ -40,6 +40,10 @@
 		select image_no from personal_images where ANIMAL_NO = #{animal_no}
 	</select>
 	
+	<select id="getMainContent">
+		select * from personal where rownum between 1 and 4
+	</select>
+	
 	<update id="personalModifyProc">
 		update personal set
 		nm = #{nm},

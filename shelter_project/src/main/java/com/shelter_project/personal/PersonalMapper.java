@@ -37,5 +37,7 @@ public interface PersonalMapper {
 
 	void personalDelete(int animal_no);
 
+	List<PersonalDTO> getMainContent();
+
 
 }
