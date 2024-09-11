@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shelter_project.PageDTO;
+import com.shelter_project.personal.PersonalDTO;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -32,26 +33,16 @@ public class CenterController {
 	@GetMapping("/adoption")
 	public String adoption(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "type", required = false, defaultValue = "all") String type) throws Exception {
+			@RequestParam(value = "type", required = false, defaultValue = "all") String type,
+			String searchColumn, String keyword) throws Exception {
 		
 		List<CenterDTO> boards;
 		PageDTO pageDTO;
 
 		Map<Integer, String> firstImagesMap = new HashMap<>();
 		
-		if(type == null || type.equals("all")) {
-			 boards = centerService.getAllBoards(page);
-			 pageDTO = centerService.pagingParam(type,page);
-		} else if(type.equals("DOG")){
-			boards = centerService.getDogBoards(page);
-			pageDTO = centerService.pagingParam(type,page);
-		} else if( type.equals("CAT")){
-			boards = centerService.getCatBoards(page);
-			pageDTO = centerService.pagingParam(type,page);
-		} else {
-			boards = centerService.getAllBoards(page);
-			pageDTO = centerService.pagingParam(type,page);
-		}
+		boards = centerService.getBoards(page,type);
+		pageDTO = centerService.pagingParam(page,type,searchColumn,keyword);
 		
 		
 		for(CenterDTO board : boards) {
@@ -61,7 +52,6 @@ public class CenterController {
 				String firstImage = images.get(0);
 				firstImagesMap.put(board.getAnimal_no(),firstImage);
 			}
-			
 		}
 	
 		model.addAttribute("type",type);
@@ -98,7 +88,31 @@ public class CenterController {
 		return "center/adoptionDetail";
 	}
 	
-	
+	@PostMapping("centerSearch")
+	public String perSearch(String type,String searchColumn, String keyword,Model model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		List<CenterDTO> boards = centerService.centerSearch(searchColumn, keyword,page);
+		
+		Map<Integer, String> firstImagesMap = new HashMap<>();
+		Map<Integer,String> imagePathMap = new HashMap<>();
+		PageDTO pageDTO = centerService.pagingParam(page,type,searchColumn,keyword);
+		
+		for(CenterDTO board : boards) {
+			List<String> images = centerService.animalImg(board.getAnimal_no());
+
+			if(!images.isEmpty()) {
+				String firstImage = images.get(0);
+				firstImagesMap.put(board.getAnimal_no(),firstImage);
+			}
+			
+		}
+		
+		model.addAttribute("firstImagesMap",firstImagesMap);
+		model.addAttribute("boards",boards);
+		model.addAttribute("paging",pageDTO);
+		
+		return "center/adoption";
+	}
 }
 
 	

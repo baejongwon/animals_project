@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.shelter_project.PageDTO;
 import com.shelter_project.center.CenterDTO;
+import com.shelter_project.infoBoard.InfoBoardDTO;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
@@ -53,9 +54,15 @@ public class PersonalService {
 		return boards;
 	}
 	
-	public PageDTO pagingParam(int page, String type) {
+	public PageDTO pagingParam(int page, String type, String searchColumn, String keyword) {
 		 // 전체 글 갯수 조회
-        int boardCount = mapper.boardCount(type);
+        int boardCount;
+        
+        if(searchColumn != null && keyword != null && keyword != "") {
+			boardCount = mapper.getSearchCount(searchColumn, keyword);
+		}else {
+			boardCount = mapper.boardCount(type);
+		}
         
         // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
         int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
@@ -229,5 +236,21 @@ public class PersonalService {
 
 	public List<PersonalDTO> getMainContent() {
 		return mapper.getMainContent();
+	}
+
+	public List<PersonalDTO> perSearch(String searchColumn, String keyword, int page) {
+		int pagingStart = (page-1) * pageLimit;
+		Map<String, Object> pagingParams = new HashMap<>();
+		pagingParams.put("start", pagingStart);
+		pagingParams.put("limit", pageLimit);
+		pagingParams.put("searchColumn", searchColumn);
+		pagingParams.put("keyword", keyword);
+		
+		return mapper.perSearch(pagingParams);
+	}
+
+	public int getSearchCount(String searchColumn, String keyword) {
+		int count = mapper.getSearchCount(searchColumn,keyword);
+		return count;
 	}
 }

@@ -27,13 +27,16 @@ public interface CenterMapper {
 
 	void updateImgData(CenterImgDTO centerImgDTO);
 
-	ArrayList<CenterDTO> allPagingList(Map<String, Integer> pagingParams);
-	ArrayList<CenterDTO> catPagingList(Map<String, Integer> pagingParams);
-	ArrayList<CenterDTO> dogPagingList(Map<String, Integer> pagingParams);
+	ArrayList<CenterDTO> PagingList(Map<String, Object> pagingParams);
 	
 	int boardCount(@Param("type") String type);
 
-	CenterDTO allBoards();
+
+	List<CenterDTO> centerSearch(Map<String, Object> pagingParams);
+
+	int getSearchCount(String searchColumn, String keyword);
+
+	
 
 	
 

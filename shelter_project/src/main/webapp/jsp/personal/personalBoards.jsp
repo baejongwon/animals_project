@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:import url="/header" />
 <link rel="stylesheet" href="center.css">
+<link rel="stylesheet" href="infoBoard.css">
+
 <script>
 	
 </script>
@@ -22,8 +24,27 @@
 			<button class="button button1" onclick="location.href='personalBoards?type=cat'">고양이</button>
 			<button class="button button1" onclick="location.href='personalBoards?type=etc'">기타</button>
 	</div>
-
-
+<div class="table-utility">
+	<div class="right">
+				<form action="perSearch" id="searchList" class="post-search" method="post">
+					<fieldset>
+						<legend>게시물검색</legend>
+						<label for="searchColumn" class="blind">검색구분 선택</label> 
+						<select	class="form-control" id="searchColumn"  name="searchColumn" title="검색구분 선택">
+							<option value="nm" selected="selected">이름</option>
+							<option value="breeds">품종</option>
+						</select>
+						<div class="wrap">
+							<label class="blind" for="keyword">검색어 입력</label>
+							<input name="keyword" id="keyword" name="keyword" class="form-control w-lg" maxlength="50" title="검색어 입력" placeholder="검색어를 입력하세요">
+							<button class="btn" id="searchButton">
+								<span id="search_button">검색</span>
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			</div>
 	<div class="board-container">
 		<c:forEach var="board" items="${boards}" varStatus="status">
 			<div class="board-item">
@@ -37,7 +58,7 @@
 						<div class="animal-no">${board.animal_no}</div>
 						<a href="personalContent?no=${board.animal_no}&page=${paging.page}" class="nm">${board.nm}</a>
 					</div>
-					<div class="entrance-date">${board.time}</div>
+					<div class="entrance-date">${board.author} | ${board.time}</div>
 				</div>
 			</div>
 		</c:forEach>

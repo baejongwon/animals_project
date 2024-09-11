@@ -4,7 +4,7 @@
 <div class="footer">
 	<div class="footer_top">
 		<div class="footer_logo">
-			<a href="#"><img src="img/logo.png" alt="footer_logo"></a>
+			<a href="index"><img src="img/logo.png" alt="footer_logo"></a>
 		</div>
 	</div>
 	<div class="footer_in2">

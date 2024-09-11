@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.shelter_project.PageDTO;
 import com.shelter_project.infoBoard.CommentDTO;
 import com.shelter_project.infoBoard.CommentService;
+import com.shelter_project.infoBoard.InfoBoardDTO;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
@@ -40,7 +41,8 @@ public class PersonalController {
 	@GetMapping("/personalBoards")
 	private String personalBoards(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "type", required = false, defaultValue = "all") String type) throws Exception {
+			@RequestParam(value = "type", required = false, defaultValue = "all") String type,
+			String searchColumn, String keyword) throws Exception {
 		
 		List<PersonalDTO> boards;
 		PageDTO pageDTO;
@@ -58,7 +60,7 @@ public class PersonalController {
 			}
 		}
 		
-		pageDTO = personalService.pagingParam(page,type);
+		pageDTO = personalService.pagingParam(page,type,searchColumn,keyword);
 		
 		model.addAttribute("type",type);
 		model.addAttribute("boards",boards);
@@ -138,6 +140,30 @@ public class PersonalController {
 		return "redirect:/personalBoards";
 	}
 	
+	@PostMapping("perSearch")
+	public String perSearch(String type,String searchColumn, String keyword,Model model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		List<PersonalDTO> boards = personalService.perSearch(searchColumn, keyword,page);
+		
+		PageDTO pageDTO = personalService.pagingParam(page,type,searchColumn,keyword);
+		Map<Integer,String> imagePathMap = new HashMap<>();
+		
+		for(PersonalDTO board : boards) {
+			List<String> images = personalService.animalImg(board.getAnimal_no());
+			
+			if(!images.isEmpty()) {
+				String[] parts = images.get(0).split("\\\\");
+				String imagePath = parts[12]+"/"+parts[13];
+				imagePathMap.put(board.getAnimal_no(), imagePath);
+			}
+		}
+		
+		model.addAttribute("imagePathMap",imagePathMap);
+		model.addAttribute("boards",boards);
+		model.addAttribute("paging",pageDTO);
+		
+		return "personal/personalBoards";
+	}
 }
 
 	

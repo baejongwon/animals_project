@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shelter_project.center.CenterDTO;
+import com.shelter_project.infoBoard.InfoBoardDTO;
 
 @Mapper
 public interface PersonalMapper {
@@ -38,6 +39,10 @@ public interface PersonalMapper {
 	void personalDelete(int animal_no);
 
 	List<PersonalDTO> getMainContent();
+
+	int getSearchCount(String searchColumn, String keyword);
+
+	List<PersonalDTO> perSearch(Map<String, Object> pagingParams);
 
 
 }

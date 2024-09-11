@@ -67,7 +67,7 @@
 						<tbody><tr>
 							<td style="padding-top:5px; width:250px; line-height:18px;" align="left">
 								<span style="color:#f39a68; font:11px '돋움';">${board.animal_no}</span>
-								<a href="bbs_detail.php?bbs_num=130&amp;id=&amp;tb=board_bestseller"> </a><a href="personalContent?no=${board.animal_no}">${board.nm}</a> 
+								<a href="bbs_detail.php?bbs_num=130&amp;id=&amp;tb=board_bestseller"> </a><a href="personalContent?no=${board.animal_no}" style="color:#000">${board.nm}</a> 
 							</td>
 						</tr>
 						<tr>
@@ -90,7 +90,7 @@
 		</tr></tbody></table>
 			
 		  </div>
-	<a href="#"><div class="more">더 보기 + </div></a>
+	<a href="personalBoards"><div class="more">더 보기 + </div></a>
 	
 	<div class="bottomBanner" style="width: 1200px; margin: 0 auto; margin-top: 60px; ">
 		<img src="../img/banner1.jpg" alt="banner_1">

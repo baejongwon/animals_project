@@ -76,4 +76,42 @@
 	<delete id="personalDelete">
 		delete from personal where animal_no = #{animal_no}
 	</delete>
+	
+	<select id="perSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
+		SELECT * FROM (
+        SELECT c.*, ROW_NUMBER() OVER (ORDER BY animal_no DESC) AS rnum
+        FROM personal c
+        <where>
+        	<if test="searchColumn != null and keyword != null and keyword != ''">
+        		 <choose>
+        		 	<when test="searchColumn == 'nm'">
+        		 		 AND c.nm LIKE '%' || #{keyword} || '%'
+        		 	</when>
+        		 	
+                     <otherwise>
+                        AND c.breeds LIKE '%' || #{keyword} || '%'
+                    </otherwise>
+        		 </choose>
+        	</if>
+        </where> 
+   	 	)
+   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
+	</select>
+	
+	<select id="getSearchCount">
+		select count(*) from personal 
+		<where>
+        	<if test="searchColumn != null and keyword != null and keyword != ''">
+        		 <choose>
+        		 	<when test="searchColumn == 'nm'">
+        		 		 AND nm LIKE '%' || #{keyword} || '%'
+        		 	</when>
+                    
+                     <otherwise>
+                        AND breeds LIKE '%' || #{keyword} || '%'
+                    </otherwise>
+        		 </choose>
+        	</if>
+        </where> 
+	</select>
 </mapper>

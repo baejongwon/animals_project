@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import com.shelter_project.PageDTO;
+import com.shelter_project.personal.PersonalDTO;
 
 @Service
 public class CenterService {
@@ -43,7 +44,7 @@ public class CenterService {
         getAdoptionImgData();
     }
     
-	public List<CenterDTO> getAdoptionData(int page) throws IOException {
+	public void getAdoptionData(int page) throws IOException {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /*URL*/
 		urlBuilder.append("/" +  URLEncoder.encode(dataApiKey,"UTF-8") ); /*인증키 (sample사용시에는 호출시 제한됩니다.)*/
 		urlBuilder.append("/" +  URLEncoder.encode("json","UTF-8") ); /*요청파일타입 (xml,xmlf,xls,json) */
@@ -74,20 +75,6 @@ public class CenterService {
 		conn.disconnect();
 				
 		String jsonResponse = sb.toString();
-		
-		/*
-//		 * 1페이지 
-//		 * 1 => 1~12
-//		 * 2 => 13~24
-//		 * 3 => 25~36
-//		 * 4 => 37~48
-//		 * */
-
-		int pagingStart = (page-1) * pageLimit;
-		Map<String, Integer> pagingParams = new HashMap<>();
-		pagingParams.put("start", pagingStart);
-		pagingParams.put("limit", pageLimit);
-		ArrayList<CenterDTO> boards = mapper.allPagingList(pagingParams);
 		
 		
 		// JSON 파싱
@@ -126,7 +113,6 @@ public class CenterService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return boards;
 	}
 
 
@@ -205,53 +191,28 @@ public class CenterService {
 		return mapper.getImg(animal_no);
 	}
 
-	public List<CenterDTO> getAllBoards(int page) {
-		
-		/*
-//		 * 1페이지 
-//		 * 1 => 1~12
-//		 * 2 => 13~24
-//		 * 3 => 25~36
-//		 * 4 => 37~48
-//		 * */
-
+	public List<CenterDTO> getBoards(int page, String type) {
 		int pagingStart = (page-1) * pageLimit;
-		Map<String, Integer> pagingParams = new HashMap<>();
+		Map<String, Object> pagingParams = new HashMap<>();
 		pagingParams.put("start", pagingStart);
 		pagingParams.put("limit", pageLimit);
-		ArrayList<CenterDTO> boards = mapper.allPagingList(pagingParams);
+		pagingParams.put("type",type);
+		
+		ArrayList<CenterDTO> boards = mapper.PagingList(pagingParams);
 		
 		return boards;
 	}
 
-
-	public List<CenterDTO> getDogBoards(int page) {
-
-		int pagingStart = (page-1) * pageLimit;
-		Map<String, Integer> pagingParams = new HashMap<>();
-		pagingParams.put("start", pagingStart);
-		pagingParams.put("limit", pageLimit);
-		ArrayList<CenterDTO> boards = mapper.dogPagingList(pagingParams);
-		
-		return boards;
-	}
-
-
-	public List<CenterDTO> getCatBoards(int page) {
-
-		int pagingStart = (page-1) * pageLimit;
-		Map<String, Integer> pagingParams = new HashMap<>();
-		pagingParams.put("start", pagingStart);
-		pagingParams.put("limit", pageLimit);
-		ArrayList<CenterDTO> boards = mapper.catPagingList(pagingParams);
-		
-		return boards;
-	}
-
-
-	public PageDTO pagingParam(String type, int page) {
+	public PageDTO pagingParam(int page, String type, String searchColumn, String keyword) {
 		 // 전체 글 갯수 조회
-        int boardCount = mapper.boardCount(type);
+        int boardCount;
+        
+        if(searchColumn != null && keyword != null && keyword != "") {
+			boardCount = mapper.getSearchCount(searchColumn, keyword);
+		}else {
+			boardCount = mapper.boardCount(type);
+		}
+        
         // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
         int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
         // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
@@ -267,6 +228,17 @@ public class CenterService {
         pageDTO.setStartPage(startPage);
         pageDTO.setEndPage(endPage);
         return pageDTO;
+	}
+
+	public List<CenterDTO> centerSearch(String searchColumn, String keyword, int page) {
+		int pagingStart = (page-1) * pageLimit;
+		Map<String, Object> pagingParams = new HashMap<>();
+		pagingParams.put("start", pagingStart);
+		pagingParams.put("limit", pageLimit);
+		pagingParams.put("searchColumn", searchColumn);
+		pagingParams.put("keyword", keyword);
+		
+		return mapper.centerSearch(pagingParams);
 	} 
 
 
