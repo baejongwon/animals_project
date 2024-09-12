@@ -48,14 +48,13 @@ public class PersonalService {
 	@Autowired HttpSession session; 
 	
 	//s3에 이미지 추가
-	private String bucketName = "kglibrary2"; // S3 버킷 이름
+	private String bucketName = "dogcatgohome"; // S3 버킷 이름
 	private String s3FilePath = "static/img/"; // S3에 업로드할 경로
 
 	@Autowired
 	private S3Client s3Client; // AWS S3 클라이언트 주입
 	
-	//String basePath = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\";
-	String basePath = "kglibrary2/";
+	String basePath = "dogcatgohome/";
 
 	int pageLimit = 12; // 한 페이지당 보여줄 글 갯수
 	int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
@@ -283,6 +282,11 @@ public class PersonalService {
 	}
 
 	public void personalDelete(int animal_no) {
+		List<String> getImgs = mapper.getImg(animal_no);
+		for(String getImg : getImgs) {
+				String s3Delete = getImg.replace("https://" + bucketName + ".s3.amazonaws.com/", "");
+				deleteS3Object(bucketName, s3Delete); // S3에서 이미지 삭제	
+		}
 		mapper.personalDelete(animal_no);
 	}
 
