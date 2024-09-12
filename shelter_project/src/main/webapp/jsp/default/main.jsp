@@ -56,7 +56,7 @@
 					<td style="width:250px;" valign="top">
 						<table cellspacing="0">
 						<tbody><tr>
-							<td style="padding:3px; border:1px solid #efefef;" bgcolor="#FFFFFF" ><a href="personalContent?no=${board.animal_no}"><img src="img/ITS/${imagePathMap[board.animal_no] }" align="absmiddle" border="0" width="250" height="200" style="border-radius: 10px 10px;"></a></td>
+							<td style="padding:3px; border:1px solid #efefef;" bgcolor="#FFFFFF" ><a href="personalContent?no=${board.animal_no}"><img src="${imagePathMap[board.animal_no] }" align="absmiddle" border="0" width="250" height="200" style="border-radius: 10px 10px;"></a></td>
 						</tr>
 						</tbody></table>
 					</td>

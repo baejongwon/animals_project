@@ -3,6 +3,7 @@ package com.shelter_project.personal;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,16 +34,32 @@ import com.shelter_project.infoBoard.InfoBoardDTO;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
 public class PersonalService {
 
 	@Autowired PersonalMapper mapper;
 	@Autowired HttpSession session; 
+	
+	//s3에 이미지 추가
+	private String bucketName = "kglibrary2"; // S3 버킷 이름
+	private String s3FilePath = "static/img/"; // S3에 업로드할 경로
+
+	@Autowired
+	private S3Client s3Client; // AWS S3 클라이언트 주입
+	
+	//String basePath = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\";
+	String basePath = "kglibrary2/";
 
 	int pageLimit = 12; // 한 페이지당 보여줄 글 갯수
 	int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
-	String basePath = "C:\\Users\\jongwon\\git\\animals_project\\shelter_project\\src\\main\\resources\\static\\img\\ITS\\";
+	
 	public List<PersonalDTO> getBoards(int page, String type) {
 		int pagingStart = (page-1) * pageLimit;
 		Map<String, Object> pagingParams = new HashMap<>();
@@ -109,27 +127,41 @@ public class PersonalService {
 		int animalNo = personalDTO.getAnimal_no();
 		List<MultipartFile> images = multi.getFiles("images");
 		
+		 
 		for(MultipartFile image : images) {
 			if(!image.isEmpty()) {
 				String fileName = image.getOriginalFilename();
-				String path = basePath +sessionID + "\\" + fileName;
+	            String uniqueFileName = UUID.randomUUID().toString() + "_" + fileName;
+				String s3key = s3FilePath + sessionID + "/" + uniqueFileName;
+				String contentType = image.getContentType(); 
 				
-				
-				try {
-					File dest = new File(path);
-					if(!dest.getParentFile().exists()) {
-						dest.getParentFile().mkdir();
-					}
-					image.transferTo(dest); //이미지 폴더에 저장
-					PersonalImagesDTO imagesDTO = new PersonalImagesDTO();
-					imagesDTO.setAnimal_no(animalNo);
-					imagesDTO.setImage_path(path);
+		        try (InputStream fileInputStream = image.getInputStream()) {
+		            // S3에 업로드할 파일의 크기
+		            long fileSize = image.getSize();	           
+		            
+		            // S3에 업로드할 객체 생성
+		            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+		                    .bucket(bucketName)
+		                    .key(s3key)
+		                    .contentType(contentType) 
+		                    .contentDisposition("inline")
+		                    .build();
 
-					mapper.insertPersonalImages(imagesDTO);
-					
-				}catch (IOException e) {
-	                e.printStackTrace();
-	            }
+		            // S3에 파일 업로드
+		            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(fileInputStream, fileSize));
+		            
+		            String imageUrl = "https://" + bucketName + ".s3.amazonaws.com/" + s3key;
+
+		            PersonalImagesDTO imagesDTO = new PersonalImagesDTO();
+		            imagesDTO.setAnimal_no(animalNo);
+		            imagesDTO.setImage_path(imageUrl);
+		            
+		            mapper.insertPersonalImages(imagesDTO);
+		            
+		        }catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		        
 			}
 		}
 	}
@@ -176,56 +208,76 @@ public class PersonalService {
 		// 기존 이미지 가져오기
 		List<String> getImgs = mapper.getImg(animal_no);
 		// 새로 업로드 된 이미지
-		List<MultipartFile> images = multi.getFiles("images");
+		List<MultipartFile> newImages = multi.getFiles("images");
 		// 기존 이미지와 새로운 이미지 비교
-		if(!images.isEmpty() && images.get(0).getSize()>0) { //이미지 첨부 x 일떄 실행 x
+		if(!newImages.isEmpty() && newImages.get(0).getSize()>0) { //이미지 있을 때만 실행
 			
-			List<String> newImage = new ArrayList<>();
-			for(MultipartFile image : images) {
-				if(!image.isEmpty()) {
-					String fileName = image.getOriginalFilename();
-					String path = basePath +sessionID + "\\" + fileName;
-					newImage.add(path);
-				}
-			}
-			
-			for(String getImg : getImgs) {
-				if(!newImage.contains(getImg)) {
-					mapper.deleteImage(getImg,animal_no);
-					File fileDelete = new File(getImg);
-						if(fileDelete.exists()) {
-							fileDelete.delete();
+			List<String> newImageURls = new ArrayList<>();
+			for(MultipartFile newImage : newImages) {
+				if(!newImage.isEmpty()) {
+					String fileName = newImage.getOriginalFilename();
+	                String uniqueFileName = UUID.randomUUID().toString() + "_" + fileName;
+					String s3key = s3FilePath + sessionID + "/" + uniqueFileName;
+					String contentType = newImage.getContentType(); 
+					
+					
+					//s3에서 파일 존재 확인
+					boolean fileExistsInS3 = S3ImgExist(bucketName, s3key);
+					
+					if(fileExistsInS3) {
+						for(String getImg : getImgs) {
+							mapper.deleteImage(getImg,animal_no);
 						}
-				}
-			}
-		}
-		// 새로운 이미지 추가 및 저장
-		for(MultipartFile image : images) {
-			if(!image.isEmpty()) {
-				String fileName = image.getOriginalFilename();
-				String path = basePath +sessionID + "\\" + fileName;
+						deleteS3Object(bucketName, s3key);
+					}
 				
-				if(!getImgs.contains(path)) {
-					try {
-						File dest = new File(path);
-						if(!dest.getParentFile().exists()) {
-							dest.getParentFile().mkdir();
-						}
-						image.transferTo(dest); //이미지 폴더에 저장
-						PersonalImagesDTO imagesDTO = new PersonalImagesDTO();
-						imagesDTO.setAnimal_no(animal_no);
-						imagesDTO.setImage_path(path);
-						
-						mapper.insertPersonalImages(imagesDTO);
-						
+					try(InputStream fileInputStream = newImage.getInputStream()){
+						long fileSize = newImage.getSize();	           
+						 PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+		                            .bucket(bucketName)
+		                            .key(s3key)
+		                            .contentType(contentType)
+		                            .contentDisposition("inline")
+		                            .build();
+						 s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(fileInputStream, fileSize));
+						 String newimageUrl = "https://" + bucketName + ".s3.amazonaws.com/" + s3key;
+						 newImageURls.add(newimageUrl);
+						 
+						 PersonalImagesDTO imagesDTO = new PersonalImagesDTO();
+				         imagesDTO.setAnimal_no(animal_no);
+				         imagesDTO.setImage_path(newimageUrl);
+				         mapper.insertPersonalImages(imagesDTO);
+				          
 					}catch (IOException e) {
-		                e.printStackTrace();
-		            }
+	                    e.printStackTrace();
+	                }
+				}
+			}
+			//새 이미지 목록에 없는 기존 이미지는 삭제 처리
+			for(String getImg : getImgs) {
+				if(!newImageURls.contains(getImg)) {
+					mapper.deleteImage(getImg,animal_no);
+					String s3Delete = getImg.replace("https://" + bucketName + ".s3.amazonaws.com/", "");
+					deleteS3Object(bucketName, s3Delete); // S3에서 이미지 삭제
 				}
 			}
 		}	
 	}
 
+	// 이미지 존재 여부 확인 
+	private boolean S3ImgExist(String bucketName, String s3key) {
+	    try {
+	        s3Client.headObject(HeadObjectRequest.builder().bucket(bucketName).key(s3key).build());
+	        return true; // 객체가 존재함
+	    } catch (NoSuchKeyException e) {
+	        return false; // 객체가 존재하지 않음
+	    }
+	}
+	// 이미지 삭제
+	private void deleteS3Object(String bucketName, String s3key) {
+	    s3Client.deleteObject(DeleteObjectRequest.builder().bucket(bucketName).key(s3key).build());
+	}
+	
 	public List<Integer> getImageNo(int animal_no) {
 		return mapper.getImageNo(animal_no);
 	}

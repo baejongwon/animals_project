@@ -39,9 +39,7 @@ public class HomeController {
 			List<String> images = personalService.animalImg(board.getAnimal_no());
 			
 			if(!images.isEmpty()) {
-				String[] parts = images.get(0).split("\\\\");
-				String imagePath = parts[12]+"/"+parts[13];
-				imagePathMap.put(board.getAnimal_no(), imagePath);
+				imagePathMap.put(board.getAnimal_no(), images.get(0));
 			}
 		}
 		model.addAttribute("imagePathMap",imagePathMap);

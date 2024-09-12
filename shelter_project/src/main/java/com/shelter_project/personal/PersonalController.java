@@ -52,11 +52,8 @@ public class PersonalController {
 		
 		for(PersonalDTO board : boards) {
 			List<String> images = personalService.animalImg(board.getAnimal_no());
-			
 			if(!images.isEmpty()) {
-				String[] parts = images.get(0).split("\\\\");
-				String imagePath = parts[12]+"/"+parts[13];
-				imagePathMap.put(board.getAnimal_no(), imagePath);
+				imagePathMap.put(board.getAnimal_no(), images.get(0));
 			}
 		}
 		
@@ -105,9 +102,7 @@ public class PersonalController {
 		List<String> images = personalService.animalImg(no);
 		List<String> imageNames = new ArrayList<>();
 		for(String image : images) {
-			String[] parts = image.split("\\\\");
-			 String imagePath = parts[12] + "/" + parts[13];
-			 imageNames.add(imagePath);
+			 imageNames.add(image);
 		}
 		
 		ImagesMap.put(board.getAnimal_no(), imageNames);

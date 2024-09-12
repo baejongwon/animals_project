@@ -49,7 +49,7 @@
 		<c:forEach var="board" items="${boards}" varStatus="status">
 			<div class="board-item">
 				<div class="board-image">
-					<a href="personalContent?no=${board.animal_no}&page=${paging.page}"> <img src="/img/ITS/${imagePathMap[board.animal_no] }"
+					<a href="personalContent?no=${board.animal_no}&page=${paging.page}"> <img src="${imagePathMap[board.animal_no] }"
 						alt="Animal Image" loading="lazy">
 					</a>
 				</div>

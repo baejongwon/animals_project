@@ -16,7 +16,7 @@
                 <div class="swiper-wrapper">
                     <c:forEach var="image" items="${ImagesMap[board.animal_no]}">
                         <div class="swiper-slide">
-                            <img src="img/ITS/${image}" alt="Animal Image">
+                            <img src="${image}" alt="Animal Image">
                         </div>
                     </c:forEach>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="swiper-wrapper">
                     <c:forEach var="image" items="${ImagesMap[board.animal_no]}">
                         <div class="swiper-slide">
-                            <img src="img/ITS/${image}" alt="Animal Image Thumbnail">
+                            <img src="${image}" alt="Animal Image Thumbnail">
                         </div>
                     </c:forEach>
                 </div>
