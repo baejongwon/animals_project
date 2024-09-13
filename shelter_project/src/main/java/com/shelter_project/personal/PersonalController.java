@@ -6,11 +6,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.shelter_project.PageDTO;
@@ -38,7 +40,7 @@ public class PersonalController {
 	@Autowired HttpSession session;
 	@Autowired CommentService commentService;
 	
-	@GetMapping("/personalBoards")
+	@GetMapping("personalBoards")
 	private String personalBoards(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "type", required = false, defaultValue = "all") String type,
@@ -66,7 +68,7 @@ public class PersonalController {
 		return "personal/personalBoards";
 	}
 	
-	@GetMapping("/personalWrite")
+	@GetMapping("personalWrite")
 	private String personalWrite() {
 		
 		String sessionID = (String) session.getAttribute("id");
@@ -77,13 +79,13 @@ public class PersonalController {
 		return "personal/personalWrite";
 	}
 	
-	@PostMapping("/personalWriteProc")
+	@PostMapping("personalWriteProc")
 	private String personalWriteProc(MultipartHttpServletRequest multi) {
 		personalService.personalWriteProc(multi);
 		return "redirect:/personalBoards";
 	}
 	
-	@GetMapping("/personalContent")
+	@GetMapping("personalContent")
 	private String personalContent(Model model,int no,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page){
 		PersonalDTO board = personalService.personalContent(no);
@@ -115,21 +117,21 @@ public class PersonalController {
 		model.addAttribute("comments",comments);
 		return "personal/personalContent";
 	}
-	@GetMapping("/personalModify")
+	@GetMapping("personalModify")
 	private String personalModify(Model model,@RequestParam("animal_no") int animal_no) {
 		PersonalDTO board = personalService.personalModify(animal_no);
 		model.addAttribute("board", board);
 		return "personal/personalModify";
 	}
 	
-	@PostMapping("/personalModifyProc")
+	@PostMapping("personalModifyProc")
 	private String personalModifyProc(MultipartHttpServletRequest multi, int animal_no) {
 		
 		personalService.personalModifyProc(multi,animal_no);
 		return "redirect:/personalBoards";
 	}
 	
-	@GetMapping("/personalDelete")
+	@GetMapping("personalDelete")
 	private String personalDelete(int animal_no) {
 		personalService.personalDelete(animal_no);
 		return "redirect:/personalBoards";
@@ -147,9 +149,7 @@ public class PersonalController {
 			List<String> images = personalService.animalImg(board.getAnimal_no());
 			
 			if(!images.isEmpty()) {
-				String[] parts = images.get(0).split("\\\\");
-				String imagePath = parts[12]+"/"+parts[13];
-				imagePathMap.put(board.getAnimal_no(), imagePath);
+				imagePathMap.put(board.getAnimal_no(), images.get(0));
 			}
 		}
 		
@@ -159,6 +159,23 @@ public class PersonalController {
 		
 		return "personal/personalBoards";
 	}
+	
+	@PostMapping("personal/addImageBlobHook")
+	public ResponseEntity<Map<String, String>> addImageBlobHook(@RequestParam("image") MultipartFile image) {
+		String imagePath = personalService.saveImage(image);
+
+		if (imagePath != null) {
+			Map<String, String> response = new HashMap<>();
+
+			// 서버에서 반환된 imagePath (sessionID + fileName)를 클라이언트로 전달
+			response.put("imagePath", imagePath);
+
+			return ResponseEntity.ok(response);
+		} else {
+			return ResponseEntity.status(500).build();
+		}
+	}
+	
 }
 
 	

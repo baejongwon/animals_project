@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /*
+ 오라클
  create table infoBoard(
 	postNo number PRIMARY KEY,
 	title VARCHAR2(255) not null,
@@ -20,6 +21,23 @@ import java.util.List;
     comments VARCHAR2(255)
     )
     CREATE SEQUENCE postNo_seq START WITH 1 INCREMENT BY 1 NOCACHE;
+    
+    마리아
+    CREATE TABLE infoBoard (
+    postNo INT PRIMARY KEY AUTO_INCREMENT, 
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL, 
+    author VARCHAR(100) NOT NULL,  
+    category VARCHAR(100) NOT NULL, 
+    createdDate DATE NOT NULL,  
+    updatedDate DATE,  
+    likeCount INT DEFAULT 0, 
+    viewCount INT DEFAULT 0,
+    fileName VARCHAR(255),
+    fileUrl VARCHAR(1000),
+    comments VARCHAR(255)
+);
+
  * */
 
 public class InfoBoardDTO {

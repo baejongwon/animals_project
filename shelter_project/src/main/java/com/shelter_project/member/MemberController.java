@@ -41,21 +41,21 @@ public class MemberController {
 	private String redirectUri;
 
 	// 로그인
-	@GetMapping("/login")
+	@GetMapping("login")
 	public String login(Model model) {
 		model.addAttribute("kakaoApiKey", kakaoAPI);
 		model.addAttribute("redirectUri", redirectUri);
 		return "member/login";
 	}
 
-	@GetMapping("/login/kakao")
+	@GetMapping("login/kakao")
 	public String kakaoLogin(String code) {
 		kakaoService.getAccessToken(code);
 		kakaoService.getUserInfo();
 		return "redirect:/index";
 	}
 
-	@GetMapping("/logout")
+	@GetMapping("logout")
 	public String logout() {
 		String accessToken = (String) session.getAttribute("accessToken");
 		if (accessToken != null) {
@@ -71,7 +71,7 @@ public class MemberController {
 	}
 
 	// 로그인 검증
-	@PostMapping("/loginProc")
+	@PostMapping("loginProc")
 	public String loginProc(@RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
 
 		String msg = MemberService.loginProc(id, pw);
@@ -84,12 +84,12 @@ public class MemberController {
 	}
 
 	// 회원가입
-	@GetMapping("/regist")
+	@GetMapping("regist")
 	public String regist() {
 		return "member/regist";
 	}
 
-	@PostMapping("/registerProc")
+	@PostMapping("registerProc")
 	public String registProc(MemberDTO member, @RequestParam("sample6_postcode") String postcode,
 			@RequestParam("sample6_address") String address,
 			@RequestParam("sample6_detailAddress") String detailAddress,
@@ -114,7 +114,7 @@ public class MemberController {
 	}
 
 	// 전화번호 인증
-	@PostMapping("/sendSms")
+	@PostMapping("sendSms")
 	@ResponseBody
 	public String sendSms(@RequestParam("tel") String tel) {
 		String msg = "";
@@ -133,12 +133,12 @@ public class MemberController {
 		return msg;
 	}
 
-	@GetMapping("/mypage")
+	@GetMapping("mypage")
 	public String mypage() {
 		return "member/mypage";
 	}
 	//프로필 관리
-	@GetMapping("/profileManage")
+	@GetMapping("profileManage")
 	public String profileManage(Model model) {
 		
 		String sessionID = (String) session.getAttribute("id");
@@ -164,7 +164,7 @@ public class MemberController {
 		return "member/profileManage";
 	}
 	//정보 업데이트
-	@PostMapping("/updateProc")
+	@PostMapping("updateProc")
 	public String updateProc(MemberDTO member, @RequestParam("sample6_postcode") String postcode,
 			@RequestParam("sample6_address") String address,
 			@RequestParam("sample6_detailAddress") String detailAddress) {

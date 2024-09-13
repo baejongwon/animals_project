@@ -14,6 +14,16 @@ animal_no number,
 image_path VARCHAR2(1000),
 FOREIGN key (animal_no) REFERENCES personal(animal_no) on delete CASCADE);
 CREATE SEQUENCE image_no_seq START WITH 1 INCREMENT BY 1 NOCACHE;
+
+마리아db
+CREATE TABLE personal_images (
+  image_no INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  animal_no INT,
+  image_path VARCHAR(1000),
+  FOREIGN KEY (animal_no) REFERENCES personal(animal_no) ON DELETE CASCADE
+);
+
+
  */
 public class PersonalImagesDTO {
 	private int image_no;

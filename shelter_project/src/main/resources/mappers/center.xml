@@ -5,115 +5,111 @@
 
 <mapper namespace="com.shelter_project.center.CenterMapper">
 
-	<insert id="insertData"
-		parameterType="com.shelter_project.center.CenterDTO">
-		insert into center
-		values(#{animal_no},#{nm},#{entrnc_date},#{spcs},#{breeds},#{sexdstn},#{age},#{bdwgh},#{adp_sttus},#{tmpr_prtc_sttus},#{intrcn_mvp_url},#{intrcn_cn},#{tmpr_prtc_cn})
-	</insert>
+    <insert id="insertData"
+        parameterType="com.shelter_project.center.CenterDTO">
+        insert into center
+        values(#{animal_no},#{nm},#{entrnc_date},#{spcs},#{breeds},#{sexdstn},#{age},#{bdwgh},#{adp_sttus},#{tmpr_prtc_sttus},#{intrcn_mvp_url},#{intrcn_cn},#{tmpr_prtc_cn})
+    </insert>
 
-	<insert id="insertImgData"
-		parameterType="com.shelter_project.center.CenterImgDTO">
-		insert into center_img
-		values(#{animal_no},#{photoKnd},#{photoNo},#{photoUrl})
-	</insert>
+    <insert id="insertImgData"
+        parameterType="com.shelter_project.center.CenterImgDTO">
+        insert into center_img
+        values(#{animal_no},#{photoKnd},#{photoNo},#{photoUrl})
+    </insert>
 
-	<select id="checkData">
-		select * from center where animal_no = #{animal_no}
-	</select>
+    <select id="checkData">
+        select * from center where animal_no = #{animal_no}
+    </select>
 
-	<select id="checkImgData">
-		select * from center_img where animal_no = #{animal_no} and PHOTO_NO = #{photoNo}
-	</select>
+    <select id="checkImgData">
+        select * from center_img where animal_no = #{animal_no} and photo_no = #{photoNo}
+    </select>
 
-	<update id="updateData">
-		update center
-		set
-		nm = #{nm},
-		entrnc_date = #{entrnc_date},
-		spcs = #{spcs},
-		breeds = #{breeds},
-		sexdstn = #{sexdstn},
-		age = #{age},
-		bdwgh = #{bdwgh},
-		adp_sttus = #{adp_sttus},
-		tmpr_prtc_sttus = #{tmpr_prtc_sttus},
-		intrcn_mvp_url = #{intrcn_mvp_url},
-		intrcn_cn = #{intrcn_cn},
-		tmpr_prtc_cn = #{tmpr_prtc_cn}
-		WHERE animal_no = #{animal_no}
-	</update>
+    <update id="updateData">
+        update center
+        set
+        nm = #{nm},
+        entrnc_date = #{entrnc_date},
+        spcs = #{spcs},
+        breeds = #{breeds},
+        sexdstn = #{sexdstn},
+        age = #{age},
+        bdwgh = #{bdwgh},
+        adp_sttus = #{adp_sttus},
+        tmpr_prtc_sttus = #{tmpr_prtc_sttus},
+        intrcn_mvp_url = #{intrcn_mvp_url},
+        intrcn_cn = #{intrcn_cn},
+        tmpr_prtc_cn = #{tmpr_prtc_cn}
+        WHERE animal_no = #{animal_no}
+    </update>
 
-	<update id="updateImgData">
-		update center_img
-		set
-		PHOTO_KND =#{photoKnd},
-		PHOTO_NO = #{photoNo},
-		PHOTO_URL = #{photoUrl}
-		WHERE animal_no = #{animal_no} and PHOTO_NO = #{photoNo}
-	</update>
+    <update id="updateImgData">
+        update center_img
+        set
+        photo_knd = #{photoKnd},
+        photo_no = #{photoNo},
+        photo_url = #{photoUrl}
+        WHERE animal_no = #{animal_no} and photo_no = #{photoNo}
+    </update>
 
-	<select id="getImg" resultType="String">
-		select PHOTO_URL from CENTER_IMG where ANIMAL_NO = #{animal_no}
-	</select>
-		
-	<select id="PagingList" parameterType="java.util.HashMap"  resultType="com.shelter_project.center.CenterDTO">
-		SELECT * FROM (
-        SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
-        FROM center c
-         <where>
+    <select id="getImg" resultType="String">
+        select photo_url from center_img where animal_no = #{animal_no}
+    </select>
+        
+    <select id="PagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
+        SELECT * FROM center c
+        <where>
             <if test="type != 'all'">
                 AND c.spcs = #{type}
             </if>
         </where>
-   	 	)
-   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit} order by entrnc_date desc
-	</select>
-	
-	<select id="boardCount">
-		select count(animal_no) from center
-		<where>
+        ORDER BY animal_no DESC
+        LIMIT #{limit} OFFSET #{start}
+    </select>
+    
+    <select id="boardCount">
+        select count(animal_no) from center
+        <where>
         <if test="type != null and type != 'all'">
             spcs = #{type}
         </if>
        </where>
-		
-	</select>
+        
+    </select>
 
-	<select id="centerSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
-		SELECT * FROM (
-        SELECT c.*, ROW_NUMBER() OVER (ORDER BY animal_no DESC) AS rnum
-        FROM center c
+    <select id="centerSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.center.CenterDTO">
+        SELECT * FROM center c
         <where>
-        	<if test="searchColumn != null and keyword != null and keyword != ''">
-        		 <choose>
-        		 	<when test="searchColumn == 'nm'">
-        		 		 AND c.nm LIKE '%' || #{keyword} || '%'
-        		 	</when>
-        		 	
-                     <otherwise>
-                        AND c.breeds LIKE '%' || #{keyword} || '%'
-                    </otherwise>
-        		 </choose>
-        	</if>
-        </where> 
-   	 	)
-   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
-	</select>
-	
-	<select id="getSearchCount">
-		select count(*) from center 
-		<where>
-        	<if test="searchColumn != null and keyword != null and keyword != ''">
-        		 <choose>
-        		 	<when test="searchColumn == 'nm'">
-        		 		 AND nm LIKE '%' || #{keyword} || '%'
-        		 	</when>
+            <if test="searchColumn != null and keyword != null and keyword != ''">
+                 <choose>
+                    <when test="searchColumn == 'nm'">
+                         AND c.nm LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
                     
                      <otherwise>
-                        AND breeds LIKE '%' || #{keyword} || '%'
+                        AND c.breeds LIKE CONCAT('%', #{keyword}, '%')
                     </otherwise>
-        		 </choose>
-        	</if>
+                 </choose>
+            </if>
+        </where>
+        ORDER BY animal_no DESC
+        LIMIT #{limit} OFFSET #{start}
+    </select>
+    
+    <select id="getSearchCount">
+        select count(*) from center 
+        <where>
+            <if test="searchColumn != null and keyword != null and keyword != ''">
+                 <choose>
+                    <when test="searchColumn == 'nm'">
+                         AND nm LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    
+                     <otherwise>
+                        AND breeds LIKE CONCAT('%', #{keyword}, '%')
+                    </otherwise>
+                 </choose>
+            </if>
         </where> 
-	</select>
+    </select>
 </mapper>

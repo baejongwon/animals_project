@@ -15,7 +15,7 @@ public class CommentController {
 	CommentService commentService;
 	
 	// 댓글 작성
-		@PostMapping("/addComment")
+		@PostMapping("addComment")
 		public String addComment(@RequestParam(value = "postNo", required = false) Integer postNo, @RequestParam("content") String content,
 				HttpSession session, @RequestParam("parentNo") int parentNo,
 				@RequestParam("type") String type, @RequestParam(value = "animal_no", required = false) Integer animal_no) {

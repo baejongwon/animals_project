@@ -6,6 +6,7 @@ import java.util.List;
 
 
 /*
+ 오라클
   CREATE TABLE comments (
     commentNo NUMBER PRIMARY KEY, 
     postNo NUMBER, 
@@ -14,11 +15,27 @@ import java.util.List;
     createdDate date NOT NULL,
     updatedDate date, 
     parentNo NUMBER,
+    ORDERNUMBER NUMBER,
     animal_no number,
     CONSTRAINT FK_POST_INFO FOREIGN KEY (postNo) REFERENCES infoBoard(postNo),
     CONSTRAINT FK_POST_per FOREIGN KEY (animal_no) REFERENCES personal(animal_no)
 );
 	CREATE SEQUENCE comments_seq START WITH 1 INCREMENT BY 1 NOCACHE;
+
+마리아
+CREATE TABLE comments (
+    commentNo INT PRIMARY KEY AUTO_INCREMENT, 
+    postNo INT, 
+    content TEXT NOT NULL, 
+    author VARCHAR(100) NOT NULL, 
+    createdDate DATE NOT NULL,
+    updatedDate DATE, 
+    parentNo INT,
+    ORDERNUMBER INT,
+    animal_no INT,
+    CONSTRAINT FK_POST_INFO FOREIGN KEY (postNo) REFERENCES infoBoard(postNo) ON DELETE CASCADE,
+    CONSTRAINT FK_POST_PER FOREIGN KEY (animal_no) REFERENCES personal(animal_no) ON DELETE CASCADE
+);
 
  */
 public class CommentDTO {

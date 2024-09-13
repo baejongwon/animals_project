@@ -152,6 +152,7 @@ public class PersonalService {
 		            String imageUrl = "https://" + bucketName + ".s3.amazonaws.com/" + s3key;
 
 		            PersonalImagesDTO imagesDTO = new PersonalImagesDTO();
+		            System.out.println("animalNo는??= "+ animalNo);
 		            imagesDTO.setAnimal_no(animalNo);
 		            imagesDTO.setImage_path(imageUrl);
 		            
@@ -308,5 +309,41 @@ public class PersonalService {
 	public int getSearchCount(String searchColumn, String keyword) {
 		int count = mapper.getSearchCount(searchColumn,keyword);
 		return count;
+	}
+
+	public String saveImage(MultipartFile image) {
+		 if (image.isEmpty()) {
+	            return null;
+	        }
+		 	String sessionID = (String)session.getAttribute("id");
+		 	String fileName = image.getOriginalFilename();
+            String uniqueFileName = UUID.randomUUID().toString() + "_" + fileName;
+			String s3key = s3FilePath + sessionID + "/" + uniqueFileName;
+			String contentType = image.getContentType(); 
+			
+		    try (InputStream fileInputStream = image.getInputStream()) {
+	            // S3에 업로드할 파일의 크기
+	            long fileSize = image.getSize();	           
+	            
+	            // S3에 업로드할 객체 생성
+	            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+	                    .bucket(bucketName)
+	                    .key(s3key)
+	                    .contentType(contentType) 
+	                    .contentDisposition("inline")
+	                    .build();
+
+	            // S3에 파일 업로드
+	            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(fileInputStream, fileSize));
+	            
+	            String imageUrl = "https://" + bucketName + ".s3.amazonaws.com/" + s3key;
+
+	            return imageUrl;
+	            
+	        }catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			return null;
+		
 	}
 }

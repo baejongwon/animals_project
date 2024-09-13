@@ -14,19 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shelter_project</name>
 	<description>Demo project for Spring Boot</description>
-	<url />
-	<licenses>
-		<license />
-	</licenses>
-	<developers>
-		<developer />
-	</developers>
-	<scm>
-		<connection />
-		<developerConnection />
-		<tag />
-		<url />
-	</scm>
+	<packaging>war</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -135,13 +123,6 @@
 			<version>4.5.13</version> <!-- 최신 버전으로 변경 가능 -->
 		</dependency>
 
-
-		<dependency>
-			<groupId>com.care</groupId>
-			<artifactId>boot</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
@@ -153,12 +134,7 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.8</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		
+				
 		<dependency>
 		  <groupId>com.github.iamport</groupId>
 		  <artifactId>iamport-rest-client-java</artifactId>

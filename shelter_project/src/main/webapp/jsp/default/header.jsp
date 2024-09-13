@@ -112,14 +112,16 @@
 	<div class="header_menu">
 		<nav class="nav">
 			<ul class="gnb">
-				<li><a href="/personalBoards">개인분양</a>
+				<li><a href="personalBoards">개인분양</a>
+					<!-- 
 					<ul class="sub">
 						<li><a href="#">강아지</a></li>
 						<li><a href="#">고양이</a></li>
 					</ul></li>
-				<li><a href="/adoption">보호센터</a></li>
-				<li><a href="/donate">기부하기</a></li>
-				<li><a href="/infoBoard">지식공유</a>
+					 -->
+				<li><a href="adoption">보호센터</a></li>
+				<li><a href="donate">기부하기</a></li>
+				<li><a href="infoBoard">지식공유</a>
 				<!-- 
 				<li><a href="/notice">고객센터</a>
 					<ul class="sub">

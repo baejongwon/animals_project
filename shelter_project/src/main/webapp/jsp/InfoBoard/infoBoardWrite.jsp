@@ -105,7 +105,7 @@ $(document).ready(function() {
             var data = new FormData();
             data.append("image", file);
             $.ajax({
-                url: '/addImageBlobHook',
+                url: 'infoBoard/addImageBlobHook',
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -116,7 +116,7 @@ $(document).ready(function() {
 
                     if (response.imagePath) {
                     	console.log(response.imagePath);
-                        var imageUrl = '${pageContext.request.contextPath}/img/ITS/' + response.imagePath;
+                        var imageUrl = response.imagePath;
                         
                         $('#summernote').summernote('insertImage', imageUrl, function ($image) {
                             $image.attr('src', imageUrl);

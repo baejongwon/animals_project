@@ -4,114 +4,118 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.shelter_project.personal.PersonalMapper">
-	
-	<select id="PagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
-		SELECT * FROM (
-        SELECT c.*, ROW_NUMBER() OVER (ORDER BY ANIMAL_NO DESC) AS rnum
-        FROM personal c
-         <where>
+    
+    <!-- 페이징 처리: ROW_NUMBER() 대신 LIMIT 사용 -->
+    <select id="PagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
+        SELECT * FROM personal
+        <where>
             <if test="type != 'all'">
-                AND c.spcs = #{type}
+                AND spcs = #{type}
             </if>
         </where>
-   	 	)
-   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit} order by time desc
-	</select>
-	
-	<select id="boardCount">
-		select count(animal_no) from personal
-		<where>
-        <if test="type != null and type != 'all'">
-            spcs = #{type}
-        </if>
-       </where>
-	</select>
-	
-	<insert id="personalWriteProc">
-		<selectKey keyProperty="animal_no" resultType="int" order="BEFORE">
-			select animal_no_seq.nextval from dual
-		</selectKey>
-		insert into personal values(#{animal_no},#{nm},#{spcs},#{breeds},#{sexdstn},#{age},#{bdwgh},#{content},#{time},#{author})
-	</insert>
-	
-	<insert id="insertPersonalImages">
-    INSERT INTO personal_images VALUES (image_no_seq.nextval, #{animal_no}, #{image_path})
-	</insert>
-	
-	<select id="personalContent">
-		select * from personal where animal_no =#{animal_no}
-	</select>
-	
-	<select id="getImg" resultType="String">
-		select image_path from personal_images where ANIMAL_NO = #{animal_no}
-	</select>
-	
-	<select id="getImageNo" resultType="java.lang.Integer">
-		select image_no from personal_images where ANIMAL_NO = #{animal_no}
-	</select>
-	
-	<select id="getMainContent">
-		select * from personal where rownum between 1 and 4
-	</select>
-	
-	<update id="personalModifyProc">
-		update personal set
-		nm = #{nm},
-		spcs = #{spcs},
-		breeds = #{breeds},
-		sexdstn = #{sexdstn},
-		age = #{age},
-		bdwgh = #{bdwgh},
-		content = #{content},
-		time = #{time},
-		author = #{author}
-		where animal_no=#{animal_no} 
-	</update>
-
-	
-	<delete id="deleteImage">
-		delete from personal_images where image_path = #{getImg} and ANIMAL_NO = #{animal_no}
-	</delete>
-	
-	<delete id="personalDelete">
-		delete from personal where animal_no = #{animal_no}
-	</delete>
-	
-	<select id="perSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
-		SELECT * FROM (
-        SELECT c.*, ROW_NUMBER() OVER (ORDER BY animal_no DESC) AS rnum
-        FROM personal c
+        ORDER BY animal_no DESC
+        LIMIT #{start}, #{limit}
+    </select>
+    
+    <select id="boardCount">
+        select count(animal_no) from personal
         <where>
-        	<if test="searchColumn != null and keyword != null and keyword != ''">
-        		 <choose>
-        		 	<when test="searchColumn == 'nm'">
-        		 		 AND c.nm LIKE '%' || #{keyword} || '%'
-        		 	</when>
-        		 	
-                     <otherwise>
-                        AND c.breeds LIKE '%' || #{keyword} || '%'
+            <if test="type != null and type != 'all'">
+                spcs = #{type}
+            </if>
+        </where>
+    </select>
+    
+    <!-- 개인 게시물 등록: AUTO_INCREMENT가 설정된 animal_no는 자동 증가 -->
+    <insert id="personalWriteProc" useGeneratedKeys="true" keyProperty="animal_no">
+        insert into personal (nm, spcs, breeds, sexdstn, age, bdwgh, content, time, author) 
+        values (#{nm}, #{spcs}, #{breeds}, #{sexdstn}, #{age}, #{bdwgh}, #{content}, #{time}, #{author})
+    </insert>
+    
+    <!-- 개인 이미지 등록 -->
+    <insert id="insertPersonalImages">
+        INSERT INTO personal_images (animal_no, image_path) 
+        VALUES (#{animal_no}, #{image_path})
+    </insert>
+    
+    <!-- 특정 animal_no의 게시물 가져오기 -->
+    <select id="personalContent">
+        select * from personal where animal_no = #{animal_no}
+    </select>
+    
+    <!-- 특정 animal_no에 해당하는 이미지 가져오기 -->
+    <select id="getImg" resultType="String">
+        select image_path from personal_images where animal_no = #{animal_no}
+    </select>
+    
+    <!-- 특정 animal_no의 이미지 번호 가져오기 -->
+    <select id="getImageNo" resultType="java.lang.Integer">
+        select image_no from personal_images where animal_no = #{animal_no}
+    </select>
+    
+    <!-- 최근 4개의 게시물 가져오기 -->
+    <select id="getMainContent">
+        select * from personal order by animal_no desc limit 4
+    </select>
+    
+    <!-- 개인 게시물 수정 -->
+    <update id="personalModifyProc">
+        update personal set
+        nm = #{nm},
+        spcs = #{spcs},
+        breeds = #{breeds},
+        sexdstn = #{sexdstn},
+        age = #{age},
+        bdwgh = #{bdwgh},
+        content = #{content},
+        time = #{time},
+        author = #{author}
+        where animal_no=#{animal_no}
+    </update>
+
+    <!-- 이미지 삭제 -->
+    <delete id="deleteImage">
+        delete from personal_images where image_path = #{getImg} and animal_no = #{animal_no}
+    </delete>
+    
+    <!-- 개인 게시물 삭제 -->
+    <delete id="personalDelete">
+        delete from personal where animal_no = #{animal_no}
+    </delete>
+    
+    <!-- 검색 기능: ROW_NUMBER() 대신 LIMIT 사용 -->
+    <select id="perSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
+        SELECT * FROM personal
+        <where>
+            <if test="searchColumn != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="searchColumn == 'nm'">
+                        AND nm LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND breeds LIKE CONCAT('%', #{keyword}, '%')
                     </otherwise>
-        		 </choose>
-        	</if>
-        </where> 
-   	 	)
-   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
-	</select>
-	
-	<select id="getSearchCount">
-		select count(*) from personal 
-		<where>
-        	<if test="searchColumn != null and keyword != null and keyword != ''">
-        		 <choose>
-        		 	<when test="searchColumn == 'nm'">
-        		 		 AND nm LIKE '%' || #{keyword} || '%'
-        		 	</when>
-                    
-                     <otherwise>
-                        AND breeds LIKE '%' || #{keyword} || '%'
+                </choose>
+            </if>
+        </where>
+        ORDER BY animal_no DESC
+        LIMIT #{start}, #{limit}
+    </select>
+    
+    <select id="getSearchCount">
+        select count(*) from personal 
+        <where>
+            <if test="searchColumn != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="searchColumn == 'nm'">
+                        AND nm LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND breeds LIKE CONCAT('%', #{keyword}, '%')
                     </otherwise>
-        		 </choose>
-        	</if>
-        </where> 
-	</select>
+                </choose>
+            </if>
+        </where>
+    </select>
+    
 </mapper>

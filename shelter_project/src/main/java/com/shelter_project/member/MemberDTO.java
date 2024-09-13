@@ -18,11 +18,25 @@ import java.time.LocalDateTime;
  login_type varchar2(20)
  );
  
- CREATE SEQUENCE member_seq
+CREATE SEQUENCE member_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE
 NOCYCLE;
+
+마리아 DB
+CREATE TABLE member (
+  no INT NOT NULL,
+  name VARCHAR(20) NOT NULL,
+  id VARCHAR(20) NOT NULL PRIMARY KEY,
+  pw VARCHAR(100),
+  email VARCHAR(50),
+  tel VARCHAR(20),
+  address VARCHAR(100),
+  login_type VARCHAR(20)
+);
+ALTER TABLE member ADD UNIQUE (no);
+ALTER TABLE member MODIFY COLUMN no INT NOT NULL AUTO_INCREMENT;
 
 */
 public class MemberDTO {

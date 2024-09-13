@@ -284,7 +284,7 @@
 	width: 19px;
 	height: 19px;
 	content: "";
-	background: url("/img/base_sprite.png") no-repeat 0 0;
+	background: url("img/base_sprite.png") no-repeat 0 0;
 	background-position: -308px -80px;
 	display: block;
 	position: relative;
@@ -607,7 +607,7 @@
 	height: 15px;
 	margin-left: 5px;
 	content: "";
-	background: url("/img/base_sprite.png") no-repeat 0 0;
+	background: url("img/base_sprite.png") no-repeat 0 0;
 	background-position: -60px -123px;
 	display: inline-block;
 }
@@ -617,7 +617,7 @@
 	height: 14px;
 	margin-left: 5px;
 	content: "";
-	background: url("/img/base_sprite.png") no-repeat 0 0;
+	background: url("img/base_sprite.png") no-repeat 0 0;
 	background-size: 463px auto;
 	background-position: -56px -114px;
 	display: inline-block;

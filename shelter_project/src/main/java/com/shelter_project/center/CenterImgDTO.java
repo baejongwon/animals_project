@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 /*
+ 오라클
 CREATE TABLE center_img (
     animal_no NUMBER NOT NULL,          
     photo_knd VARCHAR2(50) NOT NULL,    
@@ -13,6 +14,17 @@ CREATE TABLE center_img (
     CONSTRAINT pk_center_img PRIMARY KEY (animal_no, photo_no), 
     CONSTRAINT fk_center_animal_no FOREIGN KEY (animal_no) REFERENCES center(animal_no)
 );
+
+ 마리아
+ CREATE TABLE center_img (
+    animal_no INT NOT NULL,         
+    photo_knd VARCHAR(50) NOT NULL,   
+    photo_no INT NOT NULL,           
+    photo_url VARCHAR(500),            
+    PRIMARY KEY (animal_no, photo_no), 
+    CONSTRAINT fk_center_animal_no FOREIGN KEY (animal_no) REFERENCES center(animal_no)
+);
+
  */
 public class CenterImgDTO {
 	private int animal_no; // 동물번호

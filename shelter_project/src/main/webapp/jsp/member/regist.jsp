@@ -46,7 +46,7 @@
     
     function sendSms() {
         var tel = document.getElementById("tel").value;
-        fetch('/sendSms', {
+        fetch('sendSms', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -63,7 +63,7 @@
     function smsCheck() {
         var tel = document.getElementById("tel").value;
         var confirmNum = document.getElementById("confirmNum").value;
-        fetch('/smsCheck', {
+        fetch('smsCheck', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

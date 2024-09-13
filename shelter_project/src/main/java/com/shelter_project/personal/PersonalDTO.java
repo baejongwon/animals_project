@@ -22,6 +22,21 @@ animal_no number PRIMARY key,
 )
  );
   CREATE SEQUENCE animal_no_seq START WITH 1 INCREMENT BY 1 NOCACHE;
+  
+  마리아DB버전
+  CREATE TABLE personal (
+  animal_no INT NOT NULL PRIMARY KEY,
+  nm VARCHAR(100),
+  spcs VARCHAR(100),
+  breeds VARCHAR(100),
+  sexdstn VARCHAR(20),
+  age VARCHAR(20),
+  bdwgh VARCHAR(20),
+  content TEXT, 
+  time DATE,
+  author VARCHAR(100)
+);
+ALTER TABLE personal MODIFY COLUMN animal_no INT NOT NULL AUTO_INCREMENT;
  */
 public class PersonalDTO {
 	private int animal_no; // 동물번호

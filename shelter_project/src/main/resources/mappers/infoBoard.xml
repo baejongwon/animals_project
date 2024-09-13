@@ -4,84 +4,81 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.shelter_project.infoBoard.InfoBoardMapper">
-		
-	<select id="getInfoBoards" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
-		SELECT * FROM (
-        SELECT c.*, ROW_NUMBER() OVER (ORDER BY postNo DESC) AS rnum
-        FROM infoBoard c
-   	 	)
-   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
-	</select>	
-	<select id="boardCount">
-		select count(*) from infoBoard
-	</select>
-	
-	<insert id="insertBoard">
-    insert into infoBoard
-    values (postNo_seq.nextval, #{title}, #{content}, #{author}, #{category}, #{createdDate}, #{createdDate}, 0, 0, 0, 0, 0)
-	</insert>
-	
-	<select id="getContent">
-		select * from infoBoard where postNo = #{postNo}
-	</select>
-	
-	<update id="ViewCount">
-		update infoBoard set viewCount=viewCount+1 where postNo = #{postNo}
-	</update>
-	
-	<update id="updateBoard">
-		update infoBoard set title=#{title}, content=#{content}, category=#{category},updatedDate=#{updatedDate} where postNo = #{postNo}
-	</update>
-	
-	<delete id="deleteBoard">
-		delete from infoBoard where postNo=#{postNo}
-	</delete>
-	
-	<select id="infoSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
-		SELECT * FROM (
-        SELECT c.*, ROW_NUMBER() OVER (ORDER BY postNo DESC) AS rnum
-        FROM infoBoard c
+    
+    <!-- 페이징 처리 시 ROW_NUMBER 대신 MariaDB의 LIMIT 사용 -->
+    <select id="getInfoBoards" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
+        SELECT * 
+        FROM infoBoard
+        ORDER BY postNo DESC
+        LIMIT #{start}, #{limit}
+    </select>
+
+    <select id="boardCount">
+        select count(*) from infoBoard
+    </select>
+
+    <!-- 시퀀스 대신 AUTO_INCREMENT로 대체 -->
+    <insert id="insertBoard">
+        insert into infoBoard (title, content, author, category, createdDate, updatedDate, likeCount, viewCount, comments, fileName, fileUrl)
+        values (#{title}, #{content}, #{author}, #{category}, #{createdDate}, #{createdDate}, 0, 0, 0, 0, 0)
+    </insert>
+
+    <select id="getContent">
+        select * from infoBoard where postNo = #{postNo}
+    </select>
+
+    <update id="ViewCount">
+        update infoBoard set viewCount = viewCount + 1 where postNo = #{postNo}
+    </update>
+
+    <update id="updateBoard">
+        update infoBoard set title = #{title}, content = #{content}, category = #{category}, updatedDate = #{updatedDate} where postNo = #{postNo}
+    </update>
+
+    <delete id="deleteBoard">
+        delete from infoBoard where postNo = #{postNo}
+    </delete>
+
+    <!-- 검색 기능에서 조건 처리 -->
+    <select id="infoSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.infoBoard.InfoBoardDTO">
+        SELECT * 
+        FROM infoBoard
         <where>
-        	<if test="searchColumn != null and keyword != null and keyword != ''">
-        		 <choose>
-        		 	<when test="searchColumn == 'title'">
-        		 		 AND c.title LIKE '%' || #{keyword} || '%'
-        		 	</when>
-        		 	
-        		 	 <when test="searchColumn == 'author'">
-                        AND c.author LIKE '%' || #{keyword} || '%'
+            <if test="searchColumn != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="searchColumn == 'title'">
+                        AND title LIKE CONCAT('%', #{keyword}, '%')
                     </when>
-                    
-                     <otherwise>
-                        AND c.content LIKE '%' || #{keyword} || '%'
-                    </otherwise>
-                    
-        		 </choose>
-        	</if>
-        </where> 
-   	 	)
-   		 WHERE rnum BETWEEN #{start} + 1 AND #{start} + #{limit}
-	</select>
-	
-	<select id="getSearchCount">
-		select count(*) from infoBoard 
-		<where>
-        	<if test="searchColumn != null and keyword != null and keyword != ''">
-        		 <choose>
-        		 	<when test="searchColumn == 'title'">
-        		 		 AND title LIKE '%' || #{keyword} || '%'
-        		 	</when>
-        		 	
-        		 	 <when test="searchColumn == 'author'">
-                        AND author LIKE '%' || #{keyword} || '%'
+                    <when test="searchColumn == 'author'">
+                        AND author LIKE CONCAT('%', #{keyword}, '%')
                     </when>
-                    
-                     <otherwise>
-                        AND content LIKE '%' || #{keyword} || '%'
+                    <otherwise>
+                        AND content LIKE CONCAT('%', #{keyword}, '%')
                     </otherwise>
-                    
-        		 </choose>
-        	</if>
-        </where> 
-	</select>
+                </choose>
+            </if>
+        </where>
+        ORDER BY postNo DESC
+        LIMIT #{start}, #{limit}
+    </select>
+
+    <select id="getSearchCount">
+        select count(*) from infoBoard 
+        <where>
+            <if test="searchColumn != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="searchColumn == 'title'">
+                        AND title LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <when test="searchColumn == 'author'">
+                        AND author LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND content LIKE CONCAT('%', #{keyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </select>
+
 </mapper>

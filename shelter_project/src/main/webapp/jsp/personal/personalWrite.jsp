@@ -212,7 +212,7 @@ $(document).ready(function() {
             var data = new FormData();
             data.append("image", file);
             $.ajax({
-                url: '/addImageBlobHook',
+                url: 'personal/addImageBlobHook',
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -223,7 +223,7 @@ $(document).ready(function() {
 
                     // 서버가 JSON 형식으로 응답한다고 가정
                     if (response.imagePath) {
-                        var imageUrl = '${pageContext.request.contextPath}/img/ITS/' + response.imagePath;
+                        var imageUrl = response.imagePath;
                         
                         $('#summernote').summernote('insertImage', imageUrl, function ($image) {
                             $image.attr('src', imageUrl);

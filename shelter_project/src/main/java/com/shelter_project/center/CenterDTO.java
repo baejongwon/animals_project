@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 /*
+ 오라클
  create table center(
  animal_no number not null,
  nm varchar2(100),
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
  spcs varchar2(100),
  breeds varchar2(100),
  sexdstn varchar2(20),
- age varchar2(20),
+ age varchar2(25),
  bdwgh varchar2(20),
  adp_sttus varchar2(20),
  tmpr_prtc_sttus varchar2(20),
@@ -23,6 +24,25 @@ import org.springframework.stereotype.Service;
  
  ALTER TABLE center
  ADD CONSTRAINT pk_center_animal_no PRIMARY KEY (animal_no);
+ 
+ 마리아
+ CREATE TABLE center (
+  animal_no INT NOT NULL,
+  nm VARCHAR(100),
+  entrnc_date VARCHAR(20),
+  spcs VARCHAR(100),
+  breeds VARCHAR(100),
+  sexdstn VARCHAR(20),
+  age VARCHAR(25),
+  bdwgh VARCHAR(20),
+  adp_sttus VARCHAR(20),
+  tmpr_prtc_sttus VARCHAR(20),
+  intrcn_mvp_url VARCHAR(200),
+  intrcn_cn LONGTEXT,
+  tmpr_prtc_cn LONGTEXT,
+  PRIMARY KEY (animal_no)
+);
+
  */
 public class CenterDTO {
 	private int animal_no; // 동물번호

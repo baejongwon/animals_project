@@ -30,7 +30,7 @@ public class CenterController {
 	
 	@Autowired CenterService centerService;
 	
-	@GetMapping("/adoption")
+	@GetMapping("adoption")
 	public String adoption(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "type", required = false, defaultValue = "all") String type,
@@ -62,7 +62,7 @@ public class CenterController {
 		return "center/adoption";
 	}
 	
-	@GetMapping("/adoptionDetail")
+	@GetMapping("adoptionDetail")
 	public String adoptionDetail(Model model,int no) {
 		
 		CenterDTO board = centerService.adoptionDetail(no);

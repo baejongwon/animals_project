@@ -14,7 +14,7 @@
 	function KGpay() {
 		$.ajax({
 			type:'GET',
-			url:'/getContributor',
+			url:'getContributor',
 			success:function(user){
 				const Amount = document
 				.querySelector('input[name="donation-amount"]:checked').value;
@@ -68,7 +68,7 @@
 	<div class="donation-container">
 
 		<div class="left_box">
-			<img src="/img/dog_donate.png" alt="dog_image">
+			<img src="img/dog_donate.png" alt="dog_image">
 		</div>
 		<div class="donation-info">
 			<p class="donation-text">
@@ -102,7 +102,7 @@
 			</div>
 		</div>
 		<div class="right_box">
-			<img src="/img/cat_donate.png" alt="dog_image">
+			<img src="img/cat_donate.png" alt="dog_image">
 		</div>
 	</div>
 </div>

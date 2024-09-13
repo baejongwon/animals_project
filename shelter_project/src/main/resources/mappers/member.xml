@@ -5,24 +5,30 @@
 
 <mapper namespace="com.shelter_project.member.MemberMapper">
 
-	<select id="checkId" resultType="com.shelter_project.member.MemberDTO">
-		SELECT * FROM member WHERE id=#{id}
-	</select>
-	
-	<insert id="registPro">
-		insert into member values(member_seq.nextval, #{name}, #{id}, #{pw}, #{email}, #{tel}, #{address},#{login_type})
-	</insert>
+    <!-- ID로 멤버 정보 조회 -->
+    <select id="checkId" resultType="com.shelter_project.member.MemberDTO">
+        SELECT * FROM member WHERE id=#{id}
+    </select>
+    
+    <!-- 회원 등록-->
+    <insert id="registPro">
+        insert into member (name, id, pw, email, tel, address, login_type) 
+        values (#{name}, #{id}, #{pw}, #{email}, #{tel}, #{address}, #{login_type})
+    </insert>
 
-	<update id="updatePro_local">
-		update member set pw=#{pw}, name=#{name}, email=#{email}, tel=#{tel}, address=#{address} where id=#{id}
-	</update>
-	
-	<update id="updatePro_kakao">
-		update member set name=#{name}, email=#{email}, tel=#{tel}, address=#{address} where id=#{id}
-	</update>
-	
-	<insert id="kakaoRegist">
-		INSERT INTO member (no, name, id, email, login_type) VALUES (member_seq.nextval, #{name}, #{id}, #{email}, #{login_type})
-	</insert>
-	
+    <!-- 회원 정보 수정 -->
+    <update id="updatePro_local">
+        update member set pw=#{pw}, name=#{name}, email=#{email}, tel=#{tel}, address=#{address} where id=#{id}
+    </update>
+    
+    <!-- 카카오 회원 정보 수정 -->
+    <update id="updatePro_kakao">
+        update member set name=#{name}, email=#{email}, tel=#{tel}, address=#{address} where id=#{id}
+    </update>
+    
+    <!-- 카카오 회원 등록 -->
+    <insert id="kakaoRegist">
+        INSERT INTO member (name, id, email, login_type) VALUES (#{name}, #{id}, #{email}, #{login_type})
+    </insert>
+
 </mapper>

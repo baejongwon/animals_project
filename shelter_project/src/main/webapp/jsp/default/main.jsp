@@ -93,7 +93,7 @@
 	<a href="personalBoards"><div class="more">더 보기 + </div></a>
 	
 	<div class="bottomBanner" style="width: 1200px; margin: 0 auto; margin-top: 60px; ">
-		<img src="../img/banner1.jpg" alt="banner_1">
+		<img src="img/banner1.jpg" alt="banner_1">
 	</div>
 	
 		<!--동물 사전-->
@@ -107,16 +107,16 @@
 		<div class="animal_info">
 		<ul class="">
 			<li>
-				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁1.jpg" title=""></a></div>
+				<div class="photo"><a href="infoBoard"><img class="img_left" src="img/tip1.jpg" title=""></a></div>
 			</li>
 			<li>
-				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁2.jpg" title=""></a></div>
+				<div class="photo"><a href="infoBoard"><img class="img_left" src="img/tip2.jpg" title=""></a></div>
 			</li>
 			<li>
-				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁3.jpg" title=""></a></div>
+				<div class="photo"><a href="infoBoard"><img class="img_left" src="img/tip3.jpg" title=""></a></div>
 			</li>
 			<li>
-				<div class="photo"><a href="/infoBoard"><img class="img_left" src="../img/팁4.jpg" title=""></a></div>
+				<div class="photo"><a href="infoBoard"><img class="img_left" src="img/tip4.jpg" title=""></a></div>
 			</li>
 		</ul>
 		</div>
