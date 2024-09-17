@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shelter_project.likes.LikeDTO;
+
 @Mapper
 public interface CenterMapper {
 
@@ -35,6 +37,8 @@ public interface CenterMapper {
 	List<CenterDTO> centerSearch(Map<String, Object> pagingParams);
 
 	int getSearchCount(String searchColumn, String keyword);
+
+	Integer like_check(LikeDTO likeDTO);
 
 	
 

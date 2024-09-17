@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import com.shelter_project.PageDTO;
+import com.shelter_project.likes.LikeDTO;
 import com.shelter_project.personal.PersonalDTO;
 
 @Service
@@ -241,8 +242,17 @@ public class CenterService {
 		pagingParams.put("keyword", keyword);
 		
 		return mapper.centerSearch(pagingParams);
-	} 
+	}
 
+	public Integer like_check(String sessionID, int no, String type) {
+		
+		LikeDTO likeDTO = new LikeDTO();
+		likeDTO.setMember_id(sessionID);
+		likeDTO.setPost_no(no);
+		likeDTO.setPost_type(type);
+		
+		return mapper.like_check(likeDTO);
+	} 
 
 
 

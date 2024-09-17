@@ -50,13 +50,13 @@
 				});
 			},
 			error: function(error) {
-				alert("구매자 정보를 가져오는 데 실패했습니다.");
+				alert("로그인 후 후원이 가능합니다.");
 			}
 		});
 	}
 </script>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/3a5blWov.jpg');background-position: 0 54%;">
 	<div>
 		<h1>Donate</h1>
 		<p>후원 하기</p>

@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.shelter_project.PageDTO;
 import com.shelter_project.center.CenterDTO;
 import com.shelter_project.infoBoard.InfoBoardDTO;
+import com.shelter_project.likes.LikeDTO;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
@@ -345,5 +346,15 @@ public class PersonalService {
 	        }
 			return null;
 		
+	}
+
+	public Integer like_check(String sessionID, int no, String type) {
+		
+		LikeDTO likeDTO = new LikeDTO();
+		likeDTO.setMember_id(sessionID);
+		likeDTO.setPost_no(no);
+		likeDTO.setPost_type(type);
+		
+		return mapper.like_check(likeDTO);
 	}
 }

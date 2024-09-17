@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.shelter_project.likes.LikeDTO;
+
 @Mapper
 public interface InfoBoardMapper {
 
@@ -31,5 +33,7 @@ public interface InfoBoardMapper {
 	List<InfoBoardDTO> infoSearch(Map<String, Object> pagingParams);
 
 	int getSearchCount(String searchColumn, String keyword);
+
+	Integer like_check(LikeDTO likeDTO);
 
 }

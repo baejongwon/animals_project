@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="infoBoard.css">
 <script src="infoBoard.js"></script>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/7001287-sweet-cat.jpg');background-position: 0 57%;">
 	<div>
 		<h1>Information</h1>
 		<p>반려동물 지식 나눔</p>
@@ -23,6 +23,9 @@
 				<ul class="info">
 					<li class="first"><strong>작성일</strong>${board.createdDate }</li>
 					<li class="last"><strong>조회수</strong>${board.viewCount }</li>
+					<li class="last"><strong>좋아요</strong>
+						<img id="likeImg" src="img/Like_button.png" alt="like button" style="width: 15px;margin-top: 5px;cursor: pointer;">
+					</li>
 				</ul>
 			</div>
 			<div class="content" id="viewer">
@@ -124,5 +127,83 @@
 
 	</div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	const likeImg = document.getElementById("likeImg");
+	let isLike = false;
+	const postNo = ${board.postNo};
+	const like_check = ${like_check != null ? like_check : 0}; 
+	
+	if (like_check > 0) {
+	      likeImg.src = "img/Like_active.png";
+	      isLike = true; 
+	  } else {
+	      likeImg.src = "img/Like_button.png";
+	      isLike = false; 
+	  }
+	  
+	function likePoint() {
+		 $.ajax({
+		        url: "like/active",
+		        type: "POST",
+		        data: JSON.stringify({
+		            postNo: postNo,
+		            post_type : 'info'
+		        }),
+		        dataType: "json",
+		        contentType: "application/json",
+		        success: function(data) {
+		        	console.log("data : ?", data);	
+		        	if (data.status === "로그인이 필요합니다.") {
+		                alert(data.status);  
+		                window.location.href = 'login';
+		            } else{
+		        		console.log("좋아요 활성화 성공:", data);	
+		        	}
+		        },
+		        error: function(errorThrown) {
+		            console.error("좋아요 활성화 실패:", errorThrown);
+		        }
+		    });
+	}
+
+	function unlikePoint() {
+		 $.ajax({
+		        url: "like/Inactive",
+		        type: "POST",
+		        data: JSON.stringify({
+		            postNo: postNo,
+		           post_type : 'info'
+		        }),
+		        dataType: "json",
+		        contentType: "application/json",
+		        success: function(data) {
+		        	if (data === "로그인이 필요합니다.") {
+		                alert(data);  
+		                window.location.href = 'login';
+		            } else{
+		        		console.log("좋아요 활성화 성공:", data);	
+		        	}
+		        },
+		        error: function(errorThrown) {
+		            console.error("좋아요 활성화 실패:", errorThrown);
+		        }
+		    });
+		console.log("좋아요 비활성화");
+	}
+
+	likeImg.addEventListener("click", function() {
+		if (!isLike) {
+			likeImg.src = "img/Like_active.png";
+			likePoint();
+		} else {
+			likeImg.src = "img/Like_button.png";
+			unlikePoint();
+		}
+		isLike = !isLike;
+	});
+});
+</script>
 
 <c:import url="/footer" />

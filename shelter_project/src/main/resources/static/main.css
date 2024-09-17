@@ -97,7 +97,7 @@ a {
 }
 
 .header_menu .nav .gnb>li>a:hover {
-    color: #ffc22f;
+    color: #F4A460;
 }
 
 .header_menu .nav .gnb ul {
@@ -296,9 +296,7 @@ a {
 .banner {
 	width: 100%;
 	height: 250px;
-	/* 원하는 높이로 설정하세요 */
 	background-image: url('img/close-up-couple-with-dog-indoors.jpg');
-	/* 배너 이미지 경로 설정 */
 	background-size: cover;
 	background-position: center;
 	position: relative;
@@ -342,7 +340,6 @@ a {
     padding: 8px 12px;
     text-decoration: none;
     color: #333;
-    border: 1px solid #ccc;
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -354,7 +351,7 @@ a {
 
 .pagination .current {
     font-weight: bold;
-    background-color: #000;
+    background-color: #F4A460;
     color: white;
 }
 

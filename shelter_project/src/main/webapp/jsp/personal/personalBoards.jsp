@@ -9,7 +9,7 @@
 	
 </script>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/puppy-face-light-sit-660106-wallhere.com.jpg');background-position: 0 27%;" >
 	<div>
 		<h1>Personal Adoption</h1>
 		<p>개인 분양 게시판</p>

@@ -118,4 +118,7 @@
         </where>
     </select>
     
+    <select id="like_check">
+		select count(like_no) from likes where member_id = #{member_id} and post_no = #{post_no} and post_type = #{post_type}
+	</select>
 </mapper>

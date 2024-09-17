@@ -41,7 +41,7 @@
 }
 
 .login-box h2, .register-box h2, .profile-box h2 {
-	color: #7bc043;
+	color: #F4A460;
 	margin-bottom: 20px;
 	text-align: left;
 }
@@ -71,7 +71,7 @@
 }
 
 .forgot-password a, .login-link a {
-	color: #7bc043;
+	color: #F4A460;
 	text-decoration: none;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .login-button, .register-button, .cancel-button, .update-button {
-	background-color: #7bc043;
+	background-color: #F4A460;
 	color: white;
 	border: none;
 	padding: 10px 20px;
@@ -106,7 +106,7 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    color: #7bc043;
+    color: #F4A460;
 }
 
 .zipcode-container,.tel-container {
@@ -118,7 +118,7 @@
 }
 
 .zipcode-button,.tel-button {
-    background-color: #7bc043;
+    background-color: #F4A460;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -128,7 +128,7 @@
 }
 
 .zipcode-button:hover {
-    background-color: #69a82a;
+    background-color: #F4A460;
 }
 
 .button-group {

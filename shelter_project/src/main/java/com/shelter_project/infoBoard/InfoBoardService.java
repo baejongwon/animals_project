@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.shelter_project.PageDTO;
 import com.shelter_project.center.CenterDTO;
+import com.shelter_project.likes.LikeDTO;
 
 import jakarta.servlet.http.HttpSession;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -202,4 +203,13 @@ public class InfoBoardService {
 		return count;
 	}
 
+	public Integer like_check(String sessionID, int postNo, String type) {
+		
+		LikeDTO likeDTO = new LikeDTO();
+		likeDTO.setMember_id(sessionID);
+		likeDTO.setPost_no(postNo);
+		likeDTO.setPost_type(type);
+		
+		return mapper.like_check(likeDTO);
+	}
 }

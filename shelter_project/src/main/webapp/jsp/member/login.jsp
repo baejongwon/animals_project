@@ -8,6 +8,11 @@
 <div class="login_bar">
 	<div class="login-container">
 		<div class="login-box">
+		
+			<div class="logo" style="width: 160px; margin: 0 auto;">
+				<a href="index"><img src="img/logo2.png" alt="logo"></a>
+			</div>
+			
 			<h2>LOG IN</h2>
 			<form action="loginProc" method="post" id="f">
 				<div class="input-group">
@@ -19,7 +24,7 @@
 						name="pw" required>
 				</div>
 				<div class="forgot-password">
-					<a href="#">아이디를 잊으셨나요?</a><br> <a href="#">비밀번호를 잊으셨나요?</a><br>
+					<a href="findID">아이디를 잊으셨나요?</a><br> <a href="findPW">비밀번호를 잊으셨나요?</a><br>
 					<a href="regist" class="signup-link">회원가입</a>
 				</div>
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.shelter_project.PageDTO;
 import com.shelter_project.personal.PersonalDTO;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -29,6 +31,7 @@ import java.io.BufferedReader;
 public class CenterController {
 	
 	@Autowired CenterService centerService;
+	@Autowired HttpSession session;
 	
 	@GetMapping("adoption")
 	public String adoption(Model model,
@@ -82,6 +85,16 @@ public class CenterController {
 			}
 		}
 		
+		//좋아요 확인
+				String sessionID = (String)session.getAttribute("id");
+				String type = "cen";
+				if(sessionID != null) {
+					Integer like_check = centerService.like_check(sessionID,no,type);
+					if(like_check != null) {
+						model.addAttribute("like_check",like_check);
+					}
+				}
+				
 		model.addAttribute("ImagesMap",ImagesMap);
 		model.addAttribute("board",board);
 		

@@ -8,7 +8,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/profileManage.js"></script>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/close-up-couple-with-dog-indoors.jpg'); background-position: 0 27%;">
 	<div>
 		<h1>ProfileManage</h1>
 		<p>프로필 관리</p>

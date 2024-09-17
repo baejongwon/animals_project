@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shelter_project.center.CenterDTO;
 import com.shelter_project.infoBoard.InfoBoardDTO;
+import com.shelter_project.likes.LikeDTO;
 
 @Mapper
 public interface PersonalMapper {
@@ -43,6 +44,8 @@ public interface PersonalMapper {
 	int getSearchCount(String searchColumn, String keyword);
 
 	List<PersonalDTO> perSearch(Map<String, Object> pagingParams);
+
+	Integer like_check(LikeDTO likeDTO);
 
 
 }

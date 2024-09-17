@@ -30,5 +30,16 @@
     <insert id="kakaoRegist">
         INSERT INTO member (name, id, email, login_type) VALUES (#{name}, #{id}, #{email}, #{login_type})
     </insert>
-
+	<!-- 아이디 찾기 -->
+	<select id="findID">
+		SELECT id FROM member WHERE name = #{name} and tel = #{tel}
+	</select>
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw">
+		SELECT id FROM member WHERE name = #{name} and tel = #{tel} and id = #{id}
+	</select>
+	<!-- 새 비밀번호 -->
+	<update id="updatePw">
+		update member set pw=#{encodePw} where id = #{userID}
+	</update>
 </mapper>

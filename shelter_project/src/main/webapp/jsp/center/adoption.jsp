@@ -8,7 +8,7 @@
 
 </script>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/close-up-couple-with-dog-indoors.jpg'); background-position: 0 27%;">
 	<div>
 		<h1>Adoptable Animals</h1>
 		<p>입양대기동물 현황</p>

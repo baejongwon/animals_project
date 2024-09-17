@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  id varchar2(20) not null primary key,
  pw varchar2(100),
  email varchar2(50),
- tel varchar2(20,
+ tel varchar2(20),
  address varchar2(100),
  login_type varchar2(20)
  );

@@ -155,4 +155,25 @@ public class MemberService {
 		return MemberMapper.checkId(sessionID);
 	}
 
+
+	public String findID(MemberDTO member) {
+		return MemberMapper.findID(member);
+	}
+
+	public String findPw(MemberDTO member) {		
+		return  MemberMapper.findPw(member);
+	}
+
+	public String changePw(String userID, String pw) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodePw = encoder.encode(pw);
+		
+		int result = MemberMapper.updatePw(userID,encodePw);
+		
+		if(result == 1) {
+			return "성공";
+		}else {
+			return "실패";
+		}
+	}
 }

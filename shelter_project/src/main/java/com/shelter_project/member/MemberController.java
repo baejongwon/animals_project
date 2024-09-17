@@ -182,4 +182,96 @@ public class MemberController {
 		return "member/profileManage";
 	}
 
+	
+	//아이디 찾기 
+		@GetMapping("findID")
+		public String findID() {
+			return "member/findID";
+		}
+		@PostMapping("findIDProc")
+		public String findIDProc(MemberDTO member,
+				@RequestParam("confirmNum") String confirmNum,
+				Model model,
+				RedirectAttributes redirectAttributes) {
+			
+			String msg = "";
+			msg = smsCheck(member.getTel(), confirmNum);
+			if (msg.equals("인증 실패")) {
+				msg = "인증번호가 다릅니다.";
+				model.addAttribute("msg",msg);
+				return "member/findID";
+			}else {
+				String userID = MemberService.findID(member);
+				if(userID!=null) {
+					msg = "아이디는 "+ userID + "입니다.";
+					redirectAttributes.addFlashAttribute("msg", msg);
+				}else {
+					msg = "회원가입된 아이디가 없습니다.";
+					redirectAttributes.addFlashAttribute("msg", msg);
+				}
+			}
+			 
+			return "redirect:login";
+		}
+		
+		//비밀번호 찾기
+		@GetMapping("findPW")
+		public String findPW() {
+			return "member/findPW";
+		}
+		@PostMapping("findPWProc")
+		public String findPwProc(MemberDTO member,
+				@RequestParam("confirmNum") String confirmNum,
+				Model model,
+				RedirectAttributes redirectAttributes) {
+			
+			String msg = "";
+			msg = smsCheck(member.getTel(), confirmNum);
+			if (msg.equals("인증 실패")) {
+				msg = "인증번호가 다릅니다.";
+				model.addAttribute("msg",msg);
+				return "member/findPW";
+			}else {
+				String userID = MemberService.findPw(member);
+				
+				if(userID!=null) {
+					redirectAttributes.addFlashAttribute("userID",userID);
+					session.removeAttribute(member.getTel()); 
+					return "redirect:changePw";
+				}else {
+					msg = "이름 또는 아이디가 틀렸습니다.";
+					redirectAttributes.addFlashAttribute("msg", msg);
+				}
+			}
+			session.removeAttribute(member.getTel()); 
+			return "redirect:login";
+		}
+		
+		//비밀번호 바꾸기
+		@GetMapping("changePw")
+		public String changePw() {
+			return "member/changePw";
+		}
+		
+		@PostMapping("/changePwProc")
+		public String changePwProc( @RequestParam("pw") String pw,
+				@RequestParam("confirmPw") String confirmPw,
+				@RequestParam("userID") String userID,
+				Model model,
+				RedirectAttributes redirectattributes) {
+			
+		    if (!pw.equals(confirmPw)) {
+		        model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+		        return "member/changePw";
+		    }
+		    String result =  MemberService.changePw(userID,pw);
+		    
+		    if (result.equals("성공")) {
+		    	redirectattributes.addFlashAttribute("msg", "비밀번호가 성공적으로 변경되었습니다.");
+		        return "redirect:login"; 
+		    } else {
+		        model.addAttribute("msg", "비밀번호 변경에 실패했습니다.");
+		        return "member/changePw";
+		    }
+		}
 }

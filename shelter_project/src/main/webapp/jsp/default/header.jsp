@@ -96,16 +96,17 @@
 					<li><a href="mypage">마이페이지</a></li>
 				</c:otherwise>
 			</c:choose>
-
+			<!-- 
 			<c:if test="${sessionScope.id eq 'admin'}">
 				<li><a href="#">|</a></li>
 				<li><a href="login">관리자페이지</a></li>
 			</c:if>
+			 -->
 		</ul>
 	</div>
 	<div class="logo">
 		<h1>
-			<a href="index"><img src="img/logo.png" alt="logo"></a>
+			<a href="index"><img src="img/logo2.png" alt="logo"></a>
 		</h1>
 	</div>
 

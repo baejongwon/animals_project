@@ -7,7 +7,7 @@
 
 </style>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/close-up-couple-with-dog-indoors.jpg'); background-position: 0 27%;">
 	<div>
 		<h1>MY Page</h1>
 		<p>마이페이지</p>

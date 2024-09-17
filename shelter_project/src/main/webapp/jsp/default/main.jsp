@@ -39,13 +39,15 @@
 	
 	<!-- 컨텐츠 내용 -->
 	
-		<div>
-		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
-		<span style="font-size: 45px; font-weight: 900">영원한 <span style="color: #F4A460;">가족이</span> 되어주세요</span></h4>
-		</div>
 		
-		<div  class="content_box_1" style="width: 1200px; margin: 0 auto; margin-top: 35px;">
+		
+		<div  class="content_box_1" style="width: 1200px; margin: 0 auto; margin-top: 50px;">
 			
+			<div>
+				<h4 style="text-align: center; margin-bottom:50px; color: #595959;">
+				<span style="font-size: 45px; font-weight: 900">영원한 <span style="color: #F4A460;">가족이</span> 되어주세요</span></h4>
+			</div>
+		
 		<table cellspacing="0" cellpadding="0" border="0" width="100%">
 			<tbody><tr>
 				<td valign="top" align="center"><table valign="top" cellspacing="0" style="width:250px;">

@@ -99,6 +99,16 @@ public class InfoBoardController {
 		}
 		String type = "info";
 		int commentCount = commentService.getCount(postNo,type);
+		
+		//좋아요 확인
+		String sessionID = (String)session.getAttribute("id");
+		if(sessionID != null) {
+			Integer like_check = infoBoardService.like_check(sessionID,postNo,type);
+			if(like_check != null) {
+				model.addAttribute("like_check",like_check);
+			}
+		}
+				
 		model.addAttribute("type",type);
 		model.addAttribute("board", board);
 		model.addAttribute("comments",comments);

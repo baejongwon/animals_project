@@ -16,8 +16,8 @@
 }
 
 .donation-info {
-	width: 480px;
-	padding: 35px;
+	width: 32%;
+	padding: 30px;
 }
 
 .donation-info h2 {
@@ -88,7 +88,7 @@
 	margin: 0 auto;
 }
 .radio-button:checked+label {
-	background-color: #49b848;
+	background-color: #F4A460;
 	color: #ffffff;
 	border: none;
 	transform: scale(104%,104%);
@@ -100,7 +100,7 @@
 }
 
 #supportBtn {
-	background-color: #49b848;
+	background-color: #F4A460;
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -112,10 +112,15 @@
 
 .left_box,
 .right_box {
-	width: 548px;
-	height: 512px;
+	width: 32%;
+	/*height: 512px;*/
 }
-
+.left_box img{
+	width: 100%;
+}
+.right_box img{
+	width: 100%;
+}
 .donation-text {
 	margin-top: 60px;
 	margin-bottom: 50px;

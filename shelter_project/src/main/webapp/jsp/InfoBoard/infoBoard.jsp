@@ -7,7 +7,7 @@
 	
 </script>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/7001287-sweet-cat.jpg');background-position: 0 57%;">
 	<div>
 		<h1>Information</h1>
 		<p>반려동물 지식 나눔</p>

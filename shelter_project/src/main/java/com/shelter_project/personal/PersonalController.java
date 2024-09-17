@@ -109,6 +109,15 @@ public class PersonalController {
 		
 		ImagesMap.put(board.getAnimal_no(), imageNames);
 		
+		//좋아요 확인
+				String sessionID = (String)session.getAttribute("id");
+				if(sessionID != null) {
+					Integer like_check = personalService.like_check(sessionID,no,type);
+					if(like_check != null) {
+						model.addAttribute("like_check",like_check);
+					}
+				}
+		
 		model.addAttribute("type",type);
 		model.addAttribute("board",board);
 		model.addAttribute("paging",page);

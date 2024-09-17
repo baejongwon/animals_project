@@ -16,4 +16,10 @@ public interface MemberMapper {
 
 	int updatePro_kakao(MemberDTO member);
 
+	String findID(MemberDTO member);
+
+	String findPw(MemberDTO member);
+
+	int updatePw(String userID, String encodePw);
+
 }
