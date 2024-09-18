@@ -2,20 +2,20 @@ package com.shelter_project.likes;
 
 import java.time.LocalDateTime;
 
-
-
-
 /*
- 오라클 DB
-create table likes(
-like_no number PRIMARY key,
-member_id varchar2(20),
-post_no number,
-post_type varchar2(20),
-CONSTRAINT fk_likes_member FOREIGN KEY (member_id) REFERENCES member(id)
+오라클 DB
+CREATE TABLE likes (
+   like_no NUMBER PRIMARY KEY,
+   member_id VARCHAR(20),
+   post_no NUMBER,
+   post_type VARCHAR(20),
+   CONSTRAINT fk_likes_member FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE CASCADE,
+   CONSTRAINT fk_likes_personal FOREIGN KEY (post_no) REFERENCES personal(post_no) ON DELETE CASCADE,
+   CONSTRAINT fk_likes_infoboard FOREIGN KEY (post_no) REFERENCES infoboard(post_no) ON DELETE CASCADE,
+   CONSTRAINT fk_likes_center FOREIGN KEY (post_no) REFERENCES center(post_no) ON DELETE CASCADE
 );
 
- CREATE SEQUENCE likes_seq
+CREATE SEQUENCE likes_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE
@@ -24,13 +24,15 @@ NOCYCLE;
 
 마리아 DB
 CREATE TABLE likes (
-    like_no INT PRIMARY KEY AUTO_INCREMENT,
-    member_id VARCHAR(20),
-    post_no INT,
-    post_type VARCHAR(20),
-    CONSTRAINT fk_likes_member FOREIGN KEY (member_id) REFERENCES member(id)
+   like_no INT PRIMARY KEY AUTO_INCREMENT,
+   member_id VARCHAR(20),
+   post_no INT,
+   post_type VARCHAR(20),
+   CONSTRAINT fk_likes_member FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE CASCADE,
+   CONSTRAINT fk_likes_personal FOREIGN KEY (post_no) REFERENCES personal(post_no) ON DELETE CASCADE,
+   CONSTRAINT fk_likes_infoboard FOREIGN KEY (post_no) REFERENCES infoboard(post_no) ON DELETE CASCADE,
+   CONSTRAINT fk_likes_center FOREIGN KEY (post_no) REFERENCES center(post_no) ON DELETE CASCADE
 );
-
 */
 public class LikeDTO {
 	private int like_no; // 좋아요 게시글 id

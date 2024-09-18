@@ -15,12 +15,6 @@
             <div>
                 <img data-u="image" src="img/slide_img2.jpg" />
             </div>
-            <div>
-                <img data-u="image" src="img/slide_img3.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="img/slide_img4.jpg" />
-            </div>
         </div>
         <!-- Bullet Navigator -->
        <div data-u="navigator" class="jssorb057" style="position:absolute;bottom:16px;right:16px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
@@ -44,8 +38,8 @@
 		<div  class="content_box_1" style="width: 1200px; margin: 0 auto; margin-top: 50px;">
 			
 			<div>
-				<h4 style="text-align: center; margin-bottom:50px; color: #595959;">
-				<span style="font-size: 45px; font-weight: 900">영원한 <span style="color: #F4A460;">가족이</span> 되어주세요</span></h4>
+				<h4 style="text-align: center; margin-bottom:20px; color: #595959;">
+				<span style="font-size: 38px; font-weight: 700">개인 분양 게시판</span></h4>
 			</div>
 		
 		<table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -101,9 +95,9 @@
 		<!--동물 사전-->
 		<div class="tableArea clearfix">
 			
-		<div style="margin-bottom: 50px;">
+		<div>
 		<h4 style="text-align: center; margin-top: 50px;color: #595959;">
-		<span style="font-size: 45px; font-weight: 700;">우리집 <span style="color: #F4A460;">반려동물</span> 지식 나눔터</span></h4>
+		<span style="font-size: 38px; font-weight: 700;">반려동물 지식 나눔터</span></h4>
 		</div>
 			
 		<div class="animal_info">

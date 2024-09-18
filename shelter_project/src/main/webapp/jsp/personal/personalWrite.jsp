@@ -100,9 +100,10 @@
 
 </style>
 
-<div class="banner">
+<div class="banner" style="background-image: url('img/close-up-couple-with-dog-indoors.jpg'); background-position: 0 27%;">
     <div>
-        <p>반려동물 지식 나눔</p>
+        <h1>Personal Adoption</h1>
+		<p>개인 분양 게시판</p>
     </div>
 </div>
 
