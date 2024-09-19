@@ -2,10 +2,14 @@
 
 ### 목차
 
-> 1. [사용 기술 및 개발환경](#사용-기술-및-개발환경)
-> 2. [ERD테이블](#ERD테이블)
+> 1. [ERD테이블](#ERD테이블)
+> 2. [사용 기술 및 개발환경](#사용-기술-및-개발환경)
 > 3. [구현 기능](#구현-기능)
 >   + [회원 가입 및 관리](#회원-가입-및-관리member)
+
+
+# ERD테이블
+<img src="https://github.com/baejongwon/jongwon-git-img/blob/main/20240919_185728.png" width=1200px alt="ERD테이블"> 
 
 # 사용 기술 및 개발환경
 server : Apach Tomcat 9 <br>
@@ -15,8 +19,7 @@ Language : JAVA(version 17), Javascript, HTML5, CSS3<br>
 Tool :  Git, GitHub,SQL Developer<br>
 AWS : EC2 / RDS / S3
 
-# 인프라-아키텍처
-<img src="https://github.com/baejongwon/jongwon-git-img/blob/main/Infrastructure%20Architecture.jpg" width=1200px alt="ERD 테이블"> 
+
 
 # 구현 기능
   
