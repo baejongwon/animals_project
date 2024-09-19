@@ -22,6 +22,7 @@ AWS : EC2 / RDS / S3
 
 
 # 디렉터리 구조
+```
 src/main/java
 ├── com.shelter_project
 │   ├── AwsS3Config.java
@@ -69,7 +70,8 @@ src/main/java
 │
 └── support
     └── SupportController.java
-
+    └── SupportService.java
+```
 
 # 구현 기능
   
