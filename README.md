@@ -22,6 +22,53 @@ AWS : EC2 / RDS / S3
 
 
 # 디렉터리 구조
+src/main/java
+├── com.shelter_project
+│   ├── AwsS3Config.java
+│   ├── HomeController.java
+│   ├── PageDTO.java
+│   ├── PageService.java
+│   ├── ShelterProjectApplication.java
+│
+├── center
+│   ├── CenterController.java
+│   ├── CenterDTO.java
+│   ├── CenterImgDTO.java
+│   ├── CenterMapper.java
+│   ├── CenterService.java
+│
+├── infoBoard
+│   ├── CommentController.java
+│   ├── CommentDTO.java
+│   ├── CommentMapper.java
+│   ├── CommentService.java
+│   ├── InfoBoardController.java
+│   ├── InfoBoardDTO.java
+│   ├── InfoBoardMapper.java
+│   ├── InfoBoardService.java
+│
+├── likes
+│   ├── LikeController.java
+│   ├── LikeDTO.java
+│   ├── LikeMapper.java
+│   ├── LikeService.java
+│
+├── member
+│   ├── KaKaoService.java
+│   ├── MemberController.java
+│   ├── MemberDTO.java
+│   ├── MemberMapper.java
+│   ├── MemberService.java
+│
+├── personal
+│   ├── PersonalController.java
+│   ├── PersonalDTO.java
+│   ├── PersonalImagesDTO.java
+│   ├── PersonalMapper.java
+│   ├── PersonalService.java
+│
+└── support
+    └── SupportController.java
 
 
 # 구현 기능
