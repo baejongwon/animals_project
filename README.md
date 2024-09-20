@@ -7,8 +7,14 @@
 > 3. [디렉터리 구조](#디렉터리-구조)
 > 5. [구현 기능](#구현-기능)
 >   + [회원가입](#회원가입regist)
->   + 
-
+>   + [로그인](#로그인login)
+>   + [마이페이지](#마이페이지mypage)
+>   + [개인분양](#개인분양personal)
+>   + [보호센터](#보호센터center)
+>   + [대댓글](#대댓글comments)
+>   + [좋아요](#좋아요likes)
+>   + [기부하기](#기부하기support)
+>   + [지식공유](#지식공유infoBoard)
 
 # ERD테이블
 <img src="https://github.com/baejongwon/jongwon-git-img/blob/main/20240919_185728.png" width=1200px alt="ERD테이블"> 
