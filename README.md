@@ -37,17 +37,16 @@ src/main/java
 │   ├── AwsS3Config.java
 │   ├── HomeController.java
 │   ├── PageDTO.java
-│   ├── PageService.java
 │   ├── ShelterProjectApplication.java
 │
-├── center
-│   ├── CenterController.java
+├── center (보호센터)
+│   ├── CenterController.java 
 │   ├── CenterDTO.java
 │   ├── CenterImgDTO.java
 │   ├── CenterMapper.java
 │   ├── CenterService.java
 │
-├── infoBoard
+├── infoBoard (지식공유)
 │   ├── CommentController.java
 │   ├── CommentDTO.java
 │   ├── CommentMapper.java
@@ -57,27 +56,27 @@ src/main/java
 │   ├── InfoBoardMapper.java
 │   ├── InfoBoardService.java
 │
-├── likes
+├── likes (좋아요)
 │   ├── LikeController.java
 │   ├── LikeDTO.java
 │   ├── LikeMapper.java
 │   ├── LikeService.java
 │
-├── member
+├── member (회원가입/로그인)
 │   ├── KaKaoService.java
 │   ├── MemberController.java
 │   ├── MemberDTO.java
 │   ├── MemberMapper.java
 │   ├── MemberService.java
 │
-├── personal
+├── personal (개인분양)
 │   ├── PersonalController.java
 │   ├── PersonalDTO.java
 │   ├── PersonalImagesDTO.java
 │   ├── PersonalMapper.java
 │   ├── PersonalService.java
 │
-└── support
+└── support (기부하기)
     └── SupportController.java
     └── SupportService.java
 ```
@@ -135,4 +134,8 @@ src/main/java
 # 추가 구현하고 싶은 기능들
 
 # 프로젝트를 하며 느낀 점
+팀 프로젝트와 달리 프로젝트를 처음부터 끝까지 혼자 진행하면서, 기존에 애매했던 부분들이 이해되고 개념이 정리되는 느낌을 받았습니다. 또한, 이전에 맡지 못했던 공공데이터 API 연동을 직접 해보며 새로운 기술을 다루는 경험을 할 수 있어 매우 좋았습니다.
+전 프로젝트에서 게시판 구현 시 아쉬웠던 부분이나 구현하지 못했던 기능들을 이번 프로젝트에서 보강하며, 스스로 문제를 해결하는 성취감을 느낄 수 있었습니다.
+이번 프로젝트를 마무리하면서도 여전히 부족한 부분들이 보였기에, 앞으로도 지속적으로 학습하고 개선해 나갈 계획입니다.
+
 
