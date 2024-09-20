@@ -13,6 +13,7 @@
 <img src="https://github.com/baejongwon/jongwon-git-img/blob/main/20240919_185728.png" width=1200px alt="ERD테이블"> 
 
 # 사용 기술 및 개발환경
+
 server : Apach Tomcat 9 <br>
 DB : MariaDB 10.6.14 <br>
 Framework/Flatform : Spring MVC, SpringSecurity, MyBatis, Bootstrap, jQuery, Jsp, RESTful API<br>
@@ -22,6 +23,7 @@ AWS : EC2 / RDS / S3
 
 
 # 디렉터리 구조
+
 ```
 src/main/java
 ├── com.shelter_project
