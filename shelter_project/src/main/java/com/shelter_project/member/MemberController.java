@@ -1,6 +1,8 @@
 package com.shelter_project.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.shelter_project.center.CenterDTO;
+import com.shelter_project.center.CenterService;
+import com.shelter_project.infoBoard.InfoBoardDTO;
+import com.shelter_project.infoBoard.InfoBoardService;
+import com.shelter_project.likes.LikeDTO;
+import com.shelter_project.likes.LikeService;
+import com.shelter_project.personal.PersonalDTO;
+import com.shelter_project.personal.PersonalService;
+
 import jakarta.servlet.http.HttpSession;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
@@ -28,6 +39,11 @@ public class MemberController {
 
 	@Autowired
 	MemberService MemberService;
+	@Autowired
+	PersonalService personalService;
+	@Autowired
+	InfoBoardService infoBoardService;
+	
 	@Autowired
 	HttpSession session;
 	@Autowired
@@ -93,24 +109,41 @@ public class MemberController {
 	public String registProc(MemberDTO member, @RequestParam("sample6_postcode") String postcode,
 			@RequestParam("sample6_address") String address,
 			@RequestParam("sample6_detailAddress") String detailAddress,
-			@RequestParam("confirmNum") String confirmNum) {
+			@RequestParam("confirmNum") String confirmNum,
+			Model model) {
 
+		// 전화번호 인증 확인
 		String msg = "";
 		msg = smsCheck(member.getTel(), confirmNum);
 		if (msg.equals("인증 실패")) {
 			msg = "인증번호가 다릅니다.";
+			model.addAttribute("msg",msg);
 			return "member/regist";
 		}
 
+		//주소 정보 합치기
 		member.setAddress(postcode + "," + address + "," + detailAddress);
 		msg = MemberService.registProc(member);
 
-		if (msg == "회원가입완료") {
+		if (msg.equals("회원가입완료")) {
 			return "redirect:index";
+		}else if(msg.equals("아이디를 입력하십시오.")) {
+			model.addAttribute("msg",msg);
+			return "member/regist";
+		}else if(msg.equals("비밀번호를 입력하십시오.")) {
+			model.addAttribute("msg",msg);
+			return "member/regist";
+		}else if(msg.equals("이미 사용중인 아이디입니다.")) {
+			model.addAttribute("msg",msg);
+			return "member/regist";
+		}else if(msg.equals("이미 등록된 핸드폰 번호입니다.")) {
+			model.addAttribute("msg",msg);
+			return "member/regist";
 		}
-
+		
+		msg = "회원가입 실패 다시 시도해 주십시오.";
+		model.addAttribute("msg",msg);
 		return "member/regist";
-
 	}
 
 	// 전화번호 인증
@@ -163,6 +196,51 @@ public class MemberController {
 
 		return "member/profileManage";
 	}
+	// 게시글 관리
+	@GetMapping("postManage")
+	public String postManage(Model model) {
+		
+		String sessionID = (String) session.getAttribute("id");
+		if (sessionID == null) {
+			return "redirect:/login";
+		}
+		int start = 0;
+		int limit = 3;
+				
+		List<PersonalDTO> perBoards = personalService.perBoards(sessionID,start,limit);
+		List<InfoBoardDTO> infoBoards = infoBoardService.infoBoards(sessionID,start,limit);
+		
+		model.addAttribute("perBoards",perBoards);
+		model.addAttribute("infoBoards",infoBoards);
+		
+		return "member/postManage";
+	}
+	
+	 // 개인분양 게시글 더보기
+    @GetMapping("personalMore")
+    @ResponseBody
+    public List<PersonalDTO> loadMorePersonalPosts(@RequestParam int offset, @RequestParam int limit) {
+        String sessionID = (String) session.getAttribute("id");
+        if (sessionID == null) {
+            return null;
+        }
+
+        return personalService.perBoards(sessionID, offset, limit);
+    }
+
+    // 지식공유 게시글 더보기
+    @GetMapping("infoMore")
+    @ResponseBody
+    public List<InfoBoardDTO> loadMoreInfoPosts(@RequestParam int offset, @RequestParam int limit) {
+        String sessionID = (String) session.getAttribute("id");
+        if (sessionID == null) {
+            return null;
+        }
+
+        return infoBoardService.infoBoards(sessionID, offset, limit);
+    }
+    
+    
 	//정보 업데이트
 	@PostMapping("updateProc")
 	public String updateProc(MemberDTO member, @RequestParam("sample6_postcode") String postcode,

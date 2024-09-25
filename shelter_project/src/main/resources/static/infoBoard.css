@@ -17,6 +17,8 @@
 
 /* 테이블 상단 컨텐츠 */
 .table-utility {
+	margin: 0 auto;
+    max-width: 1190px;
 	margin-bottom: 15px;
 	display: flex;
 	align-items: center;
@@ -253,6 +255,7 @@
 .post-search fieldset {
 	display: flex;
 	align-items: center;
+	margin: 0 auto;
 }
 
 .post-search fieldset select {
@@ -681,7 +684,7 @@
 .board-view .file ul li a:hover { color: #00813e; }
 
 /* 요소 하단 버튼 그룹 */
-.action-btn-group { display: flex; justify-content: center; }
+.action-btn-group { display: flex; justify-content: center; max-width: 1190px; margin: 0 auto;}
 .action-btn-group .center, .action-btn-group .left, .action-btn-group .right { display: flex; }
 .action-btn-group .btn + .btn { margin-left: .5rem; }
 .action-btn-group .left { margin-right: auto; }

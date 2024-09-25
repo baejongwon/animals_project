@@ -22,4 +22,6 @@ public interface MemberMapper {
 
 	int updatePw(String userID, String encodePw);
 
+	MemberDTO checkTel(String tel);
+
 }

@@ -47,5 +47,9 @@ public interface PersonalMapper {
 
 	Integer like_check(LikeDTO likeDTO);
 
+	List<PersonalDTO> perBoards(String sessionID, int start, int limit);
+
+	PersonalDTO getPerPost(int postNo);
+
 
 }

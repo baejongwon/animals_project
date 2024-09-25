@@ -252,6 +252,10 @@ public class CenterService {
 		likeDTO.setPost_type(type);
 		
 		return mapper.like_check(likeDTO);
+	}
+
+	public CenterDTO getCenPost(int postNo) {
+		return mapper.getCenPost(postNo);
 	} 
 
 

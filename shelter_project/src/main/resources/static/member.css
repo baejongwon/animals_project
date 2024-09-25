@@ -15,7 +15,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
@@ -90,7 +89,7 @@
 }
 
 .login-button:hover, .register-button:hover, .update-button:hover {
-	background-color: #69a82a;
+	background-color: #F4A460;
 }
 
 .cancel-button {

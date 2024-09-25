@@ -84,4 +84,12 @@
 	<select id="like_check">
 		select count(like_no) from likes where member_id = #{member_id} and post_no = #{post_no} and post_type = #{post_type}
 	</select>
+	
+	<select id="infoBoards">
+		select * from infoBoard where author=#{sessionID} order by postNo desc Limit #{start}, #{limit};
+	</select>
+	<!--  좋아요 게시글 -->
+	<select id ="getInfoPost">
+		select * from infoBoard where postNo = #{postNo}
+	</select>
 </mapper>

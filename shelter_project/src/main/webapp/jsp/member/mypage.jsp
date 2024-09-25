@@ -26,6 +26,12 @@
 			<h3>게시글 관리</h3>
 			<p>작성하신 게시글을 관리하는 공간입니다.</p>
 		</div>
+		
+		<div class="section" onclick="location.href='likeManage'">
+			<img src="img/like_icon.png" alt="Post Icon">
+			<h3>좋아요 관리</h3>
+			<p>좋아요한 글을 관리하는 공간입니다.</p>
+		</div>
 	</div>
 </div>
 

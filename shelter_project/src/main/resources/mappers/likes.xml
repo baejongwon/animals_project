@@ -15,4 +15,9 @@
 		delete from likes where member_id = #{member_id} and
 		post_no = #{post_no} and post_type = #{post_type}
 	</delete>
+	
+	<select id="LikeBoards">
+		select * from likes where member_id=#{sessionID} and post_type= #{post_type} order by post_no desc Limit #{start}, #{limit};
+	</select>
+	
 </mapper>

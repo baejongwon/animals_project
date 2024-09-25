@@ -151,7 +151,7 @@
                 </div>
                 <div class="input-group">
                     <label for="bdwgh">체중</label>
-                    <input type="number" id="bdwgh" name="bdwgh" placeholder="체중 (kg)" required>
+                    <input type="number" id="bdwgh" name="bdwgh" placeholder="체중 (kg)" step="0.01" required>
                 </div>
             </div>
         </div>

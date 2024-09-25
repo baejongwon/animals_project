@@ -40,10 +40,6 @@ public interface CenterMapper {
 
 	Integer like_check(LikeDTO likeDTO);
 
-	
-
-	
-
-	
+	CenterDTO getCenPost(int postNo);
 
 }

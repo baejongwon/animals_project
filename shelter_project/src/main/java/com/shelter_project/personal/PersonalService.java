@@ -357,4 +357,13 @@ public class PersonalService {
 		
 		return mapper.like_check(likeDTO);
 	}
+
+	public List<PersonalDTO> perBoards(String sessionID, int start, int limit) {
+		return mapper.perBoards(sessionID,start,limit);
+	}
+
+	public PersonalDTO getPerPost(int postNo) {
+		return mapper.getPerPost(postNo);
+	}
+
 }

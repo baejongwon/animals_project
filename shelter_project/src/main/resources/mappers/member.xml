@@ -10,6 +10,11 @@
         SELECT * FROM member WHERE id=#{id}
     </select>
     
+     <!-- 전화번호로 중복 확인 -->
+    <select id="checkTel" resultType="com.shelter_project.member.MemberDTO">
+        SELECT * FROM member WHERE tel=#{tel}
+    </select>
+    
     <!-- 회원 등록-->
     <insert id="registPro">
         insert into member (name, id, pw, email, tel, address, login_type) 

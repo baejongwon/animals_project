@@ -116,4 +116,9 @@
     <select id="like_check">
 		select count(like_no) from likes where member_id = #{member_id} and post_no = #{post_no} and post_type = #{post_type}
 	</select>
+	
+	<!--  좋아요 게시글 -->
+	<select id ="getCenPost">
+		select * from center where animal_no = #{postNo}
+	</select>
 </mapper>

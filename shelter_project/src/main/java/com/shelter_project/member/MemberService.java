@@ -37,10 +37,15 @@ public class MemberService {
 	public String registProc(MemberDTO member) {
 	
 		if(member.getId() == null || member.getId().trim().isEmpty()) {
-			return "아이디가 입력하십시오.";
+			return "아이디를 입력하십시오.";
 		}
 		if(member.getPw() == null || member.getPw().trim().isEmpty()) {
 			return "비밀번호를 입력하십시오.";
+		}
+		
+		MemberDTO checkTel = MemberMapper.checkTel(member.getTel());
+		if(checkTel != null) {
+			return "이미 등록된 핸드폰 번호입니다.";
 		}
 		
 		MemberDTO checkID = MemberMapper.checkId(member.getId());

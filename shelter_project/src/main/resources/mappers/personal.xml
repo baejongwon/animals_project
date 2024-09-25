@@ -5,7 +5,7 @@
 
 <mapper namespace="com.shelter_project.personal.PersonalMapper">
     
-    <!-- 페이징 처리: ROW_NUMBER() 대신 LIMIT 사용 -->
+    <!-- 페이징 처리-->
     <select id="PagingList" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
         SELECT * FROM personal
         <where>
@@ -26,7 +26,7 @@
         </where>
     </select>
     
-    <!-- 개인 게시물 등록: AUTO_INCREMENT가 설정된 animal_no는 자동 증가 -->
+    <!-- 개인 게시물 등록-->
     <insert id="personalWriteProc" useGeneratedKeys="true" keyProperty="animal_no">
         insert into personal (nm, spcs, breeds, sexdstn, age, bdwgh, content, time, author) 
         values (#{nm}, #{spcs}, #{breeds}, #{sexdstn}, #{age}, #{bdwgh}, #{content}, #{time}, #{author})
@@ -83,7 +83,7 @@
         delete from personal where animal_no = #{animal_no}
     </delete>
     
-    <!-- 검색 기능: ROW_NUMBER() 대신 LIMIT 사용 -->
+    <!-- 검색 기능 -->
     <select id="perSearch" parameterType="java.util.HashMap" resultType="com.shelter_project.personal.PersonalDTO">
         SELECT * FROM personal
         <where>
@@ -121,4 +121,10 @@
     <select id="like_check">
 		select count(like_no) from likes where member_id = #{member_id} and post_no = #{post_no} and post_type = #{post_type}
 	</select>
+	
+	<select id="perBoards">
+		select * from personal where author=#{sessionID} order by animal_no desc Limit #{start}, #{limit};
+	</select>
+	<!--  좋아요 게시글 -->
+	<select id ="getPerPost">select * from personal where animal_no = #{postNo} </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.shelter_project.likes;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -32,6 +33,10 @@ public class LikeService {
 	public void likeInActive(LikeDTO likeDTO) {
 		mapper.likeInActive(likeDTO);
 	}
-	
+
+	public List<LikeDTO> LikeBoards(String sessionID, String post_type, int start, int limit) {
+	    return mapper.LikeBoards(sessionID, post_type, start, limit);
+	}
+
 
 }

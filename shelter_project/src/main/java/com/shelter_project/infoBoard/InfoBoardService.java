@@ -212,4 +212,12 @@ public class InfoBoardService {
 		
 		return mapper.like_check(likeDTO);
 	}
+
+	public List<InfoBoardDTO> infoBoards(String sessionID, int start, int limit) {
+		return mapper.infoBoards(sessionID,start,limit);
+	}
+
+	public InfoBoardDTO getInfoPost(int postNo) {
+		return mapper.getInfoPost(postNo);
+	}
 }

@@ -2,7 +2,7 @@
 /* CSS Document */
 
 .content_box_1 {
-    width: 70%;
+    width: 71%;
     margin: 0 auto;
     margin-top: 35px;
 }
@@ -10,8 +10,11 @@
 .board-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* 좌측 정렬 */
-    gap: 10px; /* 아이템 사이 간격 */
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1190px;
 }
 
 .board-item {

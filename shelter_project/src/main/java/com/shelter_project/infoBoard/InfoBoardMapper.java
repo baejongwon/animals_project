@@ -36,4 +36,8 @@ public interface InfoBoardMapper {
 
 	Integer like_check(LikeDTO likeDTO);
 
+	List<InfoBoardDTO> infoBoards(String sessionID, int start, int limit);
+
+	InfoBoardDTO getInfoPost(int postNo);
+
 }
