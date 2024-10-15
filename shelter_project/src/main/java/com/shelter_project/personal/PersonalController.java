@@ -169,6 +169,7 @@ public class PersonalController {
 		return "personal/personalBoards";
 	}
 	
+	//게시글 글쓰기 / 수정에 summernote 이미지 s3로 업로드
 	@PostMapping("personal/addImageBlobHook")
 	public ResponseEntity<Map<String, String>> addImageBlobHook(@RequestParam("image") MultipartFile image) {
 		String imagePath = personalService.saveImage(image);
