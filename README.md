@@ -1,4 +1,6 @@
 # 배종원의 프로젝트 멍냥고홈 입니다.
+🎯 홈페이지 : http://ec2-13-124-206-98.ap-northeast-2.compute.amazonaws.com:8080/animal/index (임시 ID : admin / 임시 PW : 123) <br>
+📓 포트폴리오: https://drive.google.com/file/d/1b4cy2eNZ_HXo6_P5PQZ4FtA8tG-46PN5/view?usp=drive_link
 
 ### 목차
 
